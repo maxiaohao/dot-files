@@ -1,0 +1,159 @@
+# !/bin/bash
+#
+# chkconfig: 345 94 06
+# description: start/stop the oracle database deamons
+#
+
+# Source function library.
+if [ -f /etc/init.d/functions ] ; then
+  . /etc/init.d/functions
+elif [ -f /etc/rc.d/init.d/functions ] ; then
+  . /etc/rc.d/init.d/functions
+else
+  exit 1
+fi
+
+RETVAL=0
+
+ORACLE_HOME=/opt/oracle/product/10.2.0
+ORACLE_OWNER=oracle
+
+ORACLE_DESC_DB="oracle database"
+ORACLE_DESC_LN="oracle tnslsnr"
+ORACLE_DESC_EM="oracle em"
+
+get_stat() {
+
+PID_DB=`ps -ef | grep ora_pmon | grep -v grep | awk '{print $2}'`
+PID_LN=`ps -ef | grep tnslsnr | grep -v grep | awk '{print $2}'`
+PID_EM=`ps -ef | grep oc4j.jar | grep em | grep -v grep | awk '{print $2}'`
+
+}
+
+start() {
+
+get_stat
+if [ "A${PID_DB}" != "A" ]; then
+echo "${ORACLE_DESC_DB} (pmon pid ${PID_DB}) is already running."
+else
+echo -n "Starting ${ORACLE_DESC_DB}..."
+#cat <<EOF|su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/sqlplus /nolog" && success || failure
+cat <<EOF|su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/sqlplus /nolog" > /dev/null && success || failure
+conn / as sysdba
+startup
+exit
+EOF
+RETVAL=$?
+echo
+fi
+
+if [ "A${PID_LN}" != "A" ]; then
+echo "${ORACLE_DESC_LN} (pid ${PID_LN}) is already running."
+else
+echo -n  "Starting ${ORACLE_DESC_LN}..."
+#su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/lsnrctl start" && success || failure
+su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/lsnrctl start" > /dev/null && success || failure
+RETVAL=$?
+echo
+fi
+
+if [ "A${PID_EM}" != "A" ]; then
+echo "${ORACLE_DESC_EM} (pid ${PID_EM}) is already running."
+else
+echo -n "Starting ${ORACLE_DESC_EM}..."
+#su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/emctl start dbconsole" && success || failure
+su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/emctl start dbconsole" > /dev/null && success || failure
+RETVAL=$?
+echo
+fi
+
+}
+
+stop() {
+
+get_stat
+if [ "A${PID_EM}" != "A" ]; then
+echo -n "Stopping ${ORACLE_DESC_EM}..."
+#su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/emctl stop dbconsole" && success || failure
+su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/emctl stop dbconsole" > /dev/null && success || failure
+RETVAL=$?
+echo
+else
+echo "${ORACLE_DESC_EM} is not running."
+fi
+
+if [ "A${PID_LN}" != "A" ]; then
+echo -n "Stopping ${ORACLE_DESC_LN}..."
+#su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/lsnrctl stop" && success || failure
+su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/lsnrctl stop" > /dev/null && success || failure
+RETVAL=$?
+echo
+else
+echo "${ORACLE_DESC_LN} is not running."
+fi
+
+if [ "A${PID_DB}" != "A" ]; then
+echo -n "Stopping ${ORACLE_DESC_DB}..."
+#cat <<EOF|su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/sqlplus /nolog" && success || failure
+cat <<EOF|su - ${ORACLE_OWNER} -c "${ORACLE_HOME}/bin/sqlplus /nolog" > /dev/null && success || failure
+conn / as sysdba
+SHUTDOWN IMMEDIATE
+exit
+EOF
+RETVAL=$?
+echo
+else
+echo "${ORACLE_DESC_DB} is not running."
+fi
+
+}
+
+restart() {
+stop
+sleep 1
+start
+}
+
+status() {
+
+get_stat
+if [ "A${PID_DB}" != "A" ]; then
+        echo "${ORACLE_DESC_DB} (pmon pid ${PID_DB}) is running..."
+else
+        echo "${ORACLE_DESC_DB} is stopped."
+fi
+
+if [ "A${PID_LN}" != "A" ]; then
+        echo "${ORACLE_DESC_LN} (pid ${PID_LN}) is running..."
+else
+        echo "${ORACLE_DESC_LN} is stopped."
+fi
+
+if [ "A${PID_EM}" != "A" ]; then
+        echo "${ORACLE_DESC_EM} (pid ${PID_EM}) is running..."
+else
+        echo "${ORACLE_DESC_EM} is stopped."
+fi
+
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart)
+        restart
+        ;;
+  status)
+        status
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|status}"
+        exit 2
+esac
+
+exit $RETVAL
+

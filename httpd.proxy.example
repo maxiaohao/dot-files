@@ -1,0 +1,141 @@
+ProxyPass /manager ajp://127.0.0.1:8009/manager
+ProxyPass /apk ajp://127.0.0.1:8009/apk
+ProxyPass /upload ajp://127.0.0.1:8009/upload
+
+ProxyPass /manager2 ajp://127.0.0.1:8209/manager2
+ProxyPass /services ajp://127.0.0.1:8209/ws-base/services
+#ProxyPass /axis2 ajp://127.0.0.1:8209/axis2
+
+ProxyRequests Off
+<Proxy *>
+    Order allow,deny
+    Deny from all
+</Proxy>
+
+<VirtualHost *:8089>
+    ServerName app.example.com
+    ProxyRequests On
+    <Proxy *>
+        Order deny,allow
+        Deny from all
+        #Allow from all
+        Allow from 172.16.1.0/24
+        Allow from 127.0.0.1/32
+    </Proxy>
+        <Location />
+        Order deny,allow
+        Allow from all
+    </Location>
+    ProxyPass / http://some.example.com:9008/
+    ProxyPassReverse / http://some.example.com:9008/
+</VirtualHost>
+
+
+<VirtualHost *:9090>
+    ServerName app.example.com
+    ProxyRequests On
+        <Location />
+                Order deny,allow
+                Deny from all
+                #Allow from all
+                Allow from 172.16.1.0/24
+                Allow from 127.0.0.1/32
+    </Location>
+    <Location />
+        Order deny,allow
+        Allow from all
+    </Location>
+    ProxyPass / http://some.example.com:9090/
+    ProxyPassReverse / http://some.example.com:9090/
+</VirtualHost>
+
+
+<VirtualHost *:9091>
+    ServerName app.example.com
+    ProxyRequests On
+        <Location />
+                Order deny,allow
+                Deny from all
+                #Allow from all
+                Allow from 172.16.1.0/24
+                Allow from 127.0.0.1/32
+    </Location>
+    ProxyPass / http://some.example.com/
+    ProxyPassReverse / http://some.example.com/
+</VirtualHost>
+
+<VirtualHost *:9966>
+    ServerName app.example.com
+    ProxyRequests On
+    ProxyRemote * http://127.0.0.1:9955
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+        AuthType Basic
+            AuthName "Authentication Required"
+            AuthUserFile /var/www/auth/.htpassword
+            Require valid-user
+    </Proxy>
+
+    <Location />
+        Order allow,deny
+        Deny from all
+    </Location>
+</VirtualHost>
+
+
+
+ExtendedStatus On
+
+<Location />
+    Order allow,deny
+    Deny from all
+</Location>
+
+<Location /stat>
+    SetHandler server-status
+    Order deny,allow
+    Deny from all
+    Allow from example.com
+</Location> 
+
+<LocationMatch "^/someapp/(.*)$">
+        Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1/32
+    Allow from 172.16.1.0/24
+    Allow from 192.168.100.0/24
+</LocationMatch>
+
+<LocationMatch "^/(someapp|apk|upload|pub)($|(/(.*)))$">
+        Order deny,allow
+        Allow from all
+</LocationMatch>
+
+<LocationMatch "^/manager(.*)$">
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.1/32
+        Allow from 172.16.1.0/24
+        Allow from 192.168.100.0/24
+</LocationMatch>
+
+ProxyPass /centos http://mirror.bit.edu.cn/centos/
+ProxyPassReverse /centos http://mirror.bit.edu.cn/centos/
+
+ProxyPass /epel http://dl.fedoraproject.org/pub/epel/
+ProxyPassReverse /epel http://dl.fedoraproject.org/pub/epel/
+
+ProxyPass /remi http://rpms.famillecollet.com/enterprise/
+ProxyPassReverse /remi http://rpms.famillecollet.com/enterprise/
+
+
+<LocationMatch "^/(centos|epel|remi)($|(/(.*)))$">
+        Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1/32
+    Allow from 172.16.1.0/24
+    Allow from 192.168.100.0/24
+</LocationMatch>
+
+
