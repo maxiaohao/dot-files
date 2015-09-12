@@ -99,4 +99,5 @@ export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$PATH:~/dev/tool/node-current/bin
 export PATH=$PATH:~/dev/tool/gradle-current/bin
 export PATH=$PATH:~/dev/tool/apache-maven-current/bin
+export MY_CONF_FILES=~/dev/xma11-projects/my-conf-files
 

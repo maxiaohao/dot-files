@@ -1,3 +1,4 @@
+# this file is ~/.oh-my-zsh/lib/history.zsh
 ## Command history configuration
 if [ -z "$HISTFILE" ]; then
     HISTFILE=$HOME/.zsh_history
