@@ -1,4 +1,4 @@
-# this file is ~/.gradle/init.gradle, which replaces default maven central url with oschina's mirror site
+// this file is ~/.gradle/init.gradle, which replaces default maven central url with oschina's mirror site
 allprojects{
     repositories {
         def REPOSITORY_URL = 'http://maven.oschina.net/content/groups/public'
