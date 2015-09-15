@@ -28,7 +28,7 @@ ZSH_THEME="xma"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -92,13 +92,12 @@ alias l='ls -CF'
 alias grep='grep -i --color'
 alias gti='git'
 
-export PATH=$PATH:~/dev/tool/IN_PATH
-
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
 export M2_HOME=~/dev/tool/apache-maven-current
-export PATH=$PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin
-export PATH=$PATH:~/dev/tool/node-current/bin
+export NODE_HOME=~/dev/tool/node-current
+export FIREFOX_HOME=~/dev/tool/firefox-current
 export MY_CONF_FILES=~/dev/xma11-projects/my-conf-files
 
+export PATH=$PATH:~/dev/tool/IN_PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME
 
