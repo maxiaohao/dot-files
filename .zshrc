@@ -92,7 +92,9 @@ alias l='ls -CF'
 alias grep='grep -v grep | grep -i --color'
 alias gti='git'
 alias cp='cp -i'
-alias dock='sudo docker'
+#alias dock='sudo docker'
+alias date-my='date +%Y%m%d%H%M%S%Z'
+alias gitpp='git pull && git push && git status'
 
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
