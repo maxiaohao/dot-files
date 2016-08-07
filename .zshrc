@@ -105,3 +105,5 @@ export MY_CONF_FILES=~/dev/xma11-projects/my-conf-files
 
 export PATH=$PATH:~/dev/tool/IN_PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME
 
+source ~/.aws-conf
+
