@@ -84,6 +84,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# don't share cmd history among windows
+setopt nosharehistory
+
 # some more ls aliases
 alias ll='ls -alF'
 alias lll='ls -alF'
@@ -99,11 +102,12 @@ alias gitpp='git pull && git push && git status'
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
 export M2_HOME=~/dev/tool/apache-maven-current
+export ANT_HOME=~/dev/tool/apache-ant-current
 export NODE_HOME=~/dev/tool/node-current
 export FIREFOX_HOME=~/dev/tool/firefox-current
 export MY_CONF_FILES=~/dev/xma11-projects/my-conf-files
 
-export PATH=$PATH:~/dev/tool/IN_PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME
+export PATH=~/dev/tool/IN_PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME:$PATH
 
 #source ~/.aws-conf
 
