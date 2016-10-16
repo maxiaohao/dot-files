@@ -98,6 +98,7 @@ alias cp='cp -i'
 #alias dock='sudo docker'
 alias date-my='date +%Y%m%d%H%M%S%Z'
 alias gitpp='git pull && git push && git status'
+alias dock='sudo docker'
 
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
