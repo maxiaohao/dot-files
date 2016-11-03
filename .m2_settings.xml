@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+    <profiles>
+        <profile>
+            <id>sources-and-javadocs</id>
+            <properties>
+                <downloadSources>true</downloadSources>
+                <downloadJavadocs>true</downloadJavadocs>
+            </properties>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>sources-and-javadocs</activeProfile>
+    </activeProfiles>
+
+    <!--
+    <proxies>
+       <proxy>
+          <id>example-proxy</id>
+          <active>true</active>
+          <protocol>http</protocol>
+          <host>proxy.example.com</host>
+          <port>8080</port>
+          <username>proxyuser</username>
+          <password>somepassword</password>
+          <nonProxyHosts>www.google.com|*.example.com</nonProxyHosts>
+        </proxy>
+    </proxies>
+    -->
+
+</settings>
