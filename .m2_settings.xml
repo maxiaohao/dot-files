@@ -15,6 +15,15 @@
         <activeProfile>sources-and-javadocs</activeProfile>
     </activeProfiles>
 
+    <mirrors>
+      <mirror>
+        <id>ali</id>
+        <name>ali</name>
+        <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+        <mirrorOf>central</mirrorOf>
+      </mirror>
+    </mirrors>
+
     <!--
     <proxies>
        <proxy>
