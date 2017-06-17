@@ -87,6 +87,8 @@ source $ZSH/oh-my-zsh.sh
 # don't share cmd history among windows
 setopt nosharehistory
 
+unsetopt nomatch
+
 # some more ls aliases
 alias ll='ls -alF'
 alias lll='ls -alF'
@@ -99,6 +101,7 @@ alias cp='cp -i'
 alias date-my='date +%Y%m%d%H%M%S%Z'
 alias gitpp='git pull && git push && git status'
 alias dock='sudo docker'
+alias mvnec='mvn eclipse:clean eclipse:eclipse'
 
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
