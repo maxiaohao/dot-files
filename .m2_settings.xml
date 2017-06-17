@@ -15,6 +15,7 @@
         <activeProfile>sources-and-javadocs</activeProfile>
     </activeProfiles>
 
+<!--
     <mirrors>
       <mirror>
         <id>ali</id>
@@ -23,6 +24,7 @@
         <mirrorOf>central</mirrorOf>
       </mirror>
     </mirrors>
+-->
 
     <!--
     <proxies>
