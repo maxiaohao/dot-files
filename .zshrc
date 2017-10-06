@@ -102,8 +102,14 @@ alias dock='sudo docker'
 alias date-my='date +%Y%m%d%H%M%S%Z'
 alias gitpp='git pull && git push && git status'
 alias dock='sudo docker'
-alias mvnec='mvn eclipse:clean eclipse:eclipse'
+alias mvnec='mvn clean eclipse:clean eclipse:eclipse'
+alias mvncc='mvn clean compile'
+alias mvncp='mvn clean package'
+alias mvnct='mvn clean test'
+alias mvnit='mvn clean test-compile failsafe:integration-test failsafe:verify'
 alias gitss='git submodule init && git submodule update'
+alias gitpss='git pull && git submodule init && git submodule update'
+alias gitmp='git checkout master && gitss'
 
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
