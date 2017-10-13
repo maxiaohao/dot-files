@@ -110,6 +110,7 @@ alias mvnit='mvn clean test-compile failsafe:integration-test failsafe:verify'
 alias gitss='git submodule init && git submodule update'
 alias gitpss='git pull && git submodule init && git submodule update'
 alias gitmp='git checkout master && gitss'
+alias gitmpss='git checkout master && gitpss'
 
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
