@@ -136,16 +136,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 4 px or 4 ppt
-        bindsym j resize grow height 4 px or 4 ppt
-        bindsym k resize shrink height 4 px or 4 ppt
-        bindsym l resize grow width 4 px or 4 ppt
+        bindsym h resize shrink width 48 px or 48 ppt
+        bindsym j resize grow height 48 px or 48 ppt
+        bindsym k resize shrink height 48 px or 48 ppt
+        bindsym l resize grow width 48 px or 48 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 4 px or 4 ppt
-        bindsym Down resize grow height 4 px or 4 ppt
-        bindsym Up resize shrink height 4 px or 4 ppt
-        bindsym Right resize grow width 4 px or 4 ppt
+        bindsym Left resize shrink width 48 px or 48 ppt
+        bindsym Down resize grow height 48 px or 48 ppt
+        bindsym Up resize shrink height 48 px or 48 ppt
+        bindsym Right resize grow width 48 px or 48 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -217,5 +217,5 @@ exec --no-startup-id /usr/bin/clipit
 exec --no-startup-id fcitx -r
 exec_always --no-startup-id "pgrep compton || compton &"
 exec --no-startup-id dunst -config /home/xma11/.config/dunst/.dunstrc
-exec --no-startup-id xautolock -time 10 -locker 'i3lock -d -c 000000'
+exec --no-startup-id xautolock -time 19 -locker 'i3lock -c 000000'
 
