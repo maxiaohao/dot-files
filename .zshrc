@@ -50,7 +50,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump mvn gradle)
+plugins=(git autojump mvn gradle docker zsh-syntax-highlighting)
 
 # User configuration
 
@@ -103,7 +103,10 @@ alias date-my='date +%Y%m%d%H%M%S%Z'
 alias gitpp='git pull && git push && git status'
 alias dock='sudo docker'
 alias mvnec='mvn clean eclipse:clean eclipse:eclipse'
+alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
 alias mvncc='mvn clean compile'
+alias mvnci='mvn clean install'
+alias mvncd='mvn clean deploy'
 alias mvncp='mvn clean package'
 alias mvnct='mvn clean test'
 alias mvnit='mvn clean test-compile failsafe:integration-test failsafe:verify'
