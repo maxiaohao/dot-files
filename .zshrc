@@ -50,7 +50,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump mvn gradle docker zsh-syntax-highlighting)
+plugins=(git autojump gradle npm mvn docker zsh-syntax-highlighting)
 
 # User configuration
 
@@ -89,6 +89,22 @@ setopt nosharehistory
 
 unsetopt nomatch
 
+
+aws_enc() {
+  aws kms encrypt --key-id alias/general-secret-passing --plaintext "$1" --output text --query CiphertextBlob
+}
+
+aws_dec() {
+  TEMP_BINARY_FILE=$(uuidgen)
+  echo $1 | base64 --decode > $TEMP_BINARY_FILE
+  aws kms decrypt --ciphertext-blob fileb://$TEMP_BINARY_FILE --output text --query Plaintext --region ap-southeast-2 | base64 --decode
+  echo
+  rm $TEMP_BINARY_FILE
+}
+
+alias aws_enc=aws_enc
+alias aws_dec=aws_dec
+
 # some more ls aliases
 alias ll='ls -alF'
 alias lll='ls -alF'
@@ -114,6 +130,7 @@ alias gitss='git submodule init && git submodule update'
 alias gitpss='git pull && git submodule init && git submodule update'
 alias gitmp='git checkout master && gitss'
 alias gitmpss='git checkout master && gitpss'
+alias getwindowpid='xprop _NET_WM_PID'
 
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
@@ -130,4 +147,6 @@ export PATH=~/dev/tool/IN_PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+source <(kubectl completion zsh)
 
