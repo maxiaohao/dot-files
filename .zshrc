@@ -102,6 +102,29 @@ aws_dec() {
   rm $TEMP_BINARY_FILE
 }
 
+kp() {
+  kops export kubecfg --state s3://citrusad.net.state au.citrusad.net
+  kubectl proxy --port=8081
+}
+
+kl() {
+  row_num=1
+  if [ "" != "$3" ]; then
+    row_num=$3
+  fi
+  pod=`kubectl get pods --namespace $1|grep $2|grep Running|awk 'NR=='$row_num'{print $1}'`
+  kubectl logs --namespace $1 -c $2 $pod
+}
+
+klf() {
+  row_num=1
+  if [ "" != "$3" ]; then
+    row_num=$3
+  fi
+  pod=`kubectl get pods --namespace $1|grep $2|grep Running|awk 'NR=='$row_num'{print $1}'`
+  kubectl logs --namespace $1 -c $2 -f $pod
+}
+
 alias aws_enc=aws_enc
 alias aws_dec=aws_dec
 
@@ -131,6 +154,7 @@ alias gitpss='git pull && git submodule init && git submodule update'
 alias gitmp='git checkout master && gitss'
 alias gitmpss='git checkout master && gitpss'
 alias getwindowpid='xprop _NET_WM_PID'
+alias getms='echo $(($(date +%s%N)/1000000))'
 
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
