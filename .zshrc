@@ -89,9 +89,6 @@ setopt nosharehistory
 
 unsetopt nomatch
 
-# set to vi mode
-set -o vi
-
 aws_enc() {
   aws kms encrypt --key-id alias/general-secret-passing --plaintext "$1" --output text --query CiphertextBlob
 }
