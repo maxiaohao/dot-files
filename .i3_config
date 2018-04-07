@@ -167,7 +167,7 @@ bindsym $mod+r mode "resize"
 #bindsym XF86AudioRaiseVolume exec amixer set Master 5%+; exec pkill  -RTMIN+10 i3blocks
 #bindsym XF86AudioLowerVolume exec amixer set Master 5%-; exec pkill  -RTMIN+10 i3blocks
 
-# Pluse (e470)
+# Pulse (e470)
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+; exec pkill -RTMIN+10 i3blocks 
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; exec pkill -RTMIN+10
@@ -216,6 +216,7 @@ exec --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" 288 0.4
 exec --no-startup-id xinput disable "SynPS/2 Synaptics TouchPad"
 exec --no-startup-id xset r rate 240 44
 exec --no-startup-id xset dpms 0 0 800
+exec --no-startup-id rfkill block bluetooth
 exec --no-startup-id /usr/bin/clipit
 exec --no-startup-id fcitx -r
 exec_always --no-startup-id "pgrep compton || compton &"
