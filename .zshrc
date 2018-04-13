@@ -128,10 +128,9 @@ appcfg() {
   KMS_KEY_ID=812045f4-178f-4241-bed4-2096e5a6cf03
   ENV=$1
   SERVICE_NAME=$2
-  CURRENT_MS=$(($(date +%s%N)/1000000))
-  RDM=$RANDOM
+  CURRENT_TIME=$(date "+%Y%m%d%H%M%S-%N")
   HISTORY_DIR=~/.appcfg_history
-  WORK_DIR=$HISTORY_DIR/$SERVICE_NAME-$CURRENT_MS-$RDM
+  WORK_DIR=$HISTORY_DIR/$SERVICE_NAME-$CURRENT_TIME
   if [ "$ENV" = "" ]; then
     echo "Usage: appcfg <env> <service>"
     return 2
@@ -141,7 +140,7 @@ appcfg() {
     return 2
   fi
   mkdir $WORK_DIR -p
-  aws s3 sync s3://citrusad.net/$ENV/$SERVICE_NAME-service $WORK_DIR
+  aws s3 sync s3://citrusad.net/$ENV/$SERVICE_NAME-service $WORK_DIR &> /dev/null
   if [ -f $WORK_DIR/application.properties ]; then
     aws kms decrypt --ciphertext-blob fileb://$WORK_DIR/application.properties --output text --query Plaintext --region ap-southeast-2 | base64 --decode > $WORK_DIR/application.properties.plain.old
     cp -f $WORK_DIR/application.properties.plain.old $WORK_DIR/application.properties.plain.new
@@ -149,15 +148,20 @@ appcfg() {
     diff $WORK_DIR/application.properties.plain.old $WORK_DIR/application.properties.plain.new > /dev/null 2>&1
     if [ "$?" != "0" ]; then
       aws kms encrypt --key-id $KMS_KEY_ID --plaintext fileb://$WORK_DIR/application.properties.plain.new --output text --query CiphertextBlob | base64 --decode > $WORK_DIR/pplication.properties.new
-      aws s3 cp $WORK_DIR/pplication.properties.new s3://citrusad.net/$ENV/$SERVICE_NAME-service/application.properties
-      echo "Updated application.properties for $SERVICE_NAME in $ENV successfully"
+      aws s3 cp $WORK_DIR/pplication.properties.new s3://citrusad.net/$ENV/$SERVICE_NAME-service/application.properties &> /dev/null
+      if [ "$?" = "0" ]; then
+        echo "application.properties for '$SERVICE_NAME' in '$ENV' changed successfully"
+      else
+        echo "ERROR: failed to change file"
+        return 1
+      fi
     else
       echo "Nothing changed"
       rm -rf $WORK_DIR
     fi
     return 0
   else
-    echo "Can't find application.properties for $SERVICE_NAME in $ENV"
+    echo "application.properties for '$SERVICE_NAME' in '$ENV' not found"
     rm -rf $WORK_DIR
     return 1
   fi
