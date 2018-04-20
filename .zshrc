@@ -167,6 +167,9 @@ appcfg() {
   fi
 }
 
+source ~/dev/tool/aws-cli-mfa/clearaws
+source ~/dev/tool/aws-cli-mfa/getaws
+
 alias aws_enc=aws_enc
 alias aws_dec=aws_dec
 
