@@ -141,8 +141,16 @@ appcfg() {
   fi
   mkdir $WORK_DIR -p
   aws s3 sync s3://citrusad.net/$ENV/$SERVICE_NAME-service $WORK_DIR &> /dev/null
+  if [ "$?" != "0" ]; then
+    echo "Failed to sync from S3"
+    return 1
+  fi
   if [ -f $WORK_DIR/application.properties ]; then
     aws kms decrypt --ciphertext-blob fileb://$WORK_DIR/application.properties --output text --query Plaintext --region ap-southeast-2 | base64 --decode > $WORK_DIR/application.properties.plain.old
+    if [ "$?" != "0" ]; then
+      echo "Failed to decrypt file using KMS"
+      return 1
+    fi
     cp -f $WORK_DIR/application.properties.plain.old $WORK_DIR/application.properties.plain.new
     vi $WORK_DIR/application.properties.plain.new
     diff $WORK_DIR/application.properties.plain.old $WORK_DIR/application.properties.plain.new > /dev/null 2>&1
