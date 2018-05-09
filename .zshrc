@@ -89,11 +89,17 @@ setopt nosharehistory
 
 unsetopt nomatch
 
-aws_enc() {
+function screen_shot() {
+  mkdir -p ~/.screenshot
+  FILE_NAME="~/.screenshot/"$(date "+%Y%m%d%H%M%S-%N")".png"
+  import $FILE_NAME && xclip -selection clipboard -target image/png $FILE_NAME
+}
+
+function aws_enc() {
   aws kms encrypt --key-id alias/general-secret-passing --plaintext "$1" --output text --query CiphertextBlob
 }
 
-aws_dec() {
+function aws_dec() {
   TEMP_BINARY_FILE=$(uuidgen)
   echo $1 | base64 --decode > $TEMP_BINARY_FILE
   aws kms decrypt --ciphertext-blob fileb://$TEMP_BINARY_FILE --output text --query Plaintext --region ap-southeast-2 | base64 --decode
@@ -101,12 +107,12 @@ aws_dec() {
   rm $TEMP_BINARY_FILE
 }
 
-kp() {
+function kp() {
   kops export kubecfg --state s3://citrusad.net.state au.citrusad.net
   kubectl proxy --port=8081
 }
 
-kl() {
+function kl() {
   row_num=1
   if [ "" != "$3" ]; then
     row_num=$3
@@ -115,7 +121,7 @@ kl() {
   kubectl logs --namespace $1 -c $2 $pod
 }
 
-klf() {
+function klf() {
   row_num=1
   if [ "" != "$3" ]; then
     row_num=$3
@@ -124,7 +130,7 @@ klf() {
   kubectl logs --namespace $1 -c $2 -f $pod
 }
 
-appcfg() {
+function appcfg() {
   KMS_KEY_ID=812045f4-178f-4241-bed4-2096e5a6cf03
   ENV=$1
   SERVICE_NAME=$2
@@ -175,13 +181,25 @@ appcfg() {
   fi
 }
 
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
+
 source ~/dev/tool/aws-cli-mfa/clearaws
 source ~/dev/tool/aws-cli-mfa/getaws
+alias awstoken="getaws default"
 
 alias aws_enc=aws_enc
 alias aws_dec=aws_dec
 
 # some more ls aliases
+alias vi='vim'
 alias ll='ls -alF'
 alias lll='ls -alF'
 alias la='ls -A'
@@ -209,7 +227,18 @@ alias gitmp='git checkout master && gitss'
 alias gitmpss='git checkout master && gitpss'
 alias getwindowpid='xprop _NET_WM_PID'
 alias getms='echo $(($(date +%s%N)/1000000))'
+alias diff='diff --color=auto'
 
+export LESS=-R
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+
+export VISUAL="vim"
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
 export M2_HOME=~/dev/tool/apache-maven-current
