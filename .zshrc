@@ -238,6 +238,8 @@ export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
+export LC_ALL=en_AU.UTF-8
+export LANG=en_AU.UTF-8
 export VISUAL="vim"
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
@@ -246,6 +248,7 @@ export ANT_HOME=~/dev/tool/apache-ant-current
 export NODE_HOME=~/dev/tool/node-current
 export FIREFOX_HOME=~/dev/tool/firefox-current
 export MY_CONF_FILES=~/dev/xma11-projects/my-conf-files
+export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 
 export PATH=~/dev/tool/IN_PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME:$PATH
 
@@ -255,5 +258,13 @@ export PATH=~/dev/tool/IN_PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-source <(kubectl completion zsh)
+#source <$(kubectl completion zsh)
+kubectl () {
+    if [[ -z $KUBECTL_COMPLETE ]]
+    then
+        source <($commands[kubectl] completion zsh)
+        KUBECTL_COMPLETE=1
+    fi
+    $commands[kubectl] $*
+}
 
