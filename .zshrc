@@ -268,3 +268,6 @@ kubectl () {
     $commands[kubectl] $*
 }
 
+if [ -f ~/.localrc ]; then
+  source ~/.localrc
+fi
