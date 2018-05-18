@@ -158,7 +158,7 @@ function appcfg() {
       return 1
     fi
     cp -f $WORK_DIR/application.properties.plain.old $WORK_DIR/application.properties.plain.new
-    vi $WORK_DIR/application.properties.plain.new
+    vim $WORK_DIR/application.properties.plain.new
     diff $WORK_DIR/application.properties.plain.old $WORK_DIR/application.properties.plain.new > /dev/null 2>&1
     if [ "$?" != "0" ]; then
       aws kms encrypt --key-id $KMS_KEY_ID --plaintext fileb://$WORK_DIR/application.properties.plain.new --output text --query CiphertextBlob | base64 --decode > $WORK_DIR/pplication.properties.new
@@ -206,6 +206,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias grep='grep -v grep | grep -i --color'
 alias ack='ack -i'
+alias ag='ag -i'
 alias gti='git'
 alias cp='cp -i'
 alias dock='sudo docker'
