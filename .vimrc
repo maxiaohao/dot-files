@@ -1,12 +1,12 @@
 "enable pathogen
 execute pathogen#infect()
 
-set number
+set number relativenumber
 set ignorecase
 set nobackup
 set hlsearch
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 "set autoindent
 "set smartindent
@@ -18,9 +18,10 @@ set novisualbell
 set nofoldenable
 set mouse=
 
-set encoding=utf-8 
-set termencoding=utf-8 
-set fileencoding=utf-8 
+
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,chinese,cp936
 
 syntax on
@@ -38,10 +39,10 @@ function! SwitchToNextBuffer(incr)
             break
         else
             let new = new + a:incr
-            if new < 1 
+            if new < 1
                 let new = last
             elseif new > last
-                let new = 1 
+                let new = 1
             endif
             if new == current
                 break
@@ -54,10 +55,10 @@ map <silent> <F3> :call SwitchToNextBuffer(-1)<CR>
 map <silent> <F4> :call SwitchToNextBuffer(1)<CR>
 
 
-"NerdTree use <F5>  
-"let NERDTreeWinPos='right' 
-"let NERDTreeWinSize=31 
-"let NERDTreeChDirMode=1 
+"NerdTree use <F5>
+"let NERDTreeWinPos='right'
+"let NERDTreeWinSize=31
+"let NERDTreeChDirMode=1
 map <F5> :NERDTreeToggle<CR>
 
 "trim 3+ blank lines into at most 2 blank lines
@@ -86,4 +87,12 @@ let g:syntastic_check_on_open=1
 "JSHint conf
 let g:syntastic_javascript_syntax_checker="jshint"
 let g:syntastic_javascript_jshint_conf="~/.jshintrc"
+
+" trim trailing space
+autocmd BufWritePre * :%s/\s\+$//e
+
+set colorcolumn=101
+highlight ColorColumn ctermbg=238
+
+highlight LineNr ctermfg=248
 
