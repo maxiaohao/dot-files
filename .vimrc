@@ -94,5 +94,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 set colorcolumn=101
 highlight ColorColumn ctermbg=238
 
-highlight LineNr ctermfg=248
+highlight LineNr ctermfg=240
+
+hi Search cterm=NONE ctermfg=grey ctermbg=4
 
