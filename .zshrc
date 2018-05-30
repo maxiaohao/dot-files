@@ -242,7 +242,6 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LC_ALL=en_AU.UTF-8
 export LANG=en_AU.UTF-8
 export VISUAL="vim"
-export TERM=xterm-256color
 export JAVA_HOME=~/dev/tool/jdk-current
 export GRADLE_HOME=~/dev/tool/gradle-current
 export M2_HOME=~/dev/tool/apache-maven-current
