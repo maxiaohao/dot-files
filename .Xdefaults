@@ -1,36 +1,38 @@
-urxvt.termName: rxvt-256color
-urxvt.scrollBar: false
-urxvt.background: rgb:33/33/33
-urxvt.foreground: rgb:EA/EA/EA
-urxvt.font: -gohu-gohufont-modk-modk-medium-r-normal--14-100-100-100-c-80-iso10646-1
-urxvt.boldFont: -gohu-gohufont-modk-bold-r-normal--14-100-100-100-c-80-iso10646-1
-!!urxvt.letterSpace: -1
-urxvt.saveLines: 100000
-!! Perl extensions
-!!urxvt.perl-ext-common: default,matcher,font-size
-urxvt.perl-ext-common: default,matcher
-!! Open urls in browser with Control-Click
-urxvt.urlLauncher: /usr/bin/chromium-browser
-urxvt.matcher.button: C1
-!!URxvt.colorBD: rgb:ff/ff/ff
-URxvt.color0: rgb:2E/34/36
-URxvt.color1: rgb:E1/21/21
-URxvt.color2: rgb:4E/BA/06
-URxvt.color3: rgb:C4/A0/00
-URxvt.color4: rgb:34/65/A4
-URxvt.color5: rgb:75/50/7B
-URxvt.color6: rgb:06/98/9A
-URxvt.color7: rgb:D3/D7/CF
-URxvt.color8: rgb:55/57/53
-URxvt.color9: rgb:FF/39/39
-URxvt.color10: rgb:9A/DD/44
-URxvt.color11: rgb:FC/E9/4F
-URxvt.color12: rgb:72/9F/CF
-URxvt.color13: rgb:AD/7F/A8
-URxvt.color14: rgb:34/E2/E2
-URxvt.color15: rgb:EE/EE/EC
+*.font: -gohu-gohufont-modk-modk-medium-r-normal--14-100-100-100-c-80-iso10646-1
+*.boldFont: -gohu-gohufont-modk-bold-r-normal--14-100-100-100-c-80-iso10646-1
+*.wideFont: -wenquanyi-wenquanyi bitmap song-medium-r-normal--14-140-75-75-p-80-iso10646-1
+*.background: rgb:33/33/33
+*.foreground: rgb:EA/EA/EA
+*.color0: rgb:2E/34/36
+*.color1: rgb:E1/21/21
+*.color2: rgb:4E/BA/06
+*.color3: rgb:C4/A0/00
+*.color4: rgb:34/65/A4
+*.color5: rgb:75/50/7B
+*.color6: rgb:06/98/9A
+*.color7: rgb:D3/D7/CF
+*.color8: rgb:55/57/53
+*.color9: rgb:FF/39/39
+*.color10: rgb:9A/DD/44
+*.color11: rgb:FC/E9/4F
+*.color12: rgb:72/9F/CF
+*.color13: rgb:AD/7F/A8
+*.color14: rgb:34/E2/E2
+*.color15: rgb:EE/EE/EC
+
+URxvt.termName: rxvt-256color
+URxvt.scrollBar: false
+URxvt.saveLines: 40960
+URxvt.perl-ext-common: default,matcher
+URxvt.urlLauncher: /usr/bin/chromium-browser
+URxvt.matcher.button: C1
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 
+XTerm.termName: xterm-256color
+XTerm.vt100.translations: #override \n\
+  Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+  Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+XTerm.vt100.saveLines: 40960
