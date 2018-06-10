@@ -98,3 +98,4 @@ highlight LineNr ctermfg=240
 
 hi Search cterm=NONE ctermfg=grey ctermbg=4
 
+let g:airline_powerline_fonts = 1
