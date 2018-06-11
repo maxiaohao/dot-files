@@ -1,5 +1,5 @@
-*.font: -gohu-gohufont-modk-modk-medium-r-normal--14-100-100-100-c-80-iso10646-1
-*.boldFont: -gohu-gohufont-modk-bold-r-normal--14-100-100-100-c-80-iso10646-1
+*.font: -gohu-modk-medium-r-normal--14-100-100-100-c-80-iso10646-1
+*.boldFont: -gohu-modk-bold-r-normal--14-100-100-100-c-80-iso10646-1
 *.wideFont: -wenquanyi-wenquanyi bitmap song-medium-r-normal--14-140-75-75-p-80-iso10646-1
 *.background: rgb:33/33/33
 *.foreground: rgb:EA/EA/EA
