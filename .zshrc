@@ -198,7 +198,7 @@ alias awstoken="getaws default"
 alias aws_enc=aws_enc
 alias aws_dec=aws_dec
 
-# some more ls aliases
+# more aliases
 alias vi='vim'
 alias ll='ls -alF'
 alias lll='ls -alF'
@@ -222,6 +222,7 @@ alias mvncp='mvn clean package'
 alias mvnct='mvn clean test'
 alias mvncv='mvn clean verify'
 alias mvnit='mvn clean test-compile failsafe:integration-test failsafe:verify'
+alias mvnlq='mvn clean compile && rm -f src/main/resources/db/temp/liquibase-diff-changeLog.xml && mvn liquibase:diff'
 alias gitss='git submodule init && git submodule update'
 alias gitpss='git pull && git submodule init && git submodule update'
 alias gitmp='git checkout master && gitss'
