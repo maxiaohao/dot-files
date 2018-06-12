@@ -5,11 +5,7 @@ if [ -z "$TMUX" ]; then
   if [ $? != 0 ]; then
     cd $HOME
     tmux new-session -s $SESS_NAME -d
-    for i in {1..10}
-    do
-      tmux new-window -t $SESS_NAME
-    done
-    tmux select-window -n -t $SESS_NAME
+    tmux neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; next \; attach
   fi
   tmux attach -t $SESS_NAME
 fi
