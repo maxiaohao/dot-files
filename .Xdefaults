@@ -2,7 +2,7 @@
 *.boldFont: -gohu-modk-bold-r-normal--14-100-100-100-c-80-iso10646-1
 *.wideFont: -wenquanyi-wenquanyi bitmap song-medium-r-normal--14-140-75-75-p-80-iso10646-1
 *.background: rgb:33/33/33
-*.foreground: rgb:EA/EA/EA
+*.foreground: rgb:DD/DD/DD
 *.color0: rgb:2E/34/36
 *.color1: rgb:E1/21/21
 *.color2: rgb:4E/BA/06
