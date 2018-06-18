@@ -17,7 +17,7 @@ set noerrorbells
 set novisualbell
 set nofoldenable
 set mouse=
-
+set lazyredraw
 
 set encoding=utf-8
 set termencoding=utf-8
