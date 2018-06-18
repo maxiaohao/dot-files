@@ -193,7 +193,33 @@ man() {
 
 source ~/dev/tool/aws-cli-mfa/clearaws
 source ~/dev/tool/aws-cli-mfa/getaws
-alias awstoken="getaws default"
+#alias awstoken="getaws default"
+awstoken() {
+  identity=$(aws sts get-caller-identity --profile original)
+  username=$(echo -- "$identity" | sed -n 's!.*"arn:aws:iam::.*:user/\(.*\)".*!\1!p')
+  echo You are: $username >&2
+
+  mfa=$(aws iam list-mfa-devices --user-name "$username" --profile original)
+  device=$(echo -- "$mfa" | sed -n 's!.*"SerialNumber": "\(.*\)".*!\1!p')
+  echo Your MFA device is: $device >&2
+  echo -n "Enter your MFA code now: " >&2
+  read code
+  tokens=$(aws sts get-session-token --serial-number "$device" --token-code $code --profile original)
+  secret=$(echo -- "$tokens" | sed -n 's!.*"SecretAccessKey": "\(.*\)".*!\1!p')
+  session=$(echo -- "$tokens" | sed -n 's!.*"SessionToken": "\(.*\)".*!\1!p')
+  access=$(echo -- "$tokens" | sed -n 's!.*"AccessKeyId": "\(.*\)".*!\1!p')
+  expire=$(echo -- "$tokens" | sed -n 's!.*"Expiration": "\(.*\)".*!\1!p')
+  TEMP=$(uuidgen)
+  sed -n 1,3p ~/.aws/credentials >~/.$TEMP
+  echo "[default]" >>~/.$TEMP
+  echo "aws_access_key_id=$access" >>~/.$TEMP
+  echo "aws_secret_access_key=$secret" >>~/.$TEMP
+  echo "aws_session_token=$session" >>~/.$TEMP
+
+  mv ~/.$TEMP ~/.aws/credentials
+
+  echo Keys valid until $expire >&2
+}
 
 alias aws_enc=aws_enc
 alias aws_dec=aws_dec

@@ -1,5 +1,15 @@
-"enable pathogen
-execute pathogen#infect()
+call plug#begin('~/.vim/plugged')
+
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'fatih/vim-go'
+Plug 'godlygeek/tabular'
+Plug 'ervandew/supertab'
+
+call plug#end()
 
 set number relativenumber
 set ignorecase
