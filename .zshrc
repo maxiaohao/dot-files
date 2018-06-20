@@ -107,6 +107,13 @@ function aws_dec() {
   rm $TEMP_BINARY_FILE
 }
 
+function dec_api_key() {
+  TMP_BIN_FILE=".tmp.kms.encrypted.bin.$RANDOM"
+  echo $1 | xxd -r -p - $TMP_BIN_FILE
+  aws kms decrypt --ciphertext-blob fileb://$TMP_BIN_FILE --output text --query Plaintext --region ap-southeast-2 | base64 --decode
+  rm -f $TMP_BIN_FILE
+}
+
 function kp() {
   kops export kubecfg --state s3://citrusad.net.state au.citrusad.net
   kubectl proxy --port=8081
