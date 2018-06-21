@@ -198,8 +198,8 @@ man() {
     command man "$@"
 }
 
-source ~/dev/tool/aws-cli-mfa/clearaws
-source ~/dev/tool/aws-cli-mfa/getaws
+#source ~/dev/tool/aws-cli-mfa/clearaws
+#source ~/dev/tool/aws-cli-mfa/getaws
 #alias awstoken="getaws default"
 awstoken() {
   identity=$(aws sts get-caller-identity --profile original)
