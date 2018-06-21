@@ -191,7 +191,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 #bindsym XF86AudioPrev exec playerctl previous
 
 # lock
-bindsym $mod+Shift+F11 exec i3lock -d -c 000000
+bindsym $mod+Shift+F11 exec sleep 0.5 && i3lock -d -c 000000
 
 client.focused #CE5C00 #CE5C00 #FFFFFF
 client.background #000000
