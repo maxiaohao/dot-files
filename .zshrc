@@ -1,3 +1,5 @@
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+
 source /home/xma11/dev/tool/antigen/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle autojump
@@ -8,19 +10,19 @@ antigen bundle docker-compose
 antigen bundle git
 antigen bundle golang
 antigen bundle gradle
+antigen bundle history
 antigen bundle kops
-antigen bundle kubectl
 antigen bundle mvn
 antigen bundle npm
-antigen bundle vi-mode
+antigen bundle web-search
+antigen bundle yarn
 antigen bundle z
+antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme https://github.com/maxiaohao/my-conf-files.git xma
 antigen apply
 
 DISABLE_AUTO_UPDATE="true"
-
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
 # don't share cmd history among windows
 setopt nosharehistory
@@ -216,9 +218,16 @@ export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 
 export PATH=~/dev/tool/IN_PATH:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME:$PATH
 
-#source ~/.aws-conf
-
 export PATH="$PATH:$HOME/.rvm/bin"
+
+kubectl () {
+    if [[ -z $KUBECTL_COMPLETE ]]
+    then
+        source <($commands[kubectl] completion zsh)
+        KUBECTL_COMPLETE=1
+    fi
+    $commands[kubectl] $*
+}
 
 if [ -f ~/.localrc ]; then
   source ~/.localrc
