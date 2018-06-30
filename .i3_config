@@ -225,6 +225,7 @@ exec --no-startup-id blueman-applet
 #exec --no-startup-id clipit
 exec --no-startup-id parcellite
 exec --no-startup-id ibus-daemon -d -x -r
+exec --no-startup-id udiskie --tray
 #exec --no-startup-id fcitx -r
 #exec_always --no-startup-id "pgrep compton || compton &"
 exec --no-startup-id dunst -config /home/xma11/.config/dunst/.dunstrc
