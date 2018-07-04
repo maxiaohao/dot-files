@@ -1,5 +1,5 @@
 #!/bin/bash
-SESS_NAME=$HOSTNAME
+SESS_NAME=$(hostname -s)
 if [ -z "$TMUX" ]; then
   tmux has-session -t $SESS_NAME > /dev/null 2>&1
   if [ $? != 0 ]; then
