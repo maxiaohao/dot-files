@@ -128,6 +128,83 @@ function appcfg() {
   fi
 }
 
+function push_image() {
+  if [ "$#" != "1" ]; then
+    echo "usage: push_image <tag>"
+    echo "You must run this inside the proper *-service folder."
+    return 1
+  fi
+  SERV_NAME=$(basename "$PWD" | sed 's/-.*//')
+  POSTFIX="-service"
+  TAG_NAME=$1
+  ECR_REPO="674466932943.dkr.ecr.ap-southeast-2.amazonaws.com"
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  NC='\033[0m'
+
+  if [ "$SERV_NAME" == "adconfig" ]; then
+    SERV_NAME="campaign"
+  fi
+
+  echo -en "Are you sure to make and push docker image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} to ECR? (y/n)"
+  read yn
+  yn=$(echo $yn | tr "[:upper:]" "[:lower:]")
+  if [ "$yn" != "y" -a "$yn" != "yes" ]; then
+    return -1
+  fi
+  sudo $(echo $(aws ecr get-login --region ap-southeast-2) | sed -e 's/-e none //g')
+  if [ "$?" != "0" ]; then
+    echo -e "${RED}ERROR: Failed to login ECR!${NC}"
+    return 1
+  fi
+  rm -rf tmp
+  mkdir -p tmp && cp target/$SERV_NAME$POSTFIX-*.jar tmp/app.jar && cp stage/docker/Dockerfile tmp/Dockerfile
+  if [ "$?" != "0" ]; then
+    echo -e "${RED}ERROR: Failed to find necessary jar file and Dockerfile!${NC}"
+    return 1
+  fi
+  cd tmp && sudo docker build -t $SERV_NAME$POSTFIX:$TAG_NAME .
+  sudo docker tag $SERV_NAME$POSTFIX:$TAG_NAME $ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME
+  echo "pushing $ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME"
+  sudo docker push $ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME
+  PUSH_SUCCESS=$?
+  cd ../
+  rm -rf tmp
+  if [ "$PUSH_SUCCESS" == "0" ]; then
+    echo -e "docker image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} pushed successfully"
+    return 0
+  else
+    echo -e "${RED}ERROR: Failed to make and push image!${NC}"
+    return 1
+  fi
+}
+
+function patch_deployment() {
+  if [ "$#" != "3" ]; then
+    echo "usage: patch_deployment <deployment> <tag> <env>"
+    return 1
+  fi
+  SERV_NAME=$1
+  POSTFIX="-service"
+  TAG_NAME=$2
+  ENV=$3
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  NC='\033[0m'
+
+  echo -en "Are you sure to deployment ${GREEN}$SERV_NAME${NC} with image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} in ${GREEN}$ENV${NC}? (y/n)"
+  read yn
+  yn=$(echo $yn | tr "[:upper:]" "[:lower:]")
+  if [ "$yn" != "y" -a "$yn" != "yes" ]; then
+    return -1
+  fi
+
+  kubectl patch deployment $SERV_NAME -p \
+    "{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"$SERV_NAME\",\"image\":\"$ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME\"}]},\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" \
+    --namespace $ENV
+  return $?
+}
+
 #source ~/dev/tool/aws-cli-mfa/clearaws
 #source ~/dev/tool/aws-cli-mfa/getaws
 #alias awstoken="getaws default"
