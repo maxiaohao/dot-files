@@ -216,7 +216,8 @@ bar {
 exec --no-startup-id nm-applet --sm-disable
 #exec --no-startup-id mate-volume-control-applet
 #exec --no-startup-id /usr/lib/mate-panel/notification-area-applet
-exec --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" 288 0.4
+#exec --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" 288 0.4
+exec --no-startup-id sudo sh -c 'echo -n 166 > /sys/devices/platform/i8042/serio1/sensitivity'
 exec --no-startup-id xinput disable "SynPS/2 Synaptics TouchPad"
 exec --no-startup-id xset r rate 240 44
 exec --no-startup-id xset dpms 0 0 800
