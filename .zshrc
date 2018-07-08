@@ -192,7 +192,7 @@ function patch_deployment() {
   GREEN='\033[0;32m'
   NC='\033[0m'
 
-  echo -en "Are you sure to deployment ${GREEN}$SERV_NAME${NC} with image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} in ${GREEN}$ENV${NC}? (y/n)"
+  echo -en "Are you sure to patch deployment ${GREEN}$SERV_NAME${NC} with image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} in ${GREEN}$ENV${NC}? (y/n)"
   read yn
   yn=$(echo $yn | tr "[:upper:]" "[:lower:]")
   if [ "$yn" != "y" -a "$yn" != "yes" ]; then
