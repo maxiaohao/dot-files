@@ -1,6 +1,7 @@
 [global]
     #font = DejaVu Sans 8
-    font = modk 9
+    #font = modk 9
+    font = Misc Terminusmodx 8
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
