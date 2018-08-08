@@ -271,6 +271,7 @@ alias getwindowpid='xprop _NET_WM_PID'
 alias getms='echo $(($(date +%s%N)/1000000))'
 alias diff='diff --color=auto'
 alias tmux='tmux -2'
+alias watch='watch '
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
