@@ -180,28 +180,35 @@ function push_image() {
 }
 
 function patch_deployment() {
-  if [ "$#" != "3" ]; then
-    echo "usage: patch_deployment <deployment> <tag> <env>"
+  if [ "$#" != "3" -a "$#" != "2" ]; then
+    echo "usage: patch_deployment <env> <deployment> [tag]"
     return 1
   fi
-  SERV_NAME=$1
+  ECR_REPO="674466932943.dkr.ecr.ap-southeast-2.amazonaws.com"
+  SERV_NAME=$2
   POSTFIX="-service"
-  TAG_NAME=$2
-  ENV=$3
+  TAG_NAME=$3
+  ENV=$1
   RED='\033[0;31m'
   GREEN='\033[0;32m'
   NC='\033[0m'
 
-  echo -en "Are you sure to patch deployment ${GREEN}$SERV_NAME${NC} with image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} in ${GREEN}$ENV${NC}? (y/N)"
+  if [ "$#" == "3" ]; then
+    echo -en "Are you sure to patch deployment ${GREEN}$SERV_NAME${NC} with image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} in ${GREEN}$ENV${NC}? (y/N)"
+  else
+    echo -en "Are you sure to patch deployment ${GREEN}$SERV_NAME${NC} in ${GREEN}$ENV${NC}? (y/N)"
+  fi
   read yn
   yn=$(echo $yn | tr "[:upper:]" "[:lower:]")
   if [ "$yn" != "y" -a "$yn" != "yes" ]; then
     return -1
   fi
 
-  kubectl patch deployment $SERV_NAME -p \
-    "{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"$SERV_NAME\",\"image\":\"$ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME\"}]},\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" \
-    --namespace $ENV
+  if [ "$#" == "3" ]; then
+    kubectl patch deployment $SERV_NAME -p "{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"$SERV_NAME\",\"image\":\"$ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME\"}]},\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace $ENV
+  else
+    kubectl patch deployment $SERV_NAME -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace $ENV
+  fi
   return $?
 }
 
