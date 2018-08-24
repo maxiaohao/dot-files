@@ -212,6 +212,31 @@ function patch_deployment() {
   return $?
 }
 
+function deploy_maven_artifact() {
+  if [ "$#" != "2" ]; then
+    echo "usage: deploy_maven_artifact <project> <version>"
+    return 1
+  fi
+  M2_REPO_PATH="$HOME/.m2/repository"
+  PACKAGE_PREFIX="com/citrusad"
+  S3_PREFIX="s3://maven.citrusad.com/release"
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  NC='\033[0m'
+  if [ -d $M2_REPO_PATH"/"$PACKAGE_PREFIX"/"$1"/"$2"/" ]; then
+    echo -en "Are you sure to deploy maven artifact ${GREEN}$1":"$2${NC} to S3? (y/N)"
+    read yn
+    yn=$(echo $yn | tr "[:upper:]" "[:lower:]")
+    if [ "$yn" != "y" -a "$yn" != "yes" ]; then
+      return -1
+    fi
+    aws s3 sync $M2_REPO_PATH"/"$PACKAGE_PREFIX"/"$1"/"$2"/" $S3_PREFIX"/"$PACKAGE_PREFIX"/"$1"/"$2"/"
+  else
+    echo -e "ERROR: Can't find artifact ${RED}$1":"$2${NC} in local maven repo!"
+    return 1
+  fi
+}
+
 #source ~/dev/tool/aws-cli-mfa/clearaws
 #source ~/dev/tool/aws-cli-mfa/getaws
 #alias awstoken="getaws default"
