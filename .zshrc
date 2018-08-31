@@ -78,42 +78,40 @@ function klf() {
 }
 
 function appcfg() {
-  KMS_KEY_ID=812045f4-178f-4241-bed4-2096e5a6cf03
-  ENV=$1
-  SERVICE_NAME=$2
+  if [ "$#" != "3" ]; then
+    echo "Usage: appcfg <au|us> <namespace> <service>"
+    return 2
+  fi
+  ENVIRONMENT=$2"_"$1
+  NAMESPACE=$2
+  SERVICE=$3
   CURRENT_TIME=$(date "+%Y%m%d%H%M%S-%N")
   HISTORY_DIR=~/.appcfg_history
-  WORK_DIR=$HISTORY_DIR/$SERVICE_NAME-$CURRENT_TIME
-  if [ "$ENV" = "" ]; then
-    echo "Usage: appcfg <env> <service>"
-    return 2
-  fi
-  if [ "$SERVICE_NAME" = "" ]; then
-    echo "Usage: appcfg <env> <service>"
-    return 2
-  fi
-  mkdir $WORK_DIR -p
-  aws s3 sync s3://citrusad.net/$ENV/$SERVICE_NAME-service $WORK_DIR &> /dev/null
+  WORK_DIR=$HISTORY_DIR/$SERVICE"_"$ENVIRONMENT"_"$CURRENT_TIME
+
+  export KUBECONFIG=~/.kube/config-$1
+  BASE64_SECRET=$(kubectl get secret $SERVICE-properties -n $NAMESPACE -o jsonpath="{.data.*}")
   if [ "$?" != "0" ]; then
-    echo "Failed to sync from S3"
+    echo "Failed to fetch appcfg for "$SERVICE" in "$ENVIRONMENT
     return 1
   fi
-  if [ -f $WORK_DIR/application.properties ]; then
-    aws kms decrypt --ciphertext-blob fileb://$WORK_DIR/application.properties --output text --query Plaintext --region ap-southeast-2 | base64 --decode > $WORK_DIR/application.properties.plain.old
-    if [ "$?" != "0" ]; then
-      echo "Failed to decrypt file using KMS"
-      return 1
-    fi
+
+  mkdir $WORK_DIR -p
+  echo $BASE64_SECRET | base64 --decode > $WORK_DIR/application.properties.plain.old
+
+  if [ -f $WORK_DIR/application.properties.plain.old ]; then
     cp -f $WORK_DIR/application.properties.plain.old $WORK_DIR/application.properties.plain.new
     vim $WORK_DIR/application.properties.plain.new
     diff $WORK_DIR/application.properties.plain.old $WORK_DIR/application.properties.plain.new > /dev/null 2>&1
     if [ "$?" != "0" ]; then
-      aws kms encrypt --key-id $KMS_KEY_ID --plaintext fileb://$WORK_DIR/application.properties.plain.new --output text --query CiphertextBlob | base64 --decode > $WORK_DIR/pplication.properties.new
-      aws s3 cp $WORK_DIR/pplication.properties.new s3://citrusad.net/$ENV/$SERVICE_NAME-service/application.properties &> /dev/null
+      NEW_SECRET=$(cat $WORK_DIR/application.properties.plain.new | base64 | tr -d '\n')
+      SECRET_PAYLOAD="---\napiVersion: v1\nkind: Secret\nmetadata:\n  name: $SERVICE-properties\n  namespace: $NAMESPACE\ntype: Opaque\ndata:\n  application-$ENVIRONMENT.properties: $NEW_SECRET"
+      echo $SECRET_PAYLOAD | kubectl apply -f -
       if [ "$?" = "0" ]; then
-        echo "application.properties for '$SERVICE_NAME' in '$ENV' changed successfully"
+        echo "application.properties for '$SERVICE' in '$ENVIRONMENT' was changed successfully"
+        echo "SECRET_PAYLOAD IS:\n$SECRET_PAYLOAD"
       else
-        echo "ERROR: failed to change file"
+        echo "ERROR: failed to upload file"
         return 1
       fi
     else
@@ -122,7 +120,7 @@ function appcfg() {
     fi
     return 0
   else
-    echo "application.properties for '$SERVICE_NAME' in '$ENV' not found"
+    echo "application.properties for '$SERVICE' in '$ENVIRONMENT' not found"
     rm -rf $WORK_DIR
     return 1
   fi
