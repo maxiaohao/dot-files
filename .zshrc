@@ -341,3 +341,7 @@ kubectl () {
 if [ -f ~/.localrc ]; then
   source ~/.localrc
 fi
+
+if [ -f ~/dev/citrus/cluster/src/tools/bash_helper/cluster ]; then
+  source ~/dev/citrus/cluster/src/tools/bash_helper/cluster
+fi
