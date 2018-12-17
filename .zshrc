@@ -235,6 +235,18 @@ function deploy_maven_artifact() {
   fi
 }
 
+function jqf() {
+   echo $1 | jq .
+}
+
+function list_ecr_images() {
+  if [ -z $1 ]; then
+    echo "usage: list_ecr_images <repo>"
+    return 1
+  fi
+  aws ecr describe-images --query 'sort_by(imageDetails,& imagePushedAt)[*]' --repository-name $1-service
+}
+
 #source ~/dev/tool/aws-cli-mfa/clearaws
 #source ~/dev/tool/aws-cli-mfa/getaws
 #alias awstoken="getaws default"
@@ -344,4 +356,9 @@ fi
 
 if [ -f ~/dev/citrus/cluster/src/tools/bash_helper/cluster ]; then
   source ~/dev/citrus/cluster/src/tools/bash_helper/cluster
+  source ~/dev/citrus/cluster/src/tools/bash_helper/cluster-completion.bash
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/xma11/.sdkman"
+[[ -s "/home/xma11/.sdkman/bin/sdkman-init.sh" ]] && source "/home/xma11/.sdkman/bin/sdkman-init.sh"
