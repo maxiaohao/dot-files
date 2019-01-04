@@ -277,6 +277,32 @@ awstoken() {
   echo Keys valid until $expire >&2
 }
 
+unalias gcmsg
+gcmsg() {
+  repo_name=$(basename $(git rev-parse --show-toplevel))
+  if [[ "$?" != "0" ]]; then
+    return $?
+  fi
+  # prepend sub-project name to the git commit message only if we are in sub-prodjct in mono repo
+  if [[ ! -d $PWD/.git && ( "$repo_name" == "commons" || "$repo_name" == "mono-project" ) ]]; then
+    last_dir=$PWD
+    dir=$PWD/..
+    while [[ ! -d $dir/.git ]]; do
+      if [[ "$(readlink -f $dir)" == "/" ]]; then
+        break
+      fi
+      last_dir=$dir
+      dir=$dir/..
+    done
+
+    sub_project_name=$(basename $(readlink -f $last_dir))
+    if [[ -n $sub_project_name && "$sub_project_name" != "/" ]]; then
+      prefix_msg="["$(echo $sub_project_name | tr a-z A-Z)"] "
+    fi
+  fi
+  git commit -m $prefix_msg$1
+}
+
 alias aws_enc=aws_enc
 alias aws_dec=aws_dec
 
@@ -291,7 +317,6 @@ alias ack='ack -i'
 alias ag='ag -i'
 alias gti='git'
 alias cp='cp -i'
-alias dock='sudo docker'
 alias date-my='date +%Y%m%d%H%M%S%Z'
 alias gitpp='git pull && git push && git status'
 alias dock='sudo docker'
@@ -336,8 +361,9 @@ export FIREFOX_HOME=~/dev/tool/firefox-current
 export MY_CONF_FILES=~/dev/xma11-projects/my-conf-files
 export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 export KUBE_EDITOR="vim"
+export GOPATH=~/dev/tool/go_path
 
-export PATH=~/dev/tool/IN_PATH:~/dev/xma-projects/my-conf-files:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME:$PATH
+export PATH=~/dev/tool/IN_PATH:~/dev/xma-projects/my-conf-files:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME:$GOPATH/bin:$PATH
 
 export PATH="$PATH:$HOME/.rvm/bin"
 
