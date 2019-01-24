@@ -24,6 +24,13 @@ antigen apply
 
 DISABLE_AUTO_UPDATE="true"
 
+# completion
+if [ -d ~/.zsh/completion ]; then
+  fpath=(~/.zsh/completion $fpath)
+  autoload -U compinit
+  compinit
+fi
+
 # don't share cmd history among windows
 setopt nosharehistory
 
@@ -275,6 +282,9 @@ awstoken() {
   mv ~/.$TEMP ~/.aws/credentials
 
   echo Keys valid until $expire >&2
+
+  # login ecr
+  $(echo $(aws ecr get-login --region ap-southeast-2) | sed -e 's/-e none //g')
 }
 
 unalias gcmsg
@@ -301,6 +311,11 @@ gcmsg() {
     fi
   fi
   git commit -m $prefix_msg$1
+}
+
+gdlcc() {
+  # project_name
+  #./gradlew :
 }
 
 alias aws_enc=aws_enc
@@ -339,6 +354,7 @@ alias getms='echo $(($(date +%s%N)/1000000))'
 alias diff='diff --color=auto'
 alias tmux='tmux -2'
 alias watch='watch '
+alias cdmono='cd ~/dev/citrus/mono-project'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
@@ -352,18 +368,19 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LC_ALL=en_AU.UTF-8
 export LANG=en_AU.UTF-8
 export VISUAL="vim"
-export JAVA_HOME=~/dev/tool/jdk-current
-export GRADLE_HOME=~/dev/tool/gradle-current
-export M2_HOME=~/dev/tool/apache-maven-current
-export ANT_HOME=~/dev/tool/apache-ant-current
-export NODE_HOME=~/dev/tool/node-current
+#export JAVA_HOME=~/dev/tool/jdk-current
+#export GRADLE_HOME=~/dev/tool/gradle-current
+#export M2_HOME=~/dev/tool/apache-maven-current
+#export ANT_HOME=~/dev/tool/apache-ant-current
+#export NODE_HOME=~/dev/tool/node-current
 export FIREFOX_HOME=~/dev/tool/firefox-current
 export MY_CONF_FILES=~/dev/xma11-projects/my-conf-files
 export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 export KUBE_EDITOR="vim"
 export GOPATH=~/dev/tool/go_path
 
-export PATH=~/dev/tool/IN_PATH:~/dev/xma-projects/my-conf-files:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME:$GOPATH/bin:$PATH
+#export PATH=~/dev/tool/IN_PATH:~/dev/xma-projects/my-conf-files:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME:$GOPATH/bin:$PATH
+export PATH=~/dev/tool/IN_PATH:~/dev/xma-projects/my-conf-files:$FIREFOX_HOME:$GOPATH/bin:$PATH
 
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -380,11 +397,17 @@ if [ -f ~/.localrc ]; then
   source ~/.localrc
 fi
 
-if [ -f ~/dev/citrus/cluster/src/tools/bash_helper/cluster ]; then
-  source ~/dev/citrus/cluster/src/tools/bash_helper/cluster
-  source ~/dev/citrus/cluster/src/tools/bash_helper/cluster-completion.bash
+if [ -f ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster ]; then
+  source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster
+  source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster-completion.bash
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/xma11/.sdkman"
 [[ -s "/home/xma11/.sdkman/bin/sdkman-init.sh" ]] && source "/home/xma11/.sdkman/bin/sdkman-init.sh"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

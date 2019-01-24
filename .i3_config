@@ -221,4 +221,5 @@ exec --no-startup-id udiskie --tray
 #exec_always --no-startup-id "pgrep compton || compton &"
 exec --no-startup-id dunst -config /home/xma11/.config/dunst/.dunstrc
 exec --no-startup-id xautolock -time 19 -locker 'i3lock -c 000000'
+exec --no-startup-id mpd
 
