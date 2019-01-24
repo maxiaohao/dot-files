@@ -287,7 +287,7 @@ awstoken() {
   $(echo $(aws ecr get-login --region ap-southeast-2) | sed -e 's/-e none //g')
 }
 
-unalias gcmsg
+alias gcmsg 2>/dev/null >/dev/null && unalias gcmsg
 gcmsg() {
   repo_name=$(basename $(git rev-parse --show-toplevel))
   if [[ "$?" != "0" ]]; then
