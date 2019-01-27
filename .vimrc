@@ -8,6 +8,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
 Plug 'ervandew/supertab'
+Plug 'takac/vim-hardtime'
 
 call plug#end()
 
@@ -17,7 +18,7 @@ set nobackup
 set hlsearch
 set tabstop=2
 set shiftwidth=2
-set expandtab
+"set expandtab
 "set autoindent
 "set smartindent
 "set cursorline
@@ -109,3 +110,7 @@ highlight LineNr ctermfg=240
 hi Search cterm=NONE ctermfg=grey ctermbg=4
 
 let g:airline_powerline_fonts = 1
+
+let g:hardtime_default_on = 1
+let g:hardtime_timeout = 200
+let g:hardtime_maxcount = 5
