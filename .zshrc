@@ -313,9 +313,49 @@ gcmsg() {
   git commit -m $prefix_msg$1
 }
 
-gdlcc() {
-  # project_name
-  #./gradlew :
+gdl() {
+	if [[ "$#" -eq 2 ]]; then
+    #
+  case $1 in
+	  c)
+	    break
+	    ;;
+	  cc)
+	    break
+	    ;;
+	  *)
+	    echo "error"
+    ;;
+  esac
+	elif [[ "$#" -eq 3 ]]; then
+		#
+	else
+		#
+	fi
+}
+
+compdef _gdl gdl
+
+_gdl() {
+  local -a commands
+
+	actions=(
+    'c:clean'
+    'cc:clean + compile'
+    'ct:clean + test'
+    'cb:clean + build'
+    'cj:clean + jib'
+  )
+
+	if (( CURRENT == 2 )); then
+		_describe -t commands 'commands' actions
+  fi
+
+	if (( CURRENT == 3 )); then
+	  _alternative "dirs:subdirs:($(ls -d */ | sed 's/\// /g'))"
+  fi
+
+  return 0
 }
 
 alias aws_enc=aws_enc
