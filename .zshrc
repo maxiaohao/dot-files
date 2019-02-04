@@ -294,6 +294,7 @@ gcmsg() {
     return $?
   fi
   # prepend sub-project name to the git commit message only if we are in sub-prodjct in mono repo
+  prefix_msg=""
   if [[ ! -d $PWD/.git && ( "$repo_name" == "commons" || "$repo_name" == "mono-project" ) ]]; then
     last_dir=$PWD
     dir=$PWD/..
