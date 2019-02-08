@@ -187,7 +187,7 @@ client.background #000000
 
 new_window pixel 3
 
-focus_follows_mouse no
+#focus_follows_mouse no
 popup_during_fullscreen leave_fullscreen
 focus_on_window_activation none
 

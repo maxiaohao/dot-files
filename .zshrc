@@ -323,27 +323,21 @@ gdl() {
     case $1 in
 	    c)
         ./gradlew ${SUB_PROJ_PREFIX}clean
-	      break
 	      ;;
 	    cc)
         ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}compileJava
-	      break
 	      ;;
 	    ct)
         ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}test
-	      break
 	      ;;
 	    cb)
         ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}build
-	      break
 	      ;;
 	    cj)
         ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}jib
-	      break
 	      ;;
 	    *)
 	      echo "Usage: gld <c|cc|ct|cb|cj> [sub_project_name]"
-        ;;
     esac
   else
 	  echo "Usage: gld <c|cc|ct|cb|cj> [sub_project_name]"

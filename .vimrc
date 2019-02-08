@@ -113,4 +113,4 @@ let g:airline_powerline_fonts = 1
 
 let g:hardtime_default_on = 1
 let g:hardtime_timeout = 200
-let g:hardtime_maxcount = 5
+let g:hardtime_maxcount = 10
