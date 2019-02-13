@@ -336,6 +336,9 @@ gdl() {
 	    cj)
         ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}jib
 	      ;;
+	    lq)
+        ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}diffChangeLog
+	      ;;
 	    *)
 	      echo "Usage: gld <c|cc|ct|cb|cj> [sub_project_name]"
     esac
@@ -380,7 +383,8 @@ alias getms='echo $(($(date +%s%N)/1000000))'
 alias diff='diff --color=auto'
 alias tmux='tmux -2'
 alias watch='watch '
-alias cdmono='cd ~/dev/citrus/mono-project'
+alias cdm='cd ~/dev/citrus/mono-project'
+alias gfm='git fetch origin master:master'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold

@@ -9,6 +9,7 @@ _gdl() {
     'ct:clean + test'
     'cb:clean + build'
     'cj:clean + jib'
+    'lq:clean + diffChangeLog'
   )
 
 	if (( CURRENT == 2 )); then
