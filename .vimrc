@@ -114,3 +114,9 @@ let g:airline_powerline_fonts = 1
 let g:hardtime_default_on = 1
 let g:hardtime_timeout = 200
 let g:hardtime_maxcount = 10
+
+" allow saving file in new dir
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+augroup END

@@ -385,6 +385,7 @@ alias tmux='tmux -2'
 alias watch='watch '
 alias cdm='cd ~/dev/citrus/mono-project'
 alias gfm='git fetch origin master:master'
+alias k='kubectl'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
