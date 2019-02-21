@@ -217,8 +217,8 @@ exec --no-startup-id xset r rate 240 44
 exec --no-startup-id xset dpms 0 0 800
 #exec --no-startup-id rfkill block bluetooth
 exec --no-startup-id blueman-applet
-#exec --no-startup-id clipit
-exec --no-startup-id parcellite
+exec --no-startup-id clipit
+#exec --no-startup-id parcellite
 exec --no-startup-id ibus-daemon -d -x -r
 exec --no-startup-id udiskie --tray
 #exec --no-startup-id fcitx -r
