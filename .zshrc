@@ -340,10 +340,10 @@ gdl() {
         ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}diffChangeLog
 	      ;;
 	    *)
-	      echo "Usage: gld <c|cc|ct|cb|cj> [sub_project_name]"
+	      echo "Usage: gdl <c|cc|ct|cb|cj> [sub_project_name]"
     esac
   else
-	  echo "Usage: gld <c|cc|ct|cb|cj> [sub_project_name]"
+	  echo "Usage: gdl <c|cc|ct|cb|cj> [sub_project_name]"
   fi
 }
 
