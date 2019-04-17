@@ -111,7 +111,7 @@ hi Search cterm=NONE ctermfg=grey ctermbg=4
 
 let g:airline_powerline_fonts = 1
 
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 let g:hardtime_timeout = 200
 let g:hardtime_maxcount = 10
 

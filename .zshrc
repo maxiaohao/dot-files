@@ -409,6 +409,7 @@ export MY_CONF_FILES=~/dev/xma11-projects/my-conf-files
 export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 export KUBE_EDITOR="vim"
 export GOPATH=~/dev/tool/go_path
+export PROMPT_EOL_MARK=""
 
 #export PATH=~/dev/tool/IN_PATH:~/dev/xma-projects/my-conf-files:$JAVA_HOME/bin:$GRADLE_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NODE_HOME/bin:$FIREFOX_HOME:$GOPATH/bin:$PATH
 export PATH=~/dev/tool/IN_PATH:~/dev/xma-projects/my-conf-files:$FIREFOX_HOME:$GOPATH/bin:$PATH
@@ -443,5 +444,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export GPG_TTY=$(tty)
+
+export GOOGLE_APPLICATION_CREDENTIALS="/home/xma11/.gcp-creds.json"
 
 true
