@@ -123,8 +123,8 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # screenshot
-#bindsym Print exec shutter -s
-bindsym --release Print exec screen_shot
+bindsym Print exec flameshot gui
+#bindsym --release Print exec screen_shot
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -227,4 +227,5 @@ exec --no-startup-id udiskie --tray
 exec --no-startup-id dunst -config /home/xma11/.config/dunst/.dunstrc
 exec --no-startup-id xautolock -time 19 -locker 'i3lock -c 000000'
 exec --no-startup-id mpd
+exec --no-startup-id flameshot
 
