@@ -316,28 +316,30 @@ gcmsg() {
 
 gdl() {
 	if [[ "$#" -eq 1 || "$#" -eq 2 ]]; then
+		GDL_CMD="./gradlew"
+		GDL_OPTS="--no-daemon --no-build-cache"
 	  SUB_PROJ_PREFIX=""
 	  if [[ "$#" -eq 2 ]]; then
 	    SUB_PROJ_PREFIX=":"$2":"
 	  fi
     case $1 in
 	    c)
-        ./gradlew ${SUB_PROJ_PREFIX}clean
+        bash -c "$GDL_CMD $GDL_OPTS ${SUB_PROJ_PREFIX}clean"
 	      ;;
 	    cc)
-        ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}compileJava
+        bash -c "$GDL_CMD $GDL_OPTS ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}compileJava"
 	      ;;
 	    ct)
-        ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}test
+        bash -c "$GDL_CMD $GDL_OPTS ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}test"
 	      ;;
 	    cb)
-        ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}build
+        bash -c "$GDL_CMD $GDL_OPTS ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}build"
 	      ;;
 	    cj)
-        ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}jib
+        bash -c "$GDL_CMD $GDL_OPTS ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}jib"
 	      ;;
 	    lq)
-        ./gradlew ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}diffChangeLog
+        bash -c "$GDL_CMD $GDL_OPTS ${SUB_PROJ_PREFIX}clean ${SUB_PROJ_PREFIX}diffChangeLog"
 	      ;;
 	    *)
 	      echo "Usage: gdl <c|cc|ct|cb|cj> [sub_project_name]"
@@ -385,6 +387,7 @@ alias tmux='tmux -2'
 alias watch='watch '
 alias cdm='cd ~/dev/citrus/mono-project'
 alias gfm='git fetch origin master:master'
+alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s"'
 alias k='kubectl'
 
 export LESS=-R
