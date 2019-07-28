@@ -4,4 +4,7 @@ export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus
 export XMODIFIERS="@im=ibus"
 
-/usr/bin/i3
+#/usr/bin/i3
+
+# for fix flameshot
+exec dbus-launch /usr/bin/i3
