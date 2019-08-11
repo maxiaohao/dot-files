@@ -10,8 +10,8 @@ antigen bundle docker-compose
 antigen bundle git
 antigen bundle golang
 #antigen bundle gradle
-#antigen bundle history
 #antigen bundle kops
+antigen bundle history
 antigen bundle mvn
 antigen bundle npm
 antigen bundle web-search
@@ -24,7 +24,20 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme https://github.com/maxiaohao/my-conf-files.git xma
 antigen apply
 
-DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE=true
+
+# speeds up pasting w/ autosuggest: https://github.com/zsh-users/zsh-autosuggestions/issues/238
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+
 
 # completion
 if [ -d ~/.zsh/completion ]; then
