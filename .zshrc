@@ -17,6 +17,7 @@ antigen bundle npm
 antigen bundle web-search
 antigen bundle yarn
 antigen bundle z
+antigen bundle shrink-path
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -33,7 +34,7 @@ if [ -d ~/.zsh/completion ]; then
 fi
 
 # don't share cmd history among windows
-# setopt nosharehistory
+setopt nosharehistory
 
 unsetopt nomatch
 
@@ -61,115 +62,6 @@ function dec_api_key() {
   aws kms decrypt --ciphertext-blob fileb://$TMP_BIN_FILE --output text --query Plaintext --region ap-southeast-2 | base64 --decode
   rm -f $TMP_BIN_FILE
 }
-
-#function push_image() {
-#  if [ "$#" != "1" ]; then
-#    echo "usage: push_image <tag>"
-#    echo "You must run this inside the proper *-service folder."
-#    return 1
-#  fi
-#  SERV_NAME=$(basename "$PWD" | sed 's/-.*//')
-#  POSTFIX="-service"
-#  TAG_NAME=$1
-#  ECR_REPO="674466932943.dkr.ecr.ap-southeast-2.amazonaws.com"
-#  RED='\033[0;31m'
-#  GREEN='\033[0;32m'
-#  NC='\033[0m'
-#
-#  if [ "$SERV_NAME" == "adconfig" ]; then
-#    SERV_NAME="campaign"
-#  fi
-#
-#  echo -en "Are you sure to make and push docker image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} to ECR? (y/N)"
-#  read yn
-#  yn=$(echo $yn | tr "[:upper:]" "[:lower:]")
-#  if [ "$yn" != "y" -a "$yn" != "yes" ]; then
-#    return -1
-#  fi
-#  sudo $(echo $(aws ecr get-login --region ap-southeast-2) | sed -e 's/-e none //g')
-#  if [ "$?" != "0" ]; then
-#    echo -e "${RED}ERROR: Failed to login ECR!${NC}"
-#    return 1
-#  fi
-#  rm -rf tmp
-#  mkdir -p tmp && cp target/$SERV_NAME$POSTFIX-*.jar tmp/app.jar && cp stage/docker/Dockerfile tmp/Dockerfile
-#  if [ "$?" != "0" ]; then
-#    echo -e "${RED}ERROR: Failed to find necessary jar file and Dockerfile!${NC}"
-#    return 1
-#  fi
-#  cd tmp && sudo docker build -t $SERV_NAME$POSTFIX:$TAG_NAME .
-#  sudo docker tag $SERV_NAME$POSTFIX:$TAG_NAME $ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME
-#  echo "pushing $ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME"
-#  sudo docker push $ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME
-#  PUSH_SUCCESS=$?
-#  cd ../
-#  rm -rf tmp
-#  if [ "$PUSH_SUCCESS" == "0" ]; then
-#    echo -e "docker image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} pushed successfully"
-#    return 0
-#  else
-#    echo -e "${RED}ERROR: Failed to make and push image!${NC}"
-#    return 1
-#  fi
-#}
-
-#function patch_deployment() {
-#  if [ "$#" != "3" -a "$#" != "2" ]; then
-#    echo "usage: patch_deployment <env> <deployment> [tag]"
-#    return 1
-#  fi
-#  ECR_REPO="674466932943.dkr.ecr.ap-southeast-2.amazonaws.com"
-#  SERV_NAME=$2
-#  POSTFIX="-service"
-#  TAG_NAME=$3
-#  ENV=$1
-#  RED='\033[0;31m'
-#  GREEN='\033[0;32m'
-#  NC='\033[0m'
-#
-#  if [ "$#" == "3" ]; then
-#    echo -en "Are you sure to patch deployment ${GREEN}$SERV_NAME${NC} with image ${GREEN}$SERV_NAME$POSTFIX:$TAG_NAME${NC} in ${GREEN}$ENV${NC}? (y/N)"
-#  else
-#    echo -en "Are you sure to patch deployment ${GREEN}$SERV_NAME${NC} in ${GREEN}$ENV${NC}? (y/N)"
-#  fi
-#  read yn
-#  yn=$(echo $yn | tr "[:upper:]" "[:lower:]")
-#  if [ "$yn" != "y" -a "$yn" != "yes" ]; then
-#    return -1
-#  fi
-#
-#  if [ "$#" == "3" ]; then
-#    kubectl patch deployment $SERV_NAME -p "{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"$SERV_NAME\",\"image\":\"$ECR_REPO/$SERV_NAME$POSTFIX:$TAG_NAME\"}]},\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace $ENV
-#  else
-#    kubectl patch deployment $SERV_NAME -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace $ENV
-#  fi
-#  return $?
-#}
-#
-#function deploy_maven_artifact() {
-#  if [ "$#" != "2" ]; then
-#    echo "usage: deploy_maven_artifact <project> <version>"
-#    return 1
-#  fi
-#  M2_REPO_PATH="$HOME/.m2/repository"
-#  PACKAGE_PREFIX="com/citrusad"
-#  S3_PREFIX="s3://maven.citrusad.com/release"
-#  RED='\033[0;31m'
-#  GREEN='\033[0;32m'
-#  NC='\033[0m'
-#  if [ -d $M2_REPO_PATH"/"$PACKAGE_PREFIX"/"$1"/"$2"/" ]; then
-#    echo -en "Are you sure to deploy maven artifact ${GREEN}$1":"$2${NC} to S3? (y/N)"
-#    read yn
-#    yn=$(echo $yn | tr "[:upper:]" "[:lower:]")
-#    if [ "$yn" != "y" -a "$yn" != "yes" ]; then
-#      return -1
-#    fi
-#    aws s3 sync $M2_REPO_PATH"/"$PACKAGE_PREFIX"/"$1"/"$2"/" $S3_PREFIX"/"$PACKAGE_PREFIX"/"$1"/"$2"/"
-#  else
-#    echo -e "ERROR: Can't find artifact ${RED}$1":"$2${NC} in local maven repo!"
-#    return 1
-#  fi
-#}
 
 function jqf() {
    echo $1 | jq .
@@ -374,7 +266,7 @@ source /usr/share/fzf/completion.zsh
 export SDKMAN_DIR="/home/xma11/.sdkman"
 [[ -s "/home/xma11/.sdkman/bin/sdkman-init.sh" ]] && source "/home/xma11/.sdkman/bin/sdkman-init.sh"
 
-# # nvm is slow
+# # nvm (slow)
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
