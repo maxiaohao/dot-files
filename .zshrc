@@ -1,32 +1,53 @@
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+source /usr/share/zsh/share/zgen.zsh
 
-source /home/xma11/dev/tool/antigen/antigen.zsh
-antigen use oh-my-zsh
-antigen bundle autojump
-antigen bundle aws
-antigen bundle colored-man-pages
-antigen bundle docker
-antigen bundle docker-compose
-antigen bundle git
-antigen bundle git-extras
-antigen bundle git-flow
-antigen bundle golang
-#antigen bundle gradle
-#antigen bundle kops
-#antigen bundle history
-antigen bundle kubectl
-antigen bundle mvn
-antigen bundle npm
-#antigen bundle web-search
-antigen bundle yarn
-antigen bundle z
-antigen bundle shrink-path
-antigen bundle djui/alias-tips
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen theme https://github.com/maxiaohao/my-conf-files.git xma
-antigen apply
+if ! zgen saved; then
+  zgen oh-my-zsh
+  zgen oh-my-zsh plugins/autojump
+  zgen oh-my-zsh plugins/aws
+  zgen oh-my-zsh plugins/colored-man-pages
+  zgen oh-my-zsh plugins/docker
+  zgen oh-my-zsh plugins/docker-compose
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/git-extras
+  zgen oh-my-zsh plugins/git-flow
+  zgen oh-my-zsh plugins/golang
+  zgen oh-my-zsh plugins/kubectl
+  zgen oh-my-zsh plugins/mvn
+  zgen oh-my-zsh plugins/npm
+  zgen oh-my-zsh plugins/shrink-path
+  zgen oh-my-zsh plugins/yarn
+  zgen oh-my-zsh plugins/z
+  zgen load zsh-users/zsh-autosuggestions
+  zgen load zsh-users/zsh-completions
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zsh-users/zsh-autosuggestions
+  zgen load maxiaohao/my-conf-files xma
+  zgen save
+fi
+
+# source /home/xma11/dev/tool/antigen/antigen.zsh
+# antigen use oh-my-zsh
+# antigen bundle autojump
+# antigen bundle aws
+# antigen bundle colored-man-pages
+# antigen bundle docker
+# antigen bundle docker-compose
+# antigen bundle git
+# antigen bundle git-extras
+# antigen bundle git-flow
+# antigen bundle golang
+# antigen bundle kubectl
+# antigen bundle mvn
+# antigen bundle npm
+# antigen bundle yarn
+# antigen bundle z
+# antigen bundle shrink-path
+# antigen bundle djui/alias-tips
+# antigen bundle zsh-users/zsh-autosuggestions
+# antigen bundle zsh-users/zsh-completions
+# antigen bundle zsh-users/zsh-syntax-highlighting
+# antigen theme https://github.com/maxiaohao/my-conf-files.git xma
+# antigen apply
 
 DISABLE_AUTO_UPDATE="true"
 
@@ -48,6 +69,8 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 #   autoload -U compinit
 #   compinit
 # fi
+
+compinit
 
 # don't share cmd history among windows
 setopt nosharehistory
@@ -118,8 +141,8 @@ export KUBE_EDITOR="vim"
 export GOPATH=~/dev/tool/go_path
 export PROMPT_EOL_MARK=""
 
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$PATH
-
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # kubectl () {
