@@ -20,7 +20,6 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions
   zgen load zsh-users/zsh-syntax-highlighting
-  zgen load zsh-users/zsh-autosuggestions
   zgen load maxiaohao/my-conf-files xma
   zgen save
 fi
@@ -63,22 +62,12 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-# # completion
-# if [ -d ~/.zsh/completion ]; then
-#   fpath=(~/.zsh/completion $fpath)
-#   autoload -U compinit
-#   compinit
-# fi
-
 compinit
 
 # don't share cmd history among windows
 setopt nosharehistory
 
 unsetopt nomatch
-
-# alias aws_enc=aws_enc
-# alias aws_dec=aws_dec
 
 alias vi='vim'
 alias ll='ls -alF'
@@ -129,11 +118,6 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LC_ALL=en_AU.UTF-8
 export LANG=en_AU.UTF-8
 export VISUAL="vim"
-#export JAVA_HOME=~/dev/tool/jdk-current
-#export GRADLE_HOME=~/dev/tool/gradle-current
-#export M2_HOME=~/dev/tool/apache-maven-current
-#export ANT_HOME=~/dev/tool/apache-ant-current
-#export NODE_HOME=~/dev/tool/node-current
 export FIREFOX_HOME=~/dev/tool/firefox-current
 export MY_CONF_FILES=~/dev/xma-projects/my-conf-files
 export CLUSTER_SECRET_DIR=/home/xma11/.cluster
@@ -144,15 +128,6 @@ export PROMPT_EOL_MARK=""
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$PATH
 export PATH="$PATH:$HOME/.rvm/bin"
-
-# kubectl () {
-#     if [[ -z $KUBECTL_COMPLETE ]]
-#     then
-#         source <($commands[kubectl] completion zsh)
-#         KUBECTL_COMPLETE=1
-#     fi
-#     $commands[kubectl] $*
-# }
 
 if [ -f ~/.localrc ]; then
   source ~/.localrc
