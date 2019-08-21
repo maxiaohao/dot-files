@@ -20,7 +20,7 @@
 *.color14: rgb:34/E2/E2
 *.color15: rgb:EE/EE/EC
 
-URxvt.termName: rxvt-256color
+URxvt.termName: rxvt-unicode-256color
 URxvt.scrollBar: false
 URxvt.saveLines: 40960
 URxvt.perl-ext-common: default,matcher
