@@ -1,5 +1,7 @@
-*.font: -gohu-modk-medium-r-normal--14-100-100-100-c-80-iso10646-1
-*.boldFont: -gohu-modk-bold-r-normal--14-100-100-100-c-80-iso10646-1
+URxvt.font: xft:modk:size=12,xft:WenQuanYi WenQuanYi Bitmap Song:size=10
+URxvt.boldfont: xft:modk:size=12,xft:WenQuanYi WenQuanYi Bitmap Song:size=10
+XTerm.*.font: -gohu-modk-medium-r-normal--14-100-100-100-c-80-iso10646-1
+XTerm.*.boldFont: -gohu-modk-bold-r-normal--14-100-100-100-c-80-iso10646-1
 *.wideFont: -wenquanyi-wenquanyi bitmap song-medium-r-normal--14-140-75-75-p-80-iso10646-1
 *.background: rgb:33/33/33
 *.foreground: rgb:DD/DD/DD
