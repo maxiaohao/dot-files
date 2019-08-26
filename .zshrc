@@ -48,7 +48,7 @@ fi
 # antigen theme https://github.com/maxiaohao/my-conf-files.git xma
 # antigen apply
 
-DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE=true
 
 # speeds up pasting w/ autosuggest: https://github.com/zsh-users/zsh-autosuggestions/issues/238
 pasteinit() {
