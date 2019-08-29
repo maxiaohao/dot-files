@@ -79,9 +79,8 @@ alias ack='ack -i'
 alias ag='ag -i'
 alias gti='git'
 alias cp='cp -i'
-alias date-my='date +%Y%m%d%H%M%S%Z'
+alias date-my='date "+%Y-%m-%d %H:%M:%S%z"'
 alias gitpp='git pull && git push && git status'
-alias dock='sudo docker'
 alias mvnec='mvn clean eclipse:clean eclipse:eclipse'
 alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
 alias mvncc='mvn clean compile'
@@ -102,6 +101,9 @@ alias diff='diff --color=auto'
 alias tmux='tmux -2'
 alias watch='watch '
 alias cdm='cd ~/dev/citrus/mono-project'
+alias cdw='cd ~/dev/citrus/web'
+alias cdg='cd ~/dev/citrus/adread'
+alias cda='cd ~/dev/citrus/adread'
 alias gfm='git fetch origin master:master'
 alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s"'
 alias k='kubectl'
@@ -124,6 +126,7 @@ export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 export KUBE_EDITOR="vim"
 export GOPATH=~/dev/tool/go_path
 export PROMPT_EOL_MARK=""
+export CHROME_BIN="chromium"
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$PATH

@@ -227,4 +227,3 @@ exec --no-startup-id ibus-daemon -d -x -r
 exec --no-startup-id udiskie --tray
 exec --no-startup-id dunst -config /home/xma11/.config/dunst/.dunstrc
 exec --no-startup-id xautolock -time 29 -locker 'i3lock -c 000000'
-exec --no-startup-id mpd
