@@ -1,3 +1,5 @@
+DISABLE_AUTO_UPDATE=true
+
 source /usr/share/zsh/share/zgen.zsh
 
 if ! zgen saved; then
@@ -47,8 +49,6 @@ fi
 # antigen bundle zsh-users/zsh-syntax-highlighting
 # antigen theme https://github.com/maxiaohao/my-conf-files.git xma
 # antigen apply
-
-DISABLE_AUTO_UPDATE=true
 
 # speeds up pasting w/ autosuggest: https://github.com/zsh-users/zsh-autosuggestions/issues/238
 pasteinit() {
