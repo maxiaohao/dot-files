@@ -125,6 +125,7 @@ export MY_CONF_FILES=~/dev/xma-projects/my-conf-files
 export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 export KUBE_EDITOR="vim"
 export GOPATH=~/dev/tool/go_path
+export GOPRIVATE="github.com/citrus-international"
 export PROMPT_EOL_MARK=""
 export CHROME_BIN="chromium"
 
