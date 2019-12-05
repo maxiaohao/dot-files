@@ -9,6 +9,8 @@ Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
 Plug 'ervandew/supertab'
 Plug 'takac/vim-hardtime'
+Plug '/usr/sbin/fzf'
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
