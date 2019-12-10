@@ -131,6 +131,7 @@ export CHROME_BIN="chromium"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$PATH
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH=$PATH:$GOPATH/bin
 
 if [ -f ~/.localrc ]; then
   source ~/.localrc
