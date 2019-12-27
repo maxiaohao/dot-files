@@ -189,7 +189,7 @@ client.background #000000
 new_window pixel 3
 
 #focus_follows_mouse no
-popup_during_fullscreen leave_fullscreen
+popup_during_fullscreen smart
 focus_on_window_activation none
 
 # Start i3bar to display a workspace bar (plus the system information i3status
