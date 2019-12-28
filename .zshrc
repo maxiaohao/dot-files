@@ -107,6 +107,7 @@ alias cda='cd ~/dev/citrus/adread'
 alias gfm='git fetch origin master:master'
 alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s"'
 alias k='kubectl'
+alias cat='bat'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
