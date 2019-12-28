@@ -1,19 +1,19 @@
 [Unit]
-Description=Rclone Mount Service (Google Drive Personal)
+Description=Rclone Mount Service (Mega Personal)
 Wants=network-online.target
 After=network-online.target
 ConditionFileIsExecutable=/usr/sbin/rclone
 ConditionPathIsDirectory=%h/.config/rclone
 ConditionFileNotEmpty=%h/.config/rclone/rclone.conf
-ConditionPathIsDirectory=%h/doc/gdrive-personal
+ConditionPathIsDirectory=%h/doc/mega-personal
 
 [Service]
 Type=notify
 Environment=RCLONE_CONFIG=%h/.config/rclone/rclone.conf
-ExecStart=rclone mount gdrive-personal:/ %h/doc/gdrive-personal
-ExecStop=/bin/fusermount -uz %h/doc/gdrive-personal
+ExecStart=rclone mount mega-personal:/ %h/doc/mega-personal
+ExecStop=/bin/fusermount -uz %h/doc/mega-personal
 Restart=on-failure
 
 [Install]
-Alias=rclone-mount-gdrive-personal.service
+Alias=rclone-mount-mega-personal.service
 WantedBy=default.target
