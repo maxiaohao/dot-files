@@ -1,0 +1,19 @@
+[Unit]
+Description=Rclone Mount Service (Google Drive Work)
+Wants=network-online-target
+After=network-online-target
+ConditionFileIsExecutable=/usr/sbin/rclone
+ConditionPathIsDirectory=%h/.config/rclone
+ConditionFileNotEmpty=%h/.config/rclone/rclone.conf
+ConditionPathIsDirectory=%h/doc/gdrive-work
+
+[Service]
+Type=notify
+Environment=RCLONE_CONFIG=%h/.config/rclone/rclone.conf
+ExecStart=rclone mount gdrive-work:/ %h/doc/gdrive-work
+ExecStop=/bin/fusermount -uz %h/doc/gdrive-work
+Restart=on-failure
+
+[Install]
+Alias=rclone-mount-gdrive-work.service
+WantedBy=default.target
