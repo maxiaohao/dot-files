@@ -69,6 +69,7 @@ setopt nosharehistory
 
 unsetopt nomatch
 
+alias v='vim'
 alias vi='vim'
 alias ll='ls -alF'
 alias lll='ls -alF'
@@ -76,7 +77,6 @@ alias la='ls -A'
 alias l='ls -CF'
 alias grep='grep -i --color'
 alias ack='ack -i'
-alias ag='ag -i'
 alias gti='git'
 alias cp='cp -i'
 alias date-my='date "+%Y-%m-%d %H:%M:%S%z"'
@@ -104,6 +104,7 @@ alias cdm='cd ~/dev/citrus/mono-project'
 alias cdw='cd ~/dev/citrus/web'
 alias cdg='cd ~/dev/citrus/adread'
 alias cda='cd ~/dev/citrus/adread'
+alias cdd='cd ~/dev/citrus/devops'
 alias gfm='git fetch origin master:master'
 alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s"'
 alias k='kubectl'
