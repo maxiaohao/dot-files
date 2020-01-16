@@ -1,9 +1,12 @@
 [user]
 	name = maxiaohao
 	email = maxiaohao@gmail.com
+	signingkey = 6B64161D018FFF90
 [core]
 	autocrlf = input
 [push]
 	default = simple
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[commit]
+	gpgsign = true
