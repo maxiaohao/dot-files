@@ -127,3 +127,5 @@ export PATH=$PATH:/home/xma11/dev/tool/apache-maven-current/bin
 
 
 
+
+complete -C /usr/bin/terraform terraform
