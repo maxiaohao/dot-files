@@ -131,6 +131,7 @@ export GOPRIVATE="github.com/citrus-international"
 export PROMPT_EOL_MARK=""
 export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="/home/xma11/.ripgreprc"
+export BAT_STYLE="plain"
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$PATH
