@@ -20,7 +20,7 @@ set nobackup
 set hlsearch
 set tabstop=2
 set shiftwidth=2
-"set expandtab
+set expandtab
 "set autoindent
 "set smartindent
 "set cursorline

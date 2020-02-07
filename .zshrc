@@ -65,7 +65,11 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 compinit
 
 # don't share cmd history among windows
-setopt nosharehistory
+# setopt nosharehistory
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=500000
+SAVEHIST=500000
 
 unsetopt nomatch
 
@@ -73,6 +77,7 @@ alias ack='ack -i'
 alias cat='bat'
 alias cda='cd ~/dev/citrus/adread'
 alias cdd='cd ~/dev/citrus/devops'
+alias cddm='cd ~/dev/citrus/devops/module'
 alias cdg='cd ~/dev/citrus/adread'
 alias cdm='cd ~/dev/citrus/mono-project'
 alias cdw='cd ~/dev/citrus/web'
