@@ -18,11 +18,15 @@ function aws_dec() {
   rm $TEMP_BINARY_FILE
 }
 
-function dec_api_key() {
+function dec_api_key_aws() {
   TMP_BIN_FILE=".tmp.kms.encrypted.bin.$RANDOM"
   echo $1 | xxd -r -p - $TMP_BIN_FILE
   aws kms decrypt --ciphertext-blob fileb://$TMP_BIN_FILE --output text --query Plaintext --region ap-southeast-2 | base64 --decode
   rm -f $TMP_BIN_FILE
+}
+
+function dec_api_key() {
+  echo $1 | xxd -r -p - | gcloud kms decrypt --location global --keyring citrus --key everything --plaintext-file - --ciphertext-file -
 }
 
 function jqf() {
