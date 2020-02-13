@@ -148,7 +148,7 @@ if [ -f ~/.localrc ]; then
   source ~/.localrc
 fi
 
-if [ -f ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster ]; then
+if [ -f ~/doc/personal-doc/script/cluster/cluster -a -f ~/doc/personal-doc/script/cluster/cluster-completion.bash ]; then
   source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster
   source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster-completion.bash
 fi
