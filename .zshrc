@@ -128,7 +128,7 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LC_ALL=en_AU.UTF-8
 export LANG=en_AU.UTF-8
 export VISUAL="vim"
-export FIREFOX_HOME=~/dev/tool/firefox-current
+export FLUTTER_HOME=~/dev/tool/flutter
 export MY_CONF_FILES=~/dev/xma-projects/my-conf-files
 export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 export KUBE_EDITOR="vim"
@@ -140,9 +140,8 @@ export RIPGREP_CONFIG_PATH="/home/xma11/.ripgreprc"
 export BAT_STYLE="plain"
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH=~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$PATH
+export PATH=$PATH:~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
 export PATH="$PATH:$HOME/.rvm/bin"
-export PATH=$PATH:$GOPATH/bin
 
 if [ -f ~/.localrc ]; then
   source ~/.localrc
