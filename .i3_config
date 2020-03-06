@@ -124,8 +124,8 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # screenshot
-bindsym Print exec flameshot gui
-#bindsym --release Print exec screen_shot
+#bindsym Print exec flameshot gui -d 100
+bindsym --release Print exec screen_shot
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
