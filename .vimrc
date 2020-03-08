@@ -11,6 +11,7 @@ Plug 'ervandew/supertab'
 Plug 'takac/vim-hardtime'
 Plug '/usr/sbin/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'dhruvasagar/vim-table-mode'
 
 call plug#end()
 
