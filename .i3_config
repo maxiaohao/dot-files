@@ -187,7 +187,8 @@ bindsym $mod+Shift+F11 exec sleep 0.5 && i3lock -d -c 000000
 client.focused #CE5C00 #CE5C00 #FFFFFF
 client.background #000000
 
-new_window pixel 3
+#new_window pixel 3
+default_border pixel 3
 
 #focus_follows_mouse no
 popup_during_fullscreen smart
