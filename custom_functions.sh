@@ -41,6 +41,14 @@ function list_ecr_images() {
   aws ecr describe-images --query 'sort_by(imageDetails,& imagePushedAt)[*]' --repository-name $1-service
 }
 
+function hub_pr() {
+  if [ -z $1 ]; then
+    echo "usage: hub_pr <title>"
+    return 1
+  fi
+  hub pull-request --browse -m $1
+}
+
 #source ~/dev/tool/aws-cli-mfa/clearaws
 #source ~/dev/tool/aws-cli-mfa/getaws
 #alias awstoken="getaws default"
