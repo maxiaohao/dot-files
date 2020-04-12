@@ -11,4 +11,7 @@ export XMODIFIERS="@im=ibus"
 #/usr/bin/i3
 
 # for fix flameshot
-exec dbus-launch /usr/bin/i3
+#exec dbus-launch /usr/bin/i3
+
+# normal i3
+exec /usr/bin/i3
