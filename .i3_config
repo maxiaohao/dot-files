@@ -139,10 +139,10 @@ bindsym $mod+Shift+e exec "zenity --question --text='Quit i3?' && i3-msg -q exit
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
-        bindsym h resize shrink width 20 px or 20 ppt
-        bindsym j resize grow height 20 px or 20 ppt
-        bindsym k resize shrink height 20 px or 20 ppt
-        bindsym l resize grow width 20 px or 20 ppt
+        bindsym h resize shrink width 10 px
+        bindsym j resize grow height 10 px
+        bindsym k resize shrink height 10 px
+        bindsym l resize grow width 10 px
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
