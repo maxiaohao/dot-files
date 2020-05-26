@@ -14,4 +14,5 @@ export XMODIFIERS="@im=ibus"
 #exec dbus-launch /usr/bin/i3
 
 # normal i3
-exec /usr/bin/i3
+#exec /usr/bin/i3
+exec /usr/bin/i3 >~/tmp/i3log-$(date +'%F-%k-%M-%S') 2>&1
