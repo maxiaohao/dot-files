@@ -231,4 +231,5 @@ exec_always--no-startup-id "pgrep -u $USER udiskie ||udiskie --tray"
 exec_always--no-startup-id "pgrep -u $USER dunst || dunst -config /home/xma11/.config/dunst/dunstrc"
 exec_always--no-startup-id "pgrep -u $USER xautolock || xautolock -time 17 -locker 'i3lock -c 000000'"
 exec_always--no-startup-id "pgrep -u $USER goldendict || goldendict"
+exec_always--no-startup-id "pgrep -u $USER albert || albert"
 
