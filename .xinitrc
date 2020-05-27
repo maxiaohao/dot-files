@@ -15,4 +15,4 @@ export XMODIFIERS="@im=ibus"
 
 # normal i3
 #exec /usr/bin/i3
-exec /usr/bin/i3 >~/tmp/i3log-$(date +'%F-%k-%M-%S') 2>&1
+exec /usr/bin/i3 >~/tmp/i3.log.${USER}.$(date +'%F_%k%M%S') 2>&1

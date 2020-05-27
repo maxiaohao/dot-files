@@ -42,7 +42,8 @@ bindsym $mod+w kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run -fn "DejaVu Sans-18"
-bindsym $mod+d exec "rofi -show run"
+#bindsym $mod+d exec "rofi -show run"
+bindsym $mod+d exec "rofi -modi combi -show combi -combi-modi run,drun"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -230,7 +231,8 @@ exec_always --no-startup-id "pgrep -u $USER clipit || clipit"
 exec_always --no-startup-id "pgrep -u $USER ibus-daemon || ibus-daemon -d -x -r"
 #exec_always --no-startup-id "pgrep -u $USER fcitx || fcitx -rD"
 #exec_always --no-startup-id "pgrep -u $USER xcompmgr || xcompmgr"
-exec_always --no-startup-id "pgrep -u $USER picom || picom --fade-delta=3"
+#exec_always --no-startup-id "pgrep -u $USER picom || picom --fade-delta=3"
+exec_always --no-startup-id "pgrep -u $USER picom || picom --no-fading-openclose"
 exec_always--no-startup-id "pgrep -u $USER udiskie ||udiskie --tray"
 exec_always--no-startup-id "pgrep -u $USER dunst || dunst -config /home/xma11/.config/dunst/dunstrc"
 exec_always--no-startup-id "pgrep -u $USER xautolock || xautolock -time 17 -locker 'i3lock -c 000000'"
