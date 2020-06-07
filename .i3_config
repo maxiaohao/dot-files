@@ -50,7 +50,7 @@ bindsym $mod+d exec "rofi -modi combi -show combi -combi-modi run,drun"
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym $mod+Tab exec "rofi -show window -kb-row-down 'Alt+Tab' -kb-accept-entry '!Alt_L,!Alt+Tab'"
+bindsym $mod+Tab exec "rofi -show window -show-icons -cycle true -kb-row-down 'Alt+Tab' -kb-accept-entry '!Alt_L,!Alt+Tab'"
 
 # change focus
 bindsym $mod+h focus left
@@ -130,8 +130,8 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # screenshot
-#bindsym Print exec flameshot gui -d 100
-bindsym --release Print exec screen_shot
+bindsym Print exec flameshot gui -d 100
+#bindsym --release Print exec screen_shot
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -189,6 +189,9 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 # lock
 bindsym $mod+Shift+F11 exec sleep 0.5 && i3lock -d -c 000000
 
+# clipmenu
+bindsym $mod+Ctrl+p exec CM_HISTLENGTH=20 CM_LAUNCHER=rofi clipmenu -p clipboard
+
 client.focused #CE5C00 #CE5C00 #FFFFFF
 client.background #000000
 
@@ -219,14 +222,15 @@ exec_always --no-startup-id "pgrep -u $USER nm-applet || nm-applet --sm-disable"
 #exec --no-startup-id mate-volume-control-applet
 #exec --no-startup-id /usr/lib/mate-panel/notification-area-applet
 #exec --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" 288 0.4
-exec_always --no-startup-id sudo sh -c 'echo -n 166 > /sys/devices/platform/i8042/serio1/sensitivity'
+#exec_always --no-startup-id sudo sh -c 'echo -n 166 > /sys/devices/platform/i8042/serio1/sensitivity'
 exec_always --no-startup-id sudo sh -c 'echo -n 166 > /sys/devices/platform/i8042/serio1/serio2/sensitivity'
 exec_always --no-startup-id xinput disable "SynPS/2 Synaptics TouchPad"
 #exec --no-startup-id xset r rate 240 44
 exec_always --no-startup-id xset dpms 0 0 800
 #exec_always --no-startup-id rfkill block bluetooth
 exec_always --no-startup-id "pgrep -u $USER blueman-applet || blueman-applet"
-exec_always --no-startup-id "pgrep -u $USER clipit || clipit"
+#exec_always --no-startup-id "pgrep -u $USER clipit || clipit"
+exec_always --no-startup-id "pgrep -u $USER clipmenud || CM_MAX_CLIPS=200 CM_SELECTIONS=clipboard clipmenud"
 #exec_always --no-startup-id "pgrep -u $USER parcellite || parcellite"
 exec_always --no-startup-id "pgrep -u $USER ibus-daemon || ibus-daemon -d -x -r"
 #exec_always --no-startup-id "pgrep -u $USER fcitx || fcitx -rD"
@@ -238,4 +242,5 @@ exec_always--no-startup-id "pgrep -u $USER dunst || dunst -config /home/xma11/.c
 exec_always--no-startup-id "pgrep -u $USER xautolock || xautolock -time 17 -locker 'i3lock -c 000000'"
 exec_always--no-startup-id "pgrep -u $USER goldendict || goldendict"
 exec_always--no-startup-id "pgrep -u $USER albert || albert"
+exec_always--no-startup-id "pgrep -u $USER flameshot || flameshot"
 

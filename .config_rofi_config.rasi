@@ -1,0 +1,7 @@
+configuration {
+  combi-hide-mode-prefix : true;
+  cycle                  : false;
+  display-combi          : "run";
+  font                   : "JetBrains Mono 14";
+  theme                  : "gruvbox-dark-soft";
+}
