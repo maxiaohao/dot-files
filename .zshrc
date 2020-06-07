@@ -9,6 +9,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/colored-man-pages
   zgen oh-my-zsh plugins/docker
   zgen oh-my-zsh plugins/docker-compose
+  zgen oh-my-zsh plugins/gcloud
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/git-flow
@@ -18,11 +19,13 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/npm
   zgen oh-my-zsh plugins/shrink-path
   zgen oh-my-zsh plugins/yarn
+  zgen oh-my-zsh plugins/terraform
   zgen oh-my-zsh plugins/z
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load maxiaohao/my-conf-files xma
+  zgen load wulfgarpro/history-sync
   zgen save
 fi
 
@@ -147,10 +150,10 @@ if [ -f ~/.localrc ]; then
   source ~/.localrc
 fi
 
-if [ -f ~/doc/personal-doc/script/cluster/cluster -a -f ~/doc/personal-doc/script/cluster/cluster-completion.bash ]; then
-  source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster
-  source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster-completion.bash
-fi
+#if [ -f ~/doc/personal-doc/script/cluster/cluster -a -f ~/doc/personal-doc/script/cluster/cluster-completion.bash ]; then
+#  source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster
+#  source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster-completion.bash
+#fi
 
 # fzf
 source /usr/share/fzf/key-bindings.zsh

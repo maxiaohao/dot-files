@@ -10,3 +10,5 @@
 	insteadOf = https://github.com/
 [commit]
 	gpgsign = true
+[pull]
+	rebase = false
