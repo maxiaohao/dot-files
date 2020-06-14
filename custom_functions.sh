@@ -143,3 +143,21 @@ gdl() {
 	  echo "Usage: gdl <c|cc|ct|cb|cj> [sub_project_name]"
   fi
 }
+
+pkilled() {
+  if [[ ${#1} -le 2 ]]; then
+    echo "$1 is too short a process name to kill." && return 1
+  fi
+  pkill -u $USER $1
+  max_loop=20
+  force_kill_after=10
+  loops=0
+  while [[ $loops -lt $max_loop ]]; do
+    proc_cnt=$(pgrep -c -u $USER $1)
+    loops=$(($loops+1))
+    [[ "$proc_cnt" == "0" ]] && return 0
+    [[ $loops -gt $force_kill_after ]] && pkill -9 -u $USER $1
+    sleep 0.2;
+  done
+  echo "Failed to kill. Process $1 is still found." && return 1
+}

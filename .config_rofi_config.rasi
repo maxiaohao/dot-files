@@ -2,7 +2,8 @@ configuration {
   combi-hide-mode-prefix : true;
   cycle                  : false;
   display-combi          : "run";
-  font                   : "JetBrains Mono 14";
+  //font                   : "JetBrains Mono 14";
+  font                   : "Iosevka SS04 14";
   kb-accept-entry        : "Control+m,Return,KP_Enter";
   kb-remove-to-eol       : "";
   kb-row-down            : "Down,Control+n,Control+j";
