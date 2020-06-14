@@ -190,7 +190,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 bindsym $mod+Shift+F11 exec sleep 0.5 && i3lock -d -c 000000
 
 # clipmenu
-bindsym $mod+Ctrl+p exec CM_HISTLENGTH=20 CM_LAUNCHER=rofi clipmenu -p clipboard
+bindsym $mod+Ctrl+p exec CM_DIR=~/tmp CM_HISTLENGTH=20 CM_LAUNCHER=rofi clipmenu -p clipboard
 
 client.focused #CE5C00 #CE5C00 #FFFFFF
 client.background #000000
@@ -218,7 +218,6 @@ bar {
         #tray_output eDP-1
 }
 
-exec_always --no-startup-id "pgrep -u $USER nm-applet || nm-applet --sm-disable"
 #exec --no-startup-id mate-volume-control-applet
 #exec --no-startup-id /usr/lib/mate-panel/notification-area-applet
 #exec --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" 288 0.4
@@ -227,20 +226,22 @@ exec_always --no-startup-id sudo sh -c 'echo -n 166 > /sys/devices/platform/i804
 exec_always --no-startup-id xinput disable "SynPS/2 Synaptics TouchPad"
 #exec --no-startup-id xset r rate 240 44
 exec_always --no-startup-id xset dpms 0 0 800
+exec_always --no-startup-id xsetroot -solid '#000000'
+exec_always --no-startup-id hsetroot -solid '#000000'
 #exec_always --no-startup-id rfkill block bluetooth
 exec_always --no-startup-id "pgrep -u $USER blueman-applet || blueman-applet"
+exec_always --no-startup-id "pgrep -u $USER nm-applet || nm-applet --sm-disable"
 #exec_always --no-startup-id "pgrep -u $USER clipit || clipit"
-exec_always --no-startup-id "pgrep -u $USER clipmenud || CM_MAX_CLIPS=200 CM_SELECTIONS=clipboard clipmenud"
+exec_always --no-startup-id "pgrep -u $USER clipmenud || CM_DIR=~/tmp CM_MAX_CLIPS=200 CM_SELECTIONS=clipboard clipmenud"
 #exec_always --no-startup-id "pgrep -u $USER parcellite || parcellite"
 exec_always --no-startup-id "pgrep -u $USER ibus-daemon || ibus-daemon -d -x -r"
 #exec_always --no-startup-id "pgrep -u $USER fcitx || fcitx -rD"
 #exec_always --no-startup-id "pgrep -u $USER xcompmgr || xcompmgr"
 #exec_always --no-startup-id "pgrep -u $USER picom || picom --fade-delta=3"
 exec_always --no-startup-id "pgrep -u $USER picom || picom --no-fading-openclose -I 1 -O 1"
-exec_always--no-startup-id "pgrep -u $USER udiskie ||udiskie --tray"
-exec_always--no-startup-id "pgrep -u $USER dunst || dunst -config /home/xma11/.config/dunst/dunstrc"
-exec_always--no-startup-id "pgrep -u $USER xautolock || xautolock -time 17 -locker 'i3lock -c 000000'"
-exec_always--no-startup-id "pgrep -u $USER goldendict || goldendict"
-exec_always--no-startup-id "pgrep -u $USER albert || albert"
-exec_always--no-startup-id "pgrep -u $USER flameshot || flameshot"
-
+exec_always --no-startup-id "pgrep -u $USER udiskie ||udiskie --tray"
+exec_always --no-startup-id "pgrep -u $USER dunst || dunst -config /home/xma11/.config/dunst/dunstrc"
+exec_always --no-startup-id "pgrep -u $USER xautolock || xautolock -time 12 -locker 'i3lock -c 000000'"
+exec_always --no-startup-id "pgrep -u $USER goldendict || goldendict"
+exec_always --no-startup-id "pgrep -u $USER albert || albert"
+exec_always --no-startup-id "pgrep -u $USER flameshot || flameshot"
