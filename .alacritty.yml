@@ -1,5 +1,5 @@
 env:
-    WINIT_X11_SCALE_FACTOR: "1.0"
+  WINIT_X11_SCALE_FACTOR: "1.0"
 scrolling:
   history: 99999
 font:
@@ -20,8 +20,8 @@ colors:
     background: '#333333'
     foreground: '#dddddd'
   cursor:
-    text: '#000000'
-    cursor: '#dddddd'
+    text:    '#000000'
+    cursor:  '#dddddd'
   normal:
     black:   '#2e3436'
     red:     '#e12121'
