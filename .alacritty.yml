@@ -1,0 +1,40 @@
+scrolling:
+  history: 99999
+font:
+  normal:
+    family: Iosevka SS04
+    style: Light
+  bold:
+    family: Iosevka SS04
+  italic:
+    family: Iosevka SS04
+    style: Light Italic
+  bold_italic:
+    family: Iosevka SS04
+  size: 12.5
+draw_bold_text_with_bright_colors: true
+colors:
+  primary:
+    background: '#333333'
+    foreground: '#dddddd'
+  cursor:
+    text: '#000000'
+    cursor: '#dddddd'
+  normal:
+    black:   '#2e3436'
+    red:     '#e12121'
+    green:   '#4eba06'
+    yellow:  '#c4a000'
+    blue:    '#3465a4'
+    magenta: '#75507b'
+    cyan:    '#06989a'
+    white:   '#d3d7cf'
+  bright:
+    black:   '#555753'
+    red:     '#ff3939'
+    green:   '#9add44'
+    yellow:  '#fce94f'
+    blue:    '#729fcf'
+    magenta: '#ad7fa8'
+    cyan:    '#34e2e2'
+    white:   '#eeeeec'
