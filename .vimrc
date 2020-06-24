@@ -1,16 +1,16 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
-Plug 'fatih/vim-go'
+"Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
 Plug 'ervandew/supertab'
 Plug 'takac/vim-hardtime'
-Plug '/usr/sbin/fzf'
-Plug 'junegunn/fzf.vim'
+"Plug '/usr/sbin/fzf'
+Plug 'junegunn/fzf'
 Plug 'dhruvasagar/vim-table-mode'
 
 call plug#end()
@@ -23,7 +23,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 "set autoindent
-"set smartindent
+set smartindent
 "set cursorline
 set hidden                   " allow swith without saving buffer
 set autochdir
