@@ -18,6 +18,27 @@ function aws_dec() {
   rm $TEMP_BINARY_FILE
 }
 
+kms_enc() {
+  FILENAME_PREFIX="/tmp/citrus_kms_"
+  TIMESTAMP=$(date +'%Y%m%d%H%M%S_%N')
+  FILE_PLAIN="${FILENAME_PREFIX}${TIMESTAMP}.plain"
+  FILE_CIPHERTEXT="${FILENAME_PREFIX}${TIMESTAMP}.ciphertext"
+  echo $1 > $FILE_PLAIN
+  gcloud kms encrypt --quiet --project citrus-204206 --location global --keyring citrus --key sharing --plaintext-file $FILE_PLAIN --ciphertext-file $FILE_CIPHERTEXT
+  cat $FILE_CIPHERTEXT | base64 -w0
+  rm -f $FILE_PLAIN $FILE_CIPHERTEXT
+}
+kms_dec() {
+  FILENAME_PREFIX="/tmp/citrus_kms_"
+  TIMESTAMP=$(date +'%Y%m%d%H%M%S_%N')
+  FILE_PLAIN="${FILENAME_PREFIX}${TIMESTAMP}.plain"
+  FILE_CIPHERTEXT="${FILENAME_PREFIX}${TIMESTAMP}.ciphertext"
+  echo $1 | base64 -d > $FILE_CIPHERTEXT
+  gcloud kms decrypt --quiet --project citrus-204206 --location global --keyring citrus --key sharing --plaintext-file $FILE_PLAIN --ciphertext-file $FILE_CIPHERTEXT
+  cat $FILE_PLAIN
+  rm -f $FILE_PLAIN $FILE_CIPHERTEXT
+}
+
 function dec_api_key_aws() {
   TMP_BIN_FILE=".tmp.kms.encrypted.bin.$RANDOM"
   echo $1 | xxd -r -p - $TMP_BIN_FILE
