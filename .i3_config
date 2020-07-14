@@ -232,7 +232,7 @@ exec_always --no-startup-id hsetroot -solid '#000000'
 exec_always --no-startup-id "pkill -u $USER blueman-applet ; blueman-applet"
 exec_always --no-startup-id "pkill -u $USER nm-applet ; nm-applet --sm-disable"
 #exec_always --no-startup-id "pkill -u $USER clipit ; clipit"
-exec_always --no-startup-id "pkill -9 -u $USER clipmenud && rm -f ~/tmp/clipmenu.*.$USER/*lock ; CM_DIR=~/tmp CM_MAX_CLIPS=200 CM_SELECTIONS=clipboard clipmenud"
+exec_always --no-startup-id "pgrep -u $USER -f clipmenud | grep -v $$ | xargs kill -9 ; rm -f ~/tmp/clipmenu.*.$USER/*lock ; CM_DIR=~/tmp CM_MAX_CLIPS=200 CM_SELECTIONS=clipboard clipmenud"
 #exec_always --no-startup-id "pkill -u $USER parcellite ; parcellite"
 exec_always --no-startup-id "pkill -u $USER ibus-daemon ; ibus-daemon -d -x -r"
 #exec_always --no-startup-id "pkill -u $USER fcitx ; fcitx -rD"
