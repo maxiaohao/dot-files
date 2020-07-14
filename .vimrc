@@ -1,17 +1,18 @@
 call plug#begin('~/.vim/plugged')
 
-"Plug 'bling/vim-airline'
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-"Plug 'fatih/vim-go'
-Plug 'godlygeek/tabular'
-Plug 'ervandew/supertab'
-Plug 'takac/vim-hardtime'
-"Plug '/usr/sbin/fzf'
-Plug 'junegunn/fzf'
+"Plug 'bling/vim-airline'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'ervandew/supertab'
+Plug 'fatih/vim-go'
+Plug 'godlygeek/tabular'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'takac/vim-hardtime'
+Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 
@@ -25,7 +26,7 @@ set expandtab
 "set autoindent
 set smartindent
 "set cursorline
-set hidden                   " allow swith without saving buffer
+set hidden "allow swith without saving buffer
 set autochdir
 set noerrorbells
 set novisualbell
