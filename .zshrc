@@ -113,7 +113,7 @@ alias mvncv='mvn clean verify'
 alias mvnec='mvn clean eclipse:clean eclipse:eclipse'
 alias mvnit='mvn clean test-compile failsafe:integration-test failsafe:verify'
 alias mvnlq='mvn clean compile && rm -f src/main/resources/db/temp/liquibase-diff-changeLog.xml && mvn liquibase:diff'
-alias t='terraform'
+alias t='devops-environment'
 alias tmux='tmux -2'
 alias v='vim'
 alias vi='vim'
@@ -146,22 +146,22 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 export PATH=$PATH:~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
 export PATH="$PATH:$HOME/.rvm/bin"
 
-if [ -f ~/.localrc ]; then
-  source ~/.localrc
-fi
-
-#if [ -f ~/doc/personal-doc/script/cluster/cluster -a -f ~/doc/personal-doc/script/cluster/cluster-completion.bash ]; then
-#  source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster
-#  source ~/dev/citrus/mono-project/cluster/src/tools/bash_helper/cluster-completion.bash
-#fi
-
 # fzf
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
+if [ -f ~/.localrc ]; then
+  source ~/.localrc
+fi
+
+# custom functions
+source $MY_CONF_FILES/custom_functions.sh
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/xma11/.sdkman"
 [[ -s "/home/xma11/.sdkman/bin/sdkman-init.sh" ]] && source "/home/xma11/.sdkman/bin/sdkman-init.sh"
+
+[[ -f /home/xma11/dev/citrus/devops/script/devops-environment/rc ]] && source /home/xma11/dev/citrus/devops/script/devops-environment/rc
 
 # # nvm (slow)
 # export NVM_DIR="$HOME/.nvm"
@@ -172,9 +172,6 @@ export GPG_TTY=$(tty)
 
 export GOOGLE_APPLICATION_CREDENTIALS="/home/xma11/.gcp-creds.json"
 
-# custom functions
-source $MY_CONF_FILES/custom_functions.sh
-
 true
 
 autoload -U +X bashcompinit && bashcompinit
@@ -183,3 +180,4 @@ complete -o nospace -C /usr/bin/terraform terraform
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
 fi
+
