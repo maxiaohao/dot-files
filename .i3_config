@@ -33,12 +33,13 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+y exec i3-sensible-terminal
-bindsym $mod+y exec urxvt || xterm || i3-sensible-terminal
+bindsym $mod+y exec urxvt
 bindsym $mod+u exec alacritty
 
 # kill focused window
 #bindsym $mod+Shift+q kill
 bindsym $mod+w kill
+#bindsym $mod+Shift+w "kill -9"
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run -fn "DejaVu Sans-18"

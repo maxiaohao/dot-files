@@ -170,7 +170,7 @@ export SDKMAN_DIR="/home/xma11/.sdkman"
 
 export GPG_TTY=$(tty)
 
-export GOOGLE_APPLICATION_CREDENTIALS="/home/xma11/.gcp-creds.json"
+export GOOGLE_APPLICATION_CREDENTIALS="/home/xma11/.config/gcloud/application_default_credentials.json"
 
 true
 
