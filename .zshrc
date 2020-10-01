@@ -115,6 +115,7 @@ alias mvnit='mvn clean test-compile failsafe:integration-test failsafe:verify'
 alias mvnlq='mvn clean compile && rm -f src/main/resources/db/temp/liquibase-diff-changeLog.xml && mvn liquibase:diff'
 alias t='devops-environment terraform'
 alias gsmedit='devops-environment gsmedit.sh'
+alias gls='gsutil ls'
 alias tmux='tmux -2'
 alias v='vim'
 alias vi='vim'
@@ -130,6 +131,7 @@ export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
 export LC_ALL=en_AU.UTF-8
+export LC_CTYPE=en_AU.UTF-8
 export LANG=en_AU.UTF-8
 export VISUAL="vim"
 export FLUTTER_HOME=~/dev/tool/flutter

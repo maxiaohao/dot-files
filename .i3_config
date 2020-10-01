@@ -40,7 +40,7 @@ bindsym $mod+u exec alacritty
 # kill focused window
 #bindsym $mod+Shift+q kill
 bindsym $mod+w kill
-bindsym $mod+Shift+w exec bash /home/xma11/dev/xma-projects/my-conf-files/script/click_and_kill.sh
+#bindsym $mod+Shift+w exec click_and_kill.sh
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run -fn "DejaVu Sans-18"

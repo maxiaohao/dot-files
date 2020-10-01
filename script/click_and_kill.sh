@@ -1,3 +1,3 @@
 #!/bin/bash
 pid=$(xprop _NET_WM_PID | awk '{print $3}')
-kill -9 $pid
+zenity --question --text="Force kill pid $pid?" && kill -9 $pid
