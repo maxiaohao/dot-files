@@ -182,3 +182,7 @@ pkilled() {
   done
   echo "Failed to kill. Process $1 is still found." && return 1
 }
+
+tshow-txt() {
+  t show -no-color $1 > $1.txt
+}
