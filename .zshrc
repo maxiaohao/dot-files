@@ -122,6 +122,7 @@ alias v='vim'
 alias vi='vim'
 alias watch='watch '
 alias gs='gsutil'
+alias curl='curlie'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
