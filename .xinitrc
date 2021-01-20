@@ -15,6 +15,9 @@ export XMODIFIERS="@im=ibus"
 # for fix flameshot
 #exec dbus-launch /usr/bin/i3
 
+# load .Xresources after xorg and BEFORE i3 for correct cursor size
+[[ -s "$HOME/.Xresources" ]] && xrdb $HOME/.Xresources
+
 # normal i3
-#exec /usr/bin/i3
-exec /usr/bin/i3 >~/tmp/i3.log.${USER}.$(date +'%F_%k%M%S') 2>&1
+mkdir -p $HOME/tmp/i3_log
+exec /usr/bin/i3 >$HOME/tmp/i3_log/i3.log.${USER}.$(date +'%F_%k%M%S') 2>&1
