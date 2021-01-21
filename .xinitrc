@@ -18,6 +18,9 @@ export XMODIFIERS="@im=ibus"
 # load .Xresources after xorg and BEFORE i3 for correct cursor size
 [[ -s "$HOME/.Xresources" ]] && xrdb $HOME/.Xresources
 
-# normal i3
 mkdir -p $HOME/tmp/i3_log
-exec /usr/bin/i3 >$HOME/tmp/i3_log/i3.log.${USER}.$(date +'%F_%k%M%S') 2>&1
+DISPLAY_NUM=$(echo ${DISPLAY} | cut -c2-)
+TIMESTAMP_STR=$(date +'%F_%H%M%S')
+
+exec /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
+
