@@ -4,7 +4,7 @@ source /usr/share/zsh/share/zgen.zsh
 
 if ! zgen saved; then
   zgen oh-my-zsh
-  zgen oh-my-zsh plugins/autojump
+  #zgen oh-my-zsh plugins/autojump
   zgen oh-my-zsh plugins/aws
   zgen oh-my-zsh plugins/colored-man-pages
   zgen oh-my-zsh plugins/docker
