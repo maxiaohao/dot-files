@@ -1,0 +1,17 @@
+# You will have to uncomment one of the following lines for CRD to work
+# Remove the # and select ctrl-X to finish.
+#
+export $(dbus-launch)
+
+[[ -s "$HOME/.Xresources" ]] && xrdb $HOME/.Xresources
+
+mkdir -p $HOME/tmp/i3_log
+DISPLAY_NUM=$(echo ${DISPLAY} | cut -c2-)
+TIMESTAMP_STR=$(date +'%F_%H%M%S')
+
+exec /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
+
+# exec i3
+# exec /usr/bin/openbox-session
+# exec /usr/bin/openbox-kde-session
+# exec i3-with-shmlog
