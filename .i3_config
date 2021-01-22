@@ -192,7 +192,11 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 bindsym $mod+Shift+F11 exec sleep 0.5 && i3lock -d -c 000000
 
 # clipmenu
-bindsym $mod+Ctrl+p exec CM_DIR=~/tmp CM_HISTLENGTH=20 CM_LAUNCHER=rofi clipmenu -p clipboard
+bindsym $mod+Ctrl+o exec CM_DIR=~/tmp CM_HISTLENGTH=20 CM_LAUNCHER=rofi clipmenu -p clipboard
+
+# greenclip
+set $greenclip_client rofi -modi "clipboard:greenclip print" -show clipboard -lines 20 -run-command '{cmd}'
+bindsym $mod+Ctrl+p exec $greenclip_client
 
 client.focused #CE5C00 #CE5C00 #FFFFFF
 client.background #000000
@@ -235,6 +239,7 @@ exec_always --no-startup-id "pkill -u $USER blueman-applet ; blueman-applet"
 exec_always --no-startup-id "pkill -u $USER nm-applet ; nm-applet --sm-disable"
 #exec_always --no-startup-id "pkill -u $USER clipit ; clipit"
 exec_always --no-startup-id "pgrep -u $USER -f clipmenud | grep -v $$ | xargs kill -9 ; rm -f ~/tmp/clipmenu.*.$USER/*lock ; CM_DIR=~/tmp CM_MAX_CLIPS=5000 CM_SELECTIONS=clipboard clipmenud"
+exec_always --no-startup-id "pkill -u $USER greenclip ; greenclip daemon"
 #exec_always --no-startup-id "pkill -u $USER parcellite ; parcellite"
 exec_always --no-startup-id "pkill -u $USER ibus-daemon ; ibus-daemon -d -x -r"
 #exec_always --no-startup-id "pkill -u $USER fcitx ; fcitx -rD"
