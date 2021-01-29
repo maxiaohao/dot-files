@@ -252,4 +252,4 @@ exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -time 12 -lock
 exec_always --no-startup-id "pkill -u $USER goldendict ; goldendict &"
 #exec_always --no-startup-id "pkill -u $USER albert ; albert"
 exec_always --no-startup-id "pkill -u $USER flameshot ; flameshot"
-
+exec_always --no-startup-id "[[ -h $HOME/.Xmodmap ]] && sleep 3 && xmodmap $HOME/.Xmodmap"

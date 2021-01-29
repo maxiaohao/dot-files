@@ -4,7 +4,8 @@ export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus
 export XMODIFIERS="@im=ibus"
 
-[[ -s "$HOME/.Xmodmap" ]] && xmodmap $HOME/.Xmodmap
+# No use in .xinitrc
+#[[ -h "$HOME/.Xmodmap" ]] && xmodmap $HOME/.Xmodmap
 
 #export GTK_IM_MODULE=fcitx
 #export QT_IM_MODULE=fcitx
