@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod3
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -133,6 +133,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 # screenshot
 bindsym Print exec flameshot gui -d 100
+bindsym $mod+Shift+y exec flameshot gui -d 100
 #bindsym --release Print exec screen_shot
 
 # reload the configuration file
@@ -252,4 +253,4 @@ exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -time 12 -lock
 exec_always --no-startup-id "pkill -u $USER goldendict ; goldendict &"
 #exec_always --no-startup-id "pkill -u $USER albert ; albert"
 exec_always --no-startup-id "pkill -u $USER flameshot ; flameshot"
-exec_always --no-startup-id "[[ -h $HOME/.Xmodmap ]] && sleep 3 && xmodmap $HOME/.Xmodmap"
+exec_always --no-startup-id "setxkbmap -option; [[ -h $HOME/.Xmodmap ]] && sleep 3 && xmodmap $HOME/.Xmodmap"

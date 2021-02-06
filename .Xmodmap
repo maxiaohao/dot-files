@@ -1,1 +1,31 @@
+! insert = BackSpace
 keycode 118 = BackSpace
+
+! remove Caps Lock
+clear lock
+! remove Lock = Caps_Lock
+! remove Shift = Caps_Lock
+
+! bind CapsLock + hjkl/ae/np
+keycode 66 = NoSymbol NoSymbol
+keycode 66 = Mode_switch
+keysym h = h H Left NoSymbol NoSymbol NoSymbol
+keysym j = j J Down NoSymbol NoSymbol NoSymbol
+keysym k = k K Up NoSymbol NoSymbol NoSymbol
+! keysym l = l L Right NoSymbol lstroke Lstroke
+keysym l = l L Right NoSymbol NoSymbol NoSymbol
+keysym a = a A Home NoSymbol NoSymbol NoSymbol
+keysym e = e E End NoSymbol NoSymbol NoSymbol
+keysym n = n N Next NoSymbol NoSymbol NoSymbol
+keysym p = p P Prior NoSymbol NoSymbol NoSymbol
+
+! disable arrow keys
+keycode 111 =
+keycode 113 =
+keycode 114 =
+keycode 116 =
+
+! mod3 = Alt_L
+keycode 64 = Alt_L
+remove mod1 = Alt_L
+add mod3 = Alt_L
