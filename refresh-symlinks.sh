@@ -22,4 +22,5 @@ for dotfile in .*; do
 done
 
 # fonts files need to be copied rather than linked
-
+mkdir -p $HOME/.fonts
+\cp -f .fonts/* $HOME/.fonts
