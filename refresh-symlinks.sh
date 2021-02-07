@@ -22,5 +22,12 @@ for dotfile in .*; do
 done
 
 # fonts files need to be copied rather than linked
+echo "Copying .fonts files and updating fontscache ..."
 mkdir -p $HOME/.fonts
 \cp -f .fonts/* $HOME/.fonts
+fc-cache -f
+
+# copy IN_PATH scripts
+mkdir -p $HOME/dev/tool/IN_PATH
+echo "Copying IN_PATH scripts ..."
+\cp -f IN_PATH/* $HOME/dev/tool/IN_PATH/
