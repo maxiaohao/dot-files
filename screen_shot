@@ -1,4 +1,0 @@
-#/bin/sh
-mkdir -p $HOME/.screenshot
-FILE_NAME="$HOME/.screenshot/"$(date "+%Y%m%d%H%M%S-%N")".png"
-import $FILE_NAME && xclip -selection clipboard -target image/png $FILE_NAME > $HOME/tmp/fff.log 2>&1

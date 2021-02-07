@@ -1,3 +1,5 @@
+export MY_CONF_FILES=~/dev/xma-projects/my-conf-files
+
 DISABLE_AUTO_UPDATE=true
 
 source /usr/share/zsh/share/zgen.zsh
@@ -138,7 +140,6 @@ export LC_CTYPE=en_AU.UTF-8
 export LANG=en_AU.UTF-8
 export VISUAL="vim"
 export FLUTTER_HOME=~/dev/tool/flutter
-export MY_CONF_FILES=~/dev/xma-projects/my-conf-files
 export CLUSTER_SECRET_DIR=/home/xma11/.cluster
 export KUBE_EDITOR="vim"
 export GOPATH=~/dev/tool/go_path
