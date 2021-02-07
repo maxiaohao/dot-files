@@ -9,9 +9,11 @@ fn_link() {
   # echo "full_raw=$full_raw_filename, symlink=$full_symlink_filename, filename=$filename, dir=$dir"
   rm -f $full_symlink_filename
   mkdir -p $dir
-  echo "Creating symlink: $full_symlink_filename -> $full_raw_filename ..."
+  echo "Refreshing symlink: $full_symlink_filename -> $full_raw_filename ..."
   ln -s $full_raw_filename $full_symlink_filename
 }
+
+cd $(dirname $0)
 
 for dotfile in .*; do
   if [[ -f $dotfile ]]; then
@@ -19,7 +21,5 @@ for dotfile in .*; do
   fi
 done
 
-# ln -s
-
-# fonts
+# fonts files need to be copied rather than linked
 
