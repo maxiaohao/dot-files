@@ -19,7 +19,7 @@ keysym p = p P Prior NoSymbol NoSymbol NoSymbol
 !keycode 114 =
 !keycode 116 =
 
-! mod3 = Alt_L
-keycode 64 = Alt_L
-remove mod1 = Alt_L
-add mod3 = Alt_L
+! mod3 = Alt_R
+keycode 108 = Alt_R
+remove mod1 = Alt_R
+add mod3 = Alt_R
