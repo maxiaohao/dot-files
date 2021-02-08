@@ -1,5 +1,31 @@
 #!/bin/bash
 
+function tm() {
+  SESS_NAME=$(hostname -s)
+  if [ -z "$TMUX" ]; then
+    tmux has-session -t $SESS_NAME > /dev/null 2>&1
+    if [ $? != 0 ]; then
+      cd $HOME
+      tmux new-session -s $SESS_NAME -d
+      tmux neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; next \; attach
+    fi
+    tmux attach -t $SESS_NAME
+  fi
+}
+
+function tm2() {
+  SESS_NAME=$HOSTNAME"-2x2"
+  if [ -z "$TMUX" ]; then
+    tmux has-session -t $SESS_NAME > /dev/null 2>&1
+    if [ $? != 0 ]; then
+      cd $HOME
+      tmux new-session -s $SESS_NAME -d
+      tmux splitw \; splitw \; splitw \; selectl tiled \; selectp -t 0 \; attach
+    fi
+    tmux attach -t $SESS_NAME
+  fi
+}
+
 function screen_shot() {
   mkdir -p ~/.screenshot
   FILE_NAME="~/.screenshot/"$(date "+%Y%m%d%H%M%S-%N")".png"

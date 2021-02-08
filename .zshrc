@@ -29,7 +29,7 @@ if ! zgen saved; then
   zgen save
 fi
 
-# source /home/xma11/dev/tool/antigen/antigen.zsh
+# source $HOME/dev/tool/antigen/antigen.zsh
 # antigen use oh-my-zsh
 # antigen bundle autojump
 # antigen bundle aws
@@ -137,37 +137,36 @@ export LC_ALL=en_AU.UTF-8
 export LC_CTYPE=en_AU.UTF-8
 export LANG=en_AU.UTF-8
 export VISUAL="vim"
-export FLUTTER_HOME=~/dev/tool/flutter
-export MY_CONF_FILES=~/dev/xma-projects/my-conf-files
-export CLUSTER_SECRET_DIR=/home/xma11/.cluster
+export FLUTTER_HOME=$HOME/dev/tool/flutter
+export CLUSTER_SECRET_DIR=$HOME/.cluster
 export KUBE_EDITOR="vim"
-export GOPATH=~/dev/tool/go_path
+export GOPATH=$HOME/dev/tool/go_path
 export GOPRIVATE="github.com/citrus-international"
 export PROMPT_EOL_MARK=""
 export CHROME_BIN="chromium"
-export RIPGREP_CONFIG_PATH="/home/xma11/.ripgreprc"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH=$PATH:~/dev/tool/IN_PATH:$MY_CONF_FILES:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
+export PATH=$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # fzf
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
-if [ -f ~/.localrc ]; then
-  source ~/.localrc
+if [ -f $HOME/.localrc ]; then
+  source $HOME/.localrc
 fi
 
 # custom functions
-source $MY_CONF_FILES/custom_functions.sh
+[[ -f $HOME/.custom_functions.sh ]] && source $HOME/.custom_functions.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/xma11/.sdkman"
-[[ -s "/home/xma11/.sdkman/bin/sdkman-init.sh" ]] && source "/home/xma11/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-[[ -f /home/xma11/dev/citrus/devops/script/devops-environment/rc ]] && source /home/xma11/dev/citrus/devops/script/devops-environment/rc
+[[ -f $HOME/dev/citrus/devops/script/devops-environment/rc ]] && source $HOME/dev/citrus/devops/script/devops-environment/rc
 
 # # nvm (slow)
 # export NVM_DIR="$HOME/.nvm"
@@ -176,7 +175,7 @@ export SDKMAN_DIR="/home/xma11/.sdkman"
 
 export GPG_TTY=$(tty)
 
-export GOOGLE_APPLICATION_CREDENTIALS="/home/xma11/.config/gcloud/application_default_credentials.json"
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.config/gcloud/application_default_credentials.json"
 
 true
 
