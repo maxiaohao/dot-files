@@ -12,6 +12,7 @@ keysym a = a A Home  NoSymbol NoSymbol NoSymbol
 keysym e = e E End   NoSymbol NoSymbol NoSymbol
 keysym n = n N Next  NoSymbol NoSymbol NoSymbol
 keysym p = p P Prior NoSymbol NoSymbol NoSymbol
+keysym BackSpace = BackSpace BackSpace Delete NoSymbol NoSymbol NoSymbol
 
 ! disable arrow keys (will break 'hjkl' in chrome)
 !keycode 111 =
