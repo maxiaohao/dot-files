@@ -182,6 +182,10 @@ true
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 
+# fix Home/End keys in zsh in tmux
+bindkey "\E[1~" beginning-of-line
+bindkey "\E[4~" end-of-line
+
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
 fi
