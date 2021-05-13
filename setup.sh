@@ -22,13 +22,6 @@ for dotfile in .*; do
   fi
 done
 
-# fonts files need to be copied rather than linked
-echo "Copying .fonts files ..."
-mkdir -p $HOME/.fonts
-\cp -f .fonts/* $HOME/.fonts
-echo "Updating font cache ..."
-fc-cache -f
-
 # make symlinks for IN_PATH scripts
 if [[ -d IN_PATH ]]; then
   full_in_path=$HOME/dev/tool/IN_PATH
@@ -44,5 +37,7 @@ if [[ -d IN_PATH ]]; then
     fi
   done
 fi
+
+fc-cache -rf
 
 #TODO refactor both loops to use fn_link
