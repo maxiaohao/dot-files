@@ -19,6 +19,8 @@ export XMODIFIERS="@im=ibus"
 # load .Xresources after xorg and BEFORE i3 for correct cursor size
 [[ -s "$HOME/.Xresources" ]] && xrdb $HOME/.Xresources
 
+xset +fp $HOME/.local/share/fonts
+
 mkdir -p $HOME/tmp/i3_log
 DISPLAY_NUM=$(echo ${DISPLAY} | cut -c2-)
 TIMESTAMP_STR=$(date +'%F_%H%M%S')

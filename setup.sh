@@ -38,6 +38,8 @@ if [[ -d IN_PATH ]]; then
   done
 fi
 
+mkfontdir $HOME/.local/share/fonts
+
 fc-cache -rf
 
 #TODO refactor both loops to use fn_link
