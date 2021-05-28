@@ -1,5 +1,7 @@
 #!/bin/bash
 
+script_dir=$(dirname $(readlink -f setup.sh))
+
 fn_link() {
   raw_filename=$1
   full_raw_filename=$(readlink -f $raw_filename)
@@ -13,7 +15,7 @@ fn_link() {
   ln -s $full_raw_filename $full_symlink_filename
 }
 
-cd $(dirname $0)
+cd $script_dir
 
 # make symlinks for dot files
 for dotfile in .*; do
@@ -42,6 +44,7 @@ fi
 # mkfontdir $HOME/.local/share/fonts
 
 # Workaround: Directly copy fonts into system font dir.
+cd $script_dir
 FONT_SYS_DIR_MODK="/usr/share/fonts/modk"
 sudo mkdir -p $FONT_SYS_DIR_MODK
 sudo cp -f *modk*.bdf $FONT_SYS_DIR_MODK/
