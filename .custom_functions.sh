@@ -156,6 +156,16 @@ gcmsg() {
   git commit -m $prefix_msg$1
 }
 
+function gcmsg_pr() {
+  if [ -z $1 ]; then
+    echo "usage: gcmsg_pr <message/title>"
+    return 1
+  fi
+  gcmsg $1
+  gpsup
+  hub_pr $1
+}
+
 gdl() {
 	if [[ "$#" -eq 1 || "$#" -eq 2 ]]; then
 		GDL_CMD="./gradlew"
