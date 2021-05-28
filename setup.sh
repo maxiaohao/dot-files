@@ -38,7 +38,14 @@ if [[ -d IN_PATH ]]; then
   done
 fi
 
-mkfontdir $HOME/.local/share/fonts
+# TODO: Investigate why fonts in home dir don't work as expected.
+# mkfontdir $HOME/.local/share/fonts
+
+# Workaround: Directly copy fonts into system font dir.
+FONT_SYS_DIR_MODK="/usr/share/fonts/modk"
+sudo mkdir -p $FONT_SYS_DIR_MODK
+sudo cp -f *modk*.bdf $FONT_SYS_DIR_MODK/
+sudo mkfontdir $FONT_SYS_DIR_MODK
 
 fc-cache -rf
 
