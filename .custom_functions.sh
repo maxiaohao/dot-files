@@ -222,3 +222,8 @@ pkilled() {
 tshow-txt() {
   t show -no-color $1 > $1.txt
 }
+
+f() {
+  file=$(fzf)
+  [[ "$file" != "" ]] && vim $file
+}
