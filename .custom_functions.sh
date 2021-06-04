@@ -156,14 +156,10 @@ gcmsg() {
   git commit -m $prefix_msg$1
 }
 
-function gcmsg_pr() {
-  if [ -z $1 ]; then
-    echo "usage: gcmsg_pr <message/title>"
-    return 1
-  fi
-  gcmsg $1
-  gpsup
-  hub_pr $1
+function gpr() {
+  [[ -z $1 ]] || ( echo "Usage: gpr <message/title>" && return 1 )
+  git diff --quiet || ( echo "[Exit 1] Working tree is dirty!" && return 1)
+  gcmsg $1 && gpsup && hub_pr $1
 }
 
 gdl() {
