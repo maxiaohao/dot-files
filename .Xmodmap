@@ -4,15 +4,17 @@ keycode 118 = BackSpace
 ! bind CapsLock + hjkl/ae/np
 clear Lock
 keycode 66 = Mode_switch
-keysym h = h H Left  NoSymbol NoSymbol NoSymbol
-keysym j = j J Down  NoSymbol NoSymbol NoSymbol
-keysym k = k K Up    NoSymbol NoSymbol NoSymbol
-keysym l = l L Right NoSymbol NoSymbol NoSymbol
-keysym a = a A Home  NoSymbol NoSymbol NoSymbol
-keysym e = e E End   NoSymbol NoSymbol NoSymbol
-keysym n = n N Next  NoSymbol NoSymbol NoSymbol
-keysym p = p P Prior NoSymbol NoSymbol NoSymbol
-keysym BackSpace = BackSpace BackSpace Delete NoSymbol NoSymbol NoSymbol
+keysym h         = h         H         Left       NoSymbol NoSymbol NoSymbol
+keysym j         = j         J         Down       NoSymbol NoSymbol NoSymbol
+keysym k         = k         K         Up         NoSymbol NoSymbol NoSymbol
+keysym l         = l         L         Right      NoSymbol NoSymbol NoSymbol
+keysym a         = a         A         Home       NoSymbol NoSymbol NoSymbol
+keysym e         = e         E         End        NoSymbol NoSymbol NoSymbol
+keysym n         = n         N         Next       NoSymbol NoSymbol NoSymbol
+keysym p         = p         P         Prior      NoSymbol NoSymbol NoSymbol
+keysym BackSpace = BackSpace BackSpace Delete     NoSymbol NoSymbol NoSymbol
+keysym g         = g         G         grave      NoSymbol NoSymbol NoSymbol
+keysym t         = t         T         asciitilde NoSymbol NoSymbol NoSymbol
 
 ! disable arrow keys (will break 'hjkl' in chrome)
 !keycode 111 =
