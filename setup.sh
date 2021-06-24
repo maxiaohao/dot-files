@@ -51,5 +51,13 @@ sudo cp -f *modk*.bdf $FONT_SYS_DIR_MODK/
 sudo mkfontdir $FONT_SYS_DIR_MODK
 
 fc-cache -rf
+sudo SOURCE_DATE_EPOCH=$(date +%s) fc-cache -rs
 
 #TODO refactor both loops to use fn_link
+
+# copy xkb file to sys folder
+echo "Copying xkb files..."
+[[ -e /usr/share/X11/xkb/symbols/us ]] || sudo \cp -n /usr/share/X11/xkb/symbols/us /usr/share/X11/xkb/symbols/us.old
+sudo \cp -f xkb/us /usr/share/X11/xkb/symbols/us
+
+echo "All done!"

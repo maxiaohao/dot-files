@@ -254,4 +254,5 @@ exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -time 12 -lock
 exec_always --no-startup-id "pkill -u $USER goldendict ; goldendict &"
 #exec_always --no-startup-id "pkill -u $USER albert ; albert"
 exec_always --no-startup-id "pkill -u $USER flameshot ; flameshot"
-exec_always --no-startup-id "setxkbmap -option; [[ -h $HOME/.Xmodmap ]] && sleep 3 && xmodmap $HOME/.Xmodmap"
+# commented out xmodmap in favour of xkb
+# exec_always --no-startup-id "setxkbmap -option; [[ -h $HOME/.Xmodmap ]] && sleep 3 && xmodmap $HOME/.Xmodmap"
