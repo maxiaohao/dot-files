@@ -80,7 +80,7 @@ xkb_symbols "euro" {
 
     include "eurosign(5)"
 
-    // include "level3(ralt_switch)"
+    include "level3(ralt_switch)"
 };
 
 
@@ -155,7 +155,7 @@ xkb_symbols "intl" {
 
     key <LSGT> { [ backslash,   bar,            backslash,      bar ] };
 
-    // include "level3(ralt_switch)"
+    include "level3(ralt_switch)"
 };
 
 // Based on symbols/us_intl keyboard map:
