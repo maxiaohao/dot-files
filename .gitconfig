@@ -6,9 +6,9 @@
 	autocrlf = input
 [push]
 	default = simple
-[url "git@github.com:"]
-	insteadOf = https://github.com/
 [commit]
 	gpgsign = true
 [pull]
 	rebase = false
+[url "git@github.com:citrus-international/devops.git"]
+	insteadOf = https://github.com/citrus-international/devops.git
