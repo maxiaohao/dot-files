@@ -25,5 +25,6 @@ mkdir -p $HOME/tmp/i3_log
 DISPLAY_NUM=$(echo ${DISPLAY} | cut -c2-)
 TIMESTAMP_STR=$(date +'%F_%H%M%S')
 
-exec /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
+# exec /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
+exec dbus-launch /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
 
