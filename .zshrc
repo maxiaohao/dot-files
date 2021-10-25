@@ -150,6 +150,7 @@ export BAT_STYLE="plain"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:/home/xma11/.dotnet/tools"
 
 # fzf
 source /usr/share/fzf/key-bindings.zsh
