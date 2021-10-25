@@ -27,3 +27,4 @@ TIMESTAMP_STR=$(date +'%F_%H%M%S')
 
 # exec /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
 exec dbus-launch /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
+
