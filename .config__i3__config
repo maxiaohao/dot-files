@@ -32,6 +32,8 @@ font -*-*-*-*-*-*-8-*-*-*-*-*-*-*
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+workspace_layout tabbed
+
 # start a terminal
 #bindsym $mod+y exec i3-sensible-terminal
 bindsym $mod+y exec urxvt
@@ -132,6 +134,14 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+# move current workspace to next output
+bindsym $mod+Shift+x move workspace to output next
+
+# load workspace layouts
+bindsym $mod+Shift+Ctrl+1 exec "i3-msg 'workspace 1; append_layout /home/xma11/.config/i3/workspace1.json'"
+bindsym $mod+Shift+Ctrl+2 exec "i3-msg 'workspace 2; append_layout /home/xma11/.config/i3/workspace2.json'"
+bindsym $mod+Shift+Ctrl+3 exec "i3-msg 'workspace 3; append_layout /home/xma11/.config/i3/workspace3.json'"
+
 # screenshot
 bindsym Print exec flameshot gui -d 100
 bindsym $mod+Shift+y exec flameshot gui -d 100
@@ -229,7 +239,7 @@ bar {
 #exec --no-startup-id mate-volume-control-applet
 #exec --no-startup-id /usr/lib/mate-panel/notification-area-applet
 #exec --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" 288 0.4
-exec --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" "libinput Accel Speed" 0.8
+exec_always --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" "libinput Accel Speed" 1.0
 #exec_always --no-startup-id sudo sh -c 'echo -n 166 > /sys/devices/platform/i8042/serio1/sensitivity'
 exec_always --no-startup-id sudo sh -c 'echo -n 166 > /sys/devices/platform/i8042/serio1/serio2/sensitivity'
 exec_always --no-startup-id xinput disable "SynPS/2 Synaptics TouchPad"
