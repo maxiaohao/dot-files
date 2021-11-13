@@ -60,8 +60,8 @@ xkb_symbols "basic" {
     key <AC07> { type="THREE_LEVEL", [ j,         J,         Down       ] };
     key <AC08> { type="THREE_LEVEL", [ k,         K,         Up         ] };
     key <AC09> { type="THREE_LEVEL", [ l,         L,         Right      ] };
-    key <AC01> {                     [ a,         A,         Home       ] };
-    key <AD03> {                     [ e,         E,         End        ] };
+    key <AC01> { type="THREE_LEVEL", [ a,         A,         Home       ] };
+    key <AD03> { type="THREE_LEVEL", [ e,         E,         End        ] };
     key <AB06> {                     [ n,         N,         Next       ] };
     key <AD10> {                     [ p,         P,         Prior      ] };
     key <AC05> {                     [ g,         G,         grave      ] };

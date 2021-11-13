@@ -12,3 +12,6 @@
 	rebase = false
 [url "git@github.com:citrus-international/devops.git"]
 	insteadOf = https://github.com/citrus-international/devops.git
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
