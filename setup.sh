@@ -77,10 +77,10 @@ echo -n "Copying fonts..." && fn_confirm \
 && sudo SOURCE_DATE_EPOCH=$(date +%s) fc-cache -rs
 
 
-echo -n "Copying xkb files..." && fn_confirm \
-[[ -e /usr/share/X11/xkb/symbols/us.old ]]    || sudo \cp -n /usr/share/X11/xkb/symbols/us    /usr/share/X11/xkb/symbols/us.old
-[[ -e /usr/share/X11/xkb/types/iso9995.old ]] || sudo \cp -n /usr/share/X11/xkb/types/iso9995 /usr/share/X11/xkb/types/iso9995.old
-sudo \cp -f xkb/symbols/us    /usr/share/X11/xkb/symbols/us
+echo -n "Copying xkb files..." && fn_confirm && \
+[[ -e /usr/share/X11/xkb/symbols/us.old ]]    || sudo \cp -n /usr/share/X11/xkb/symbols/us    /usr/share/X11/xkb/symbols/us.old; \
+[[ -e /usr/share/X11/xkb/types/iso9995.old ]] || sudo \cp -n /usr/share/X11/xkb/types/iso9995 /usr/share/X11/xkb/types/iso9995.old; \
+sudo \cp -f xkb/symbols/us    /usr/share/X11/xkb/symbols/us; \
 sudo \cp -f xkb/types/iso9995 /usr/share/X11/xkb/types/iso9995
 
 
