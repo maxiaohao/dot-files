@@ -1,6 +1,24 @@
 #!/bin/bash
 
+set -euo pipefail
+
 script_dir=$(dirname $(readlink -f setup.sh))
+
+fn_confirm() {
+  printf "Yes/No/Abort? [default=No] "
+  read -r yna
+  yna=$(echo "$yna" | tr "[:upper:]" "[:lower:]")
+  # shellcheck disable=SC2166
+  if [ "$yna" = "y" -o "$yna" = "yes" ]; then
+    return 0
+  elif [ "$yna" = "a" -o "$yna" = "abort" ]; then
+    echo "Aborted"
+    exit 1
+  else
+    echo "Skipped"
+    return 1
+  fi
+}
 
 fn_link() {
   raw_filename=$1
@@ -15,16 +33,18 @@ fn_link() {
   ln -s $full_raw_filename $full_symlink_filename
 }
 
+
 cd $script_dir
 
-# make symlinks for dot files
+echo -n "Making symlinks for dot files..." && fn_confirm && \
 for dotfile in .*; do
   if [[ -f $dotfile ]]; then
     fn_link "$dotfile";
   fi
 done
 
-# make symlinks for IN_PATH scripts
+
+echo -n "Making symlinks for IN_PATH scripts..." && fn_confirm && \
 if [[ -d IN_PATH ]]; then
   full_in_path=$HOME/dev/tool/IN_PATH
   mkdir -p $full_in_path
@@ -40,26 +60,28 @@ if [[ -d IN_PATH ]]; then
   done
 fi
 
+
 # TODO: Investigate why fonts in home dir don't work as expected.
 # mkfontdir $HOME/.local/share/fonts
 
-# Workaround: Directly copy fonts into system font dir.
-cd $script_dir
-FONT_SYS_DIR_MODK="/usr/share/fonts/modk"
-sudo mkdir -p $FONT_SYS_DIR_MODK
-sudo cp -f *modk*.bdf $FONT_SYS_DIR_MODK/
-sudo mkfontdir $FONT_SYS_DIR_MODK
-
-fc-cache -rf
-sudo SOURCE_DATE_EPOCH=$(date +%s) fc-cache -rs
-
 #TODO refactor both loops to use fn_link
 
-# copy xkb file to sys folder
-echo "Copying xkb files..."
+# Workaround: Directly copy fonts into system font dir.
+echo -n "Copying fonts..." && fn_confirm \
+&& cd $script_dir \
+&& FONT_SYS_DIR_MODK="/usr/share/fonts/modk" \
+&& sudo mkdir -p $FONT_SYS_DIR_MODK \
+&& sudo cp -f *modk*.bdf $FONT_SYS_DIR_MODK/ \
+&& sudo mkfontdir $FONT_SYS_DIR_MODK \
+&& fc-cache -rf \
+&& sudo SOURCE_DATE_EPOCH=$(date +%s) fc-cache -rs
+
+
+echo -n "Copying xkb files..." && fn_confirm \
 [[ -e /usr/share/X11/xkb/symbols/us.old ]]    || sudo \cp -n /usr/share/X11/xkb/symbols/us    /usr/share/X11/xkb/symbols/us.old
 [[ -e /usr/share/X11/xkb/types/iso9995.old ]] || sudo \cp -n /usr/share/X11/xkb/types/iso9995 /usr/share/X11/xkb/types/iso9995.old
 sudo \cp -f xkb/symbols/us    /usr/share/X11/xkb/symbols/us
 sudo \cp -f xkb/types/iso9995 /usr/share/X11/xkb/types/iso9995
+
 
 echo "All done!"
