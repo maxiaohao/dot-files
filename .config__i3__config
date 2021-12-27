@@ -36,7 +36,7 @@ workspace_layout tabbed
 
 # start a terminal
 #bindsym $mod+y exec i3-sensible-terminal
-bindsym $mod+y exec urxvt
+bindsym $mod+y exec alacritty
 bindsym $mod+Ctrl+t exec urxvt
 bindsym $mod+u exec alacritty
 
