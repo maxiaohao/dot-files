@@ -25,33 +25,10 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load maxiaohao/my-conf-files xma
-  zgen load wulfgarpro/history-sync
+  zgen load larkery/zsh-histdb sqlite-history.zsh
+  #zgen load larkery/zsh-histdb histdb-interactive.zsh (TODO: https://github.com/larkery/zsh-histdb#reverse-isearch + fzf)
   zgen save
 fi
-
-# source $HOME/dev/tool/antigen/antigen.zsh
-# antigen use oh-my-zsh
-# antigen bundle autojump
-# antigen bundle aws
-# antigen bundle colored-man-pages
-# antigen bundle docker
-# antigen bundle docker-compose
-# antigen bundle git
-# antigen bundle git-extras
-# antigen bundle git-flow
-# antigen bundle golang
-# antigen bundle kubectl
-# antigen bundle mvn
-# antigen bundle npm
-# antigen bundle yarn
-# antigen bundle z
-# antigen bundle shrink-path
-# antigen bundle djui/alias-tips
-# antigen bundle zsh-users/zsh-autosuggestions
-# antigen bundle zsh-users/zsh-completions
-# antigen bundle zsh-users/zsh-syntax-highlighting
-# antigen theme https://github.com/maxiaohao/my-conf-files.git xma
-# antigen apply
 
 # speeds up pasting w/ autosuggest: https://github.com/zsh-users/zsh-autosuggestions/issues/238
 pasteinit() {
@@ -158,8 +135,10 @@ source /usr/share/fzf/completion.zsh
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
 
+[[ -x /usr/bin/jump ]] && eval "$(jump shell)"
+
 # custom functions
-[[ -f $HOME/.custom_functions.sh ]] && source $HOME/.custom_functions.sh
+[[ -s $HOME/.custom_functions.sh ]] && source $HOME/.custom_functions.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -188,4 +167,3 @@ bindkey "\E[4~" end-of-line
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
 fi
-
