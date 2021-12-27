@@ -157,15 +157,15 @@ bindsym $mod+Shift+e exec "zenity --question --text='Quit i3?' && i3-msg -q exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        bindsym h resize shrink width 10 px
-        bindsym j resize grow height 10 px
-        bindsym k resize shrink height 10 px
-        bindsym l resize grow width 10 px
+  # These bindings trigger as soon as you enter the resize mode
+  bindsym h resize shrink width 10 px
+  bindsym j resize grow height 10 px
+  bindsym k resize shrink height 10 px
+  bindsym l resize grow width 10 px
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -220,20 +220,18 @@ default_border pixel 3
 popup_during_fullscreen smart
 focus_on_window_activation none
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
-        #font xft:xos4 Terminus 8
-        font -*-terminus-*-r-normal-*-12-*-*-*-*-*-*-*
-        colors {
-            focused_workspace #444444 #FF831D #000000
-        }
-        #status_command i3status
-        status_command py3status
-        #status_command i3blocks
-        tray_output primary
-        #tray_output LVDS1
-        #tray_output eDP-1
+  #font -*-terminus-*-r-normal-*-12-*-*-*-*-*-*-*
+  font pango:Font Awesome 5 Brands, Iosevka SS04 12
+  colors {
+    focused_workspace #444444 #FF831D #000000
+  }
+  tray_output primary
+  workspace_min_width 32
+  #status_command i3status
+  #status_command py3status
+  #status_command i3blocks
+  status_command i3status-rs
 }
 
 #exec --no-startup-id mate-volume-control-applet
@@ -259,8 +257,8 @@ exec_always --no-startup-id "pkill -u $USER ibus-daemon ; ibus-daemon -d -x -r"
 #exec_always --no-startup-id "pkill -u $USER xcompmgr ; xcompmgr"
 #exec_always --no-startup-id "pkill -u $USER picom ; picom --no-fading-openclose -I 1 -O 1 --config /dev/null"
 exec_always --no-startup-id "pkill -u $USER udiskie ; udiskie --tray"
-exec_always --no-startup-id "pkill -u $USER dunst ; dunst -config /home/xma11/.config/dunst/dunstrc"
-exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -time 12 -locker 'i3lock -c 000000'"
+exec_always --no-startup-id "pkill -u $USER dunst ; dunst -config $HOME/.config/dunst/dunstrc"
+exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -detectsleep -time 17 -locker 'i3lock -c 000000' -killtime 10 -killer 'systemctl suspend'"
 exec_always --no-startup-id "pkill -u $USER goldendict ; goldendict &"
 #exec_always --no-startup-id "pkill -u $USER albert ; albert"
 exec_always --no-startup-id "pkill -u $USER flameshot ; flameshot"

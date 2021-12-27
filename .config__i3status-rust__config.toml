@@ -1,0 +1,78 @@
+theme = "my"
+icons = "awesome5"
+
+[[block]]
+block = "cpu"
+info = 20
+warning = 40
+critical = 90
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{mem_used_percents}"
+# format_swap = "{swap_used_percents}"
+warning_mem = 50
+critical_mem = 80
+clickable = false
+
+[[block]]
+block = "disk_space"
+format = "r:{available*_}"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+[block.theme_overrides]
+idle_bg = "#333377"
+
+[[block]]
+block = "disk_space"
+format = "h:{available*_}"
+path = "/home"
+alias = "/home"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+[block.theme_overrides]
+idle_bg = "#333377"
+
+[[block]]
+block = "net"
+format = "{ssid^16} {speed_up;K*B} {speed_down;K*B}"
+interval = 5
+
+[[block]]
+block = "sound"
+headphones_indicator = true
+on_click = "pavucontrol"
+[block.theme_overrides]
+idle_bg = "#333377"
+
+[[block]]
+block = "weather"
+format = "{location}: {temp} {weather} {wind}m/s {direction}"
+#api_key from $OPENWEATHERMAP_API_KEY and city_id from $OPENWEATHERMAP_CITY_ID
+service = { name = "openweathermap", units = "metric" }
+interval = 900
+autolocate = true
+
+[[block]]
+block = "battery"
+interval = 60
+
+[[block]]
+block = "notify"
+
+[[block]]
+block = "time"
+icons_format = " "
+interval = 1
+format = "%a %d %b %I:%M:%S %p"
+timezone = "Australia/Brisbane"
+locale = "en_AU"

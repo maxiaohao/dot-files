@@ -19,6 +19,8 @@ export XMODIFIERS="@im=ibus"
 # load .Xresources after xorg and BEFORE i3 for correct cursor size
 [[ -s "$HOME/.Xresources" ]] && xrdb $HOME/.Xresources
 
+[[ -s "$HOME/.localrc" ]] && source $HOME/.localrc
+
 xset +fp $HOME/.local/share/fonts
 
 mkdir -p $HOME/tmp/i3_log
@@ -26,5 +28,6 @@ DISPLAY_NUM=$(echo ${DISPLAY} | cut -c2-)
 TIMESTAMP_STR=$(date +'%F_%H%M%S')
 
 # exec /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
-exec dbus-launch /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
+#exec dbus-launch /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1
 
+OPENWEATHERMAP_API_KEY=$OPENWEATHERMAP_API_KEY OPENWEATHERMAP_CITY_ID=$OPENWEATHERMAP_CITY_ID exec dbus-launch /usr/bin/i3 >$HOME/tmp/i3_log/i3.${TIMESTAMP_STR}.${USER}.display${DISPLAY_NUM}.log 2>&1

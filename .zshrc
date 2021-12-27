@@ -156,9 +156,7 @@ export PATH="$PATH:/home/xma11/.dotnet/tools"
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
-if [ -f $HOME/.localrc ]; then
-  source $HOME/.localrc
-fi
+[[ -s $HOME/.localrc ]] && source $HOME/.localrc
 
 # custom functions
 [[ -f $HOME/.custom_functions.sh ]] && source $HOME/.custom_functions.sh
