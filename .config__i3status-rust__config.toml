@@ -1,5 +1,5 @@
 theme = "my"
-icons = "awesome5"
+icons = "awesome"
 
 [[block]]
 block = "cpu"

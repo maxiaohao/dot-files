@@ -222,7 +222,7 @@ focus_on_window_activation none
 
 bar {
   #font -*-terminus-*-r-normal-*-12-*-*-*-*-*-*-*
-  font pango:Font Awesome 5 Brands, Iosevka SS04 12
+  font pango: Iosevka SS04,FontAwesome 12
   colors {
     background #333333
     active_workspace  #666666 #5f676a #ffffff
@@ -260,9 +260,10 @@ exec_always --no-startup-id "pkill -u $USER ibus-daemon ; ibus-daemon -d -x -r"
 #exec_always --no-startup-id "pkill -u $USER picom ; picom --no-fading-openclose -I 1 -O 1 --config /dev/null"
 exec_always --no-startup-id "pkill -u $USER udiskie ; udiskie --tray"
 exec_always --no-startup-id "pkill -u $USER dunst ; dunst -config $HOME/.config/dunst/dunstrc"
-exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -detectsleep -time 17 -locker 'i3lock -c 000000' -killtime 10 -killer 'systemctl suspend'"
+exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -detectsleep -time 15 -locker 'i3lock -n -c 000000' -killtime 45 -killer 'systemctl suspend'"
 exec_always --no-startup-id "pkill -u $USER goldendict ; goldendict &"
 #exec_always --no-startup-id "pkill -u $USER albert ; albert"
 exec_always --no-startup-id "pkill -u $USER flameshot ; flameshot"
+exec_always --no-startup-id "imwheel -k -b '45'"
 # commented out xmodmap in favour of xkb
 # exec_always --no-startup-id "setxkbmap -option; [[ -h $HOME/.Xmodmap ]] && sleep 3 && xmodmap $HOME/.Xmodmap"
