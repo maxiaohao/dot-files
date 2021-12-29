@@ -60,22 +60,20 @@ if [[ -d IN_PATH ]]; then
   done
 fi
 
-
-# TODO: Investigate why fonts in home dir don't work as expected.
-# mkfontdir $HOME/.local/share/fonts
-
-#TODO refactor both loops to use fn_link
-
-# Workaround: Directly copy fonts into system font dir.
-echo -n "Copying fonts..." && fn_confirm \
-&& cd $script_dir \
-&& FONT_SYS_DIR_MODK="/usr/share/fonts/modk" \
-&& sudo mkdir -p $FONT_SYS_DIR_MODK \
-&& sudo cp -f *modk*.bdf $FONT_SYS_DIR_MODK/ \
-&& sudo mkfontdir $FONT_SYS_DIR_MODK \
-&& fc-cache -rf \
-&& sudo SOURCE_DATE_EPOCH=$(date +%s) fc-cache -rs
-
+# # TODO: Investigate why fonts in home dir don't work as expected.
+# # mkfontdir $HOME/.local/share/fonts
+#
+# #TODO refactor both loops to use fn_link
+#
+# # Workaround: Directly copy fonts into system font dir.
+# echo -n "Copying fonts..." && fn_confirm \
+# && cd $script_dir \
+# && FONT_SYS_DIR_MODK="/usr/share/fonts/modk" \
+# && sudo mkdir -p $FONT_SYS_DIR_MODK \
+# && sudo cp -f *modk*.bdf $FONT_SYS_DIR_MODK/ \
+# && sudo mkfontdir $FONT_SYS_DIR_MODK \
+# && fc-cache -rf \
+# && sudo SOURCE_DATE_EPOCH=$(date +%s) fc-cache -rs
 
 echo -n "Copying xkb files..." && fn_confirm && \
 [[ -e /usr/share/X11/xkb/symbols/us.old ]]    || sudo \cp -n /usr/share/X11/xkb/symbols/us    /usr/share/X11/xkb/symbols/us.old; \
@@ -83,5 +81,4 @@ echo -n "Copying xkb files..." && fn_confirm && \
 sudo \cp -f xkb/symbols/us    /usr/share/X11/xkb/symbols/us; \
 sudo \cp -f xkb/types/iso9995 /usr/share/X11/xkb/types/iso9995
 
-
-echo "All done!"
+echo "Done!"
