@@ -222,7 +222,7 @@ focus_on_window_activation none
 
 bar {
   #font -*-terminus-*-r-normal-*-12-*-*-*-*-*-*-*
-  font pango: Iosevka SS04,FontAwesome 12
+  font pango: FontAwesome,Iosevka SS04 12
   colors {
     background #333333
     active_workspace  #666666 #5f676a #ffffff
