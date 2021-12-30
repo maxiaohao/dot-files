@@ -48,12 +48,6 @@ format = "{ssid^16} {speed_up;K*B} {speed_down;K*B}"
 interval = 5
 
 [[block]]
-block = "custom"
-cycle = ["xautolock -enable && echo '[Saver ON]'", "xautolock -disable && echo '[Saver OFF]'"]
-on_click = "true"
-interval = 1
-
-[[block]]
 block = "backlight"
 minimum = 10
 maximum = 100
@@ -63,6 +57,7 @@ cycle = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 block = "sound"
 headphones_indicator = true
 on_click = "pavucontrol"
+step_width = 2
 [block.theme_overrides]
 idle_bg = "#333377"
 
@@ -77,6 +72,12 @@ autolocate = true
 [[block]]
 block = "battery"
 interval = 60
+
+[[block]]
+block = "custom"
+cycle = ["xautolock -enable && echo '[ ON]'", "xautolock -disable && echo '[ OFF]'"]
+on_click = "true"
+interval = 1
 
 [[block]]
 block = "notify"
