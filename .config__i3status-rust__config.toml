@@ -74,9 +74,6 @@ idle_fg = "#000000"
 idle_bg = "#777777"
 
 [[block]]
-block = "notify"
-
-[[block]]
 block = "sound"
 headphones_indicator = true
 on_click = "pavucontrol"

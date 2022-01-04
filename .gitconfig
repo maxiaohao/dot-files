@@ -1,7 +1,7 @@
 [user]
 	name = maxiaohao
 	email = maxiaohao@gmail.com
-	signingkey = 6B64161D018FFF90
+	signingkey = 1EBAA9AA197F5872
 [core]
 	autocrlf = input
 [push]
