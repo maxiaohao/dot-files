@@ -1,0 +1,17 @@
+[Unit]
+Description=qBittorrent-nox service for user %I
+Documentation=man:qbittorrent-nox(1)
+Wants=network-online.target
+After=local-fs.target network-online.target nss-lookup.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/qbittorrent-nox
+ProtectSystem=yes
+NoNewPrivileges=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictNamespaces=yes
+
+[Install]
+WantedBy=default.target
