@@ -1,0 +1,15 @@
+[Unit]
+Wants=network-online.target
+After=local-fs.target network-online.target nss-lookup.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/minidlnad -R -d -f /home/xma11/.config/minidlna/config
+ProtectSystem=yes
+NoNewPrivileges=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictNamespaces=yes
+
+[Install]
+WantedBy=default.target

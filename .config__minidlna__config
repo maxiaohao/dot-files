@@ -1,0 +1,13 @@
+port=8200
+user=xma11
+media_dir=/home/xma11/Downloads/bt
+friendly_name=minidlna
+db_dir=/home/xma11/.cache/minidlna
+log_dir=/home/xma11/.cache/minidlna/log
+album_art_names=Cover.jpg/cover.jpg/AlbumArtSmall.jpg/albumartsmall.jpg/AlbumArt.jpg/albumart.jpg/Album.jpg/album.jpg/Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg
+inotify=yes
+enable_tivo=no
+tivo_discovery=bonjour
+strict_dlna=no
+serial=12345678
+model_number=1
