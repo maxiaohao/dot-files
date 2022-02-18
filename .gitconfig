@@ -1,7 +1,3 @@
-[user]
-	name = maxiaohao
-	email = maxiaohao@gmail.com
-	signingkey = 1EBAA9AA197F5872
 [core]
 	autocrlf = input
 [push]
@@ -13,5 +9,5 @@
 [url "git@github.com:citrus-international/devops.git"]
 	insteadOf = https://github.com/citrus-international/devops.git
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential

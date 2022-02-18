@@ -26,7 +26,8 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load maxiaohao/my-conf-files xma
   zgen load larkery/zsh-histdb sqlite-history.zsh
-  #zgen load larkery/zsh-histdb histdb-interactive.zsh (TODO: https://github.com/larkery/zsh-histdb#reverse-isearch + fzf)
+  zgen load larkery/zsh-histdb histdb-interactive.zsh
+  zgen load m42e/zsh-histdb-fzf fzf-histdb.zsh
   zgen save
 fi
 
@@ -163,6 +164,13 @@ complete -o nospace -C /usr/bin/terraform terraform
 # fix Home/End keys in zsh in tmux
 bindkey "\E[1~" beginning-of-line
 bindkey "\E[4~" end-of-line
+
+# histdb revserse isearch
+bindkey '^[^r' _histdb-isearch
+
+# settings for m42e/zsh-histdb-fzf
+bindkey '^R' histdb-fzf-widget
+HISTDB_FZF_DEFAULT_MODE=4
 
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx

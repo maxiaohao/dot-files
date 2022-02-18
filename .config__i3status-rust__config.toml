@@ -83,6 +83,7 @@ idle_bg = "#333377"
 
 [[block]]
 block = "battery"
+driver = "upower"
 interval = 60
 
 [[block]]
