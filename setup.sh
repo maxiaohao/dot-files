@@ -33,6 +33,20 @@ fn_link() {
   ln -s $full_raw_filename $full_symlink_filename
 }
 
+fn_setup_user_systemd_service() {
+  raw_filename=$1
+  full_raw_filename=$(readlink -f $raw_filename)
+  full_new_filename="$HOME/${raw_filename//__/\/}"
+  filename=$(basename $full_new_filename)
+  dir=$(dirname $full_new_filename)
+  rm -f $full_new_filename
+  mkdir -p $dir
+  echo "Copying: $full_raw_filename to $full_new_filename ..."
+  \cp -f $full_raw_filename $full_new_filename
+  systemctl --user enable $filename
+  systemctl --user restart $filename
+}
+
 
 cd $script_dir
 
@@ -40,6 +54,14 @@ echo -n "Making symlinks for dot files..." && fn_confirm && \
 for dotfile in .*; do
   if [[ -f $dotfile ]]; then
     fn_link "$dotfile";
+  fi
+done
+
+
+echo -n "Setting up user systemd service files.." && fn_confirm && \
+for dotfile in .config__systemd__user__*; do
+  if [[ -f $dotfile ]]; then
+    fn_setup_user_systemd_service "$dotfile";
   fi
 done
 
@@ -74,6 +96,9 @@ fi
 # && sudo mkfontdir $FONT_SYS_DIR_MODK \
 # && fc-cache -rf \
 # && sudo SOURCE_DATE_EPOCH=$(date +%s) fc-cache -rs
+
+
+cd $script_dir
 
 echo -n "Copying xkb files..." && fn_confirm && \
 [[ -e /usr/share/X11/xkb/symbols/us.old ]]    || sudo \cp -n /usr/share/X11/xkb/symbols/us    /usr/share/X11/xkb/symbols/us.old; \

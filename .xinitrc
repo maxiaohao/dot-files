@@ -23,6 +23,8 @@ export XMODIFIERS="@im=ibus"
 
 xset +fp $HOME/.local/share/fonts
 
+xinput --set-prop "pointer:Logitech MX Master 3" "libinput Accel Speed" 0.3
+
 mkdir -p $HOME/tmp/i3_log
 DISPLAY_NUM=$(echo ${DISPLAY} | cut -c2-)
 TIMESTAMP_STR=$(date +'%F_%H%M%S')
