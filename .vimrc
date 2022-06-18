@@ -1,13 +1,15 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
-"Plug 'bling/vim-airline'
+Plug 'bling/vim-airline'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'ervandew/supertab'
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'takac/vim-hardtime'
 Plug 'terryma/vim-expand-region'
@@ -23,7 +25,7 @@ set hlsearch
 set tabstop=2
 set shiftwidth=2
 set expandtab
-"set autoindent
+set autoindent
 set smartindent
 "set cursorline
 set hidden "allow swith without saving buffer
@@ -85,10 +87,17 @@ endfunction
 autocmd BufWritePre *.java,*js,*.css,*.html :%s/\s\+$//e
 
 "auto complete braces
+""""""inoremap ( ()<LEFT>
+""""""inoremap [ []<LEFT>
+""""""""inoremap < <><ESC>i
+""""""inoremap { {<CR>}<ESC>O<Tab>
+""""""inoremap " ""<LEFT>
+""""""inoremap ' ''<LEFT>
 "inoremap ( ()<LEFT>
 "inoremap [ []<LEFT>
-"inoremap < <><ESC>i
-"inoremap { {<CR>}<ESC>O<Tab>
+"inoremap { {}<LEFT>
+"inoremap {<CR> {<CR>}<ESC>O
+"inoremap {;<CR> {<CR>};<ESC>O
 
 "Syntastic conf
 "let g:syntastic_error_symbol='✗'x
@@ -113,7 +122,7 @@ highlight LineNr ctermfg=240
 
 hi Search cterm=NONE ctermfg=grey ctermbg=4
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 
 let g:hardtime_default_on = 0
 let g:hardtime_timeout = 200
@@ -131,3 +140,11 @@ augroup yaml_fix
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>
 augroup END
 
+" go-vim
+let g:go_test_timeout = '3s'
+"let g:go_term_enabled = 1
+
+" coc
+hi! CocErrorSign guifg=#550000
+" hi! CocInfoSign guibg=#353b45
+" hi! CocWarningSign guifg=#d1cd66
