@@ -96,8 +96,8 @@ alias t='devops-environment terraform'
 alias gsmedit='devops-environment gsmedit.sh'
 alias gls='gsutil ls -l'
 alias tmux='tmux -2'
-alias v='vim'
-alias vi='vim'
+alias v='nvim'
+alias vim='nvim'
 alias watch='watch '
 alias gs='gsutil'
 alias curl='curlie'
@@ -113,22 +113,26 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
 export LC_ALL=en_AU.UTF-8
 export LC_CTYPE=en_AU.UTF-8
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 export LANG=en_AU.UTF-8
-export VISUAL="vim"
+export EDITOR="nvim"
+export VISUAL="nvim"
 export FLUTTER_HOME=$HOME/dev/tool/flutter
 export CLUSTER_SECRET_DIR=$HOME/.cluster
-export KUBE_EDITOR="vim"
+export KUBE_EDITOR="nvim"
 export GOPATH=$HOME/dev/tool/go_path
 export GOPRIVATE="github.com/citrus-international"
 export PROMPT_EOL_MARK=""
 export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:/home/xma11/.dotnet/tools"
+export PATH="$PATH:$HOME/.nix-profile/bin"
 
 # fzf
 source /usr/share/fzf/key-bindings.zsh
