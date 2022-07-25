@@ -72,7 +72,7 @@ autolocate = true
 
 [[block]]
 block = "custom"
-cycle = ["xautolock -enable && echo ' ON'", "xautolock -disable && echo ' OFF'"]
+cycle = ["xset s 900 && echo ' ON'", "xset s 0 && echo ' OFF'"]
 on_click = "true"
 interval = 1
 [block.theme_overrides]
