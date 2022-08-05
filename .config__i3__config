@@ -201,7 +201,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 #bindsym XF86AudioPrev exec playerctl previous
 
 # lock
-bindsym $mod+Shift+F11 exec sleep 0.5 && i3lock -d -c 000000
+bindsym $mod+Shift+F11 exec sleep 0.5 && i3lock -c 000000 -f
 
 # clipmenu
 bindsym $mod+Ctrl+o exec CM_DIR=~/tmp CM_HISTLENGTH=20 CM_LAUNCHER=rofi clipmenu -p clipboard
@@ -267,8 +267,9 @@ exec_always --no-startup-id "pkill -u $USER ibus-daemon ; ibus-daemon -d -x -r"
 exec_always --no-startup-id "pkill -u $USER udiskie ; udiskie --tray"
 #exec_always --no-startup-id "pkill -u $USER dunst ; dunst -config $HOME/.config/dunst/dunstrc"
 exec_always --no-startup-id "pkill -u $USER wired ; wired"
-# exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -detectsleep -time 15 -locker 'i3lock -n -c 000000' -killtime 45 -killer 'systemctl suspend'"
-exec_always --no-startup-id "pkill -u $USER xss-lock ; xset s 900 && xss-lock -- i3lock -c 000000 -n"
+exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -detectsleep -time 20 -locker 'i3lock -n -c 000000 -f' -killtime 120 -killer 'systemctl suspend'"
+# exec_always --no-startup-id "pkill -u $USER xautolock ; xautolock -detectsleep -time 20 -locker 'i3lock -n -c 000000 -f'"
+# exec_always --no-startup-id "pkill -u $USER xss-lock ; xset s 900 && xss-lock -- i3lock -c 000000 -n -f"
 exec_always --no-startup-id "pkill -u $USER goldendict ; goldendict &"
 #exec_always --no-startup-id "pkill -u $USER albert ; albert"
 exec_always --no-startup-id "pkill -u $USER flameshot ; flameshot"
