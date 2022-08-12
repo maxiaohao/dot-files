@@ -106,4 +106,10 @@ echo -n "Copying xkb files..." && fn_confirm && \
 sudo \cp -f xkb/symbols/us    /usr/share/X11/xkb/symbols/us; \
 sudo \cp -f xkb/types/iso9995 /usr/share/X11/xkb/types/iso9995
 
+
+echo -n "Copying custom systemd sleep files..." && fn_confirm && \
+sudo \cp -f root__lib__systemd__system-sleep__reset_mod_hid_logitech_dj.sh /lib/systemd/system-sleep/reset_mod_hid_logitech_dj.sh && \
+sudo chmod a+x /lib/systemd/system-sleep/reset_mod_hid_logitech_dj.sh
+
+
 echo "Done!"
