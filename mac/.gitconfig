@@ -1,0 +1,16 @@
+[core]
+	autocrlf = input
+[push]
+	default = simple
+[commit]
+	gpgsign = false
+[pull]
+	rebase = false
+[url "git@github.com:citrus-international/devops.git"]
+	insteadOf = https://github.com/citrus-international/devops.git
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	name = Kevin Ma
+	email = kxma@amazon.com
