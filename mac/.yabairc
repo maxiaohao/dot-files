@@ -30,5 +30,8 @@ yabai -m config left_padding                 4
 yabai -m config right_padding                4
 yabai -m config window_gap                   0
 yabai -m config layout                       bsp
-yabai -m space --padding                     abs:0:0:0:0
+
+for space in $(yabai -m query --spaces | jq '.[].index'); do
+  yabai -m space $space --padding abs:0:0:0:0
+done
 
