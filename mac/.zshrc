@@ -1,5 +1,7 @@
 DISABLE_AUTO_UPDATE=true
 
+export NVM_LAZY_LOAD=true
+
 source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
@@ -21,6 +23,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/yarn
   zgen oh-my-zsh plugins/terraform
   zgen oh-my-zsh plugins/z
+  zgen load lukechilds/zsh-nvm
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions
   zgen load zsh-users/zsh-syntax-highlighting
@@ -28,6 +31,7 @@ if ! zgen saved; then
   zgen load larkery/zsh-histdb sqlite-history.zsh
   zgen load larkery/zsh-histdb histdb-interactive.zsh
   zgen load m42e/zsh-histdb-fzf fzf-histdb.zsh
+  zgen load junegunn/fzf shell/completion.zsh
   zgen save
 fi
 
@@ -43,7 +47,7 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-compinit
+#compinit
 
 # don't share cmd history among windows
 # setopt nosharehistory
@@ -78,10 +82,10 @@ alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad
 alias grep='grep -i --color'
 alias gti='git'
 alias k='kubectl'
-alias l='lsd -F'
-alias la='lsd -A'
-alias ll='lsd -alF'
-alias lll='lsd -alF'
+alias l='exa -F'
+alias la='exa -A'
+alias ll='exa -alF'
+alias lll='exa -alF'
 alias mvncc='mvn clean compile'
 alias mvncd='mvn clean deploy'
 alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
@@ -115,6 +119,8 @@ export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
+export MANPAGER='less -I'
+
 export LC_ALL=en_AU.UTF-8
 export LC_CTYPE=en_AU.UTF-8
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
@@ -131,8 +137,8 @@ export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 export XDG_CONFIG_HOME="$HOME/.config"
-export LDFLAGS="-L/opt/homebrew/opt/node@16/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/node@16/include"
+#export LDFLAGS="-L/opt/homebrew/opt/node@16/lib"
+#export CPPFLAGS="-I/opt/homebrew/opt/node@16/include"
 
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
@@ -140,7 +146,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:/home/xma11/.dotnet/tools"
 export PATH="$PATH:$HOME/.nix-profile/bin"
 export PATH="$HOME/.toolbox/bin:/opt/homebrew/bin:$PATH"
-export PATH="$PATH:/opt/homebrew/Cellar/node@16/16.17.1/bin"
+#export PATH="$PATH:/opt/homebrew/Cellar/node@16/16.17.1/bin"
 export PATH="$(pyenv root)/shims:${PATH}"
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
@@ -156,10 +162,10 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 [[ -f $HOME/dev/citrus/devops/script/devops-environment/rc ]] && source $HOME/dev/citrus/devops/script/devops-environment/rc
 
-# # nvm (slow)
+# # nvm (brew) (slow, using lukechilds/zsh-nvm zsh plugin instead)
 # export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export GPG_TTY=$(tty)
 
@@ -180,3 +186,6 @@ bindkey '^[^r' _histdb-isearch
 # settings for m42e/zsh-histdb-fzf
 bindkey '^R' histdb-fzf-widget
 HISTDB_FZF_DEFAULT_MODE=4
+
+# fzf
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store" --iglob "!.git"'

@@ -220,8 +220,8 @@ tshow-txt() {
 }
 
 f() {
-  file=$(fzf)
-  [[ "$file" != "" ]] && vim $file
+  file=$(fzf --preview 'bat --style=numbers --color=always --line-range :100 {}')
+  [[ "$file" != "" ]] && $EDITOR $file
 }
 
 _zsh_autosuggest_strategy_histdb_top() {

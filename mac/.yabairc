@@ -3,10 +3,11 @@ yabai -m config window_border_width          4
 yabai -m config window_border_radius         10
 yabai -m config active_window_border_color   0xFFCE5C00
 yabai -m config normal_window_border_color   0x00000000
-yabai -m config window_border_hidpi          on
+yabai -m config window_border_hidpi          off
 
-yabai -m config mouse_follows_focus          on
-yabai -m config focus_follows_mouse          autofocus
+yabai -m config mouse_follows_focus          off
+## yabai -m config focus_follows_mouse          autofocus
+yabai -m config focus_follows_mouse          off
 
 yabai -m config window_origin_display        focused
 yabai -m config window_placement             second_child
@@ -24,14 +25,14 @@ yabai -m config auto_balance                 off
 # SPACEBAR_HEIGHT=$(spacebar -m config height)
 #yabai -m config external_bar all:0:26
 
-yabai -m config top_padding                  4
-yabai -m config bottom_padding               4
-yabai -m config left_padding                 4
-yabai -m config right_padding                4
+yabai -m config top_padding                  0
+yabai -m config bottom_padding               0
+yabai -m config left_padding                 0
+yabai -m config right_padding                0
 yabai -m config window_gap                   0
 yabai -m config layout                       bsp
 
-for space in $(yabai -m query --spaces | jq '.[].index'); do
-  yabai -m space $space --padding abs:0:0:0:0
-done
+#for space in $(yabai -m query --spaces | jq '.[].index'); do
+#  yabai -m space $space --padding abs:0:0:0:0
+#done
 
