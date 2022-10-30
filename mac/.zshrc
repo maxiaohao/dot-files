@@ -1,8 +1,10 @@
 DISABLE_AUTO_UPDATE=true
 
 export NVM_LAZY_LOAD=true
+HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
 
 source "${HOME}/.zgen/zgen.zsh"
+
 
 if ! zgen saved; then
   zgen oh-my-zsh
