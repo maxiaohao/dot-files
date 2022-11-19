@@ -61,7 +61,7 @@ SAVEHIST=500000
 unsetopt nomatch
 
 alias ack='ack -i'
-#alias cat='bat'
+alias cat='bat'
 alias cda='cd ~/dev/citrus/adread'
 alias cdd='cd ~/dev/citrus/devops'
 alias cddm='cd ~/dev/citrus/devops/module'

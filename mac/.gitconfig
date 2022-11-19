@@ -1,5 +1,6 @@
 [core]
 	autocrlf = input
+	excludesFile = ~/.gitignore
 [push]
 	default = simple
 [commit]
@@ -14,3 +15,5 @@
 [user]
 	name = Kevin Ma
 	email = kxma@amazon.com
+[branch "mainline"]
+	pushRemote = Do not push on mainline
