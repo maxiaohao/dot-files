@@ -9,7 +9,7 @@ Plug 'godlygeek/tabular'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "Plug 'junegunn/fzf.vim'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'takac/vim-hardtime'
 Plug 'terryma/vim-expand-region'
@@ -150,3 +150,4 @@ let g:go_test_timeout = '3s'
 hi! CocErrorSign guifg=#550000
 " hi! CocInfoSign guibg=#353b45
 " hi! CocWarningSign guifg=#d1cd66
+let g:coc_node_path = '~/.nvm/versions/node/v16.18.0/bin/node'
