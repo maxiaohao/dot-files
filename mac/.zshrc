@@ -109,7 +109,8 @@ alias b='brazil'
 alias bb='brazil-build'
 alias br='brazil release'
 alias bs='brazil server'
-alias bws='brazil workspace'
+alias bw='brazil workspace'
+alias bbr='brazil-recursive-cmd --all brazil-build'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold

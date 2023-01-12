@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
@@ -100,6 +101,7 @@ autocmd BufWritePre *.java,*js,*.css,*.html :%s/\s\+$//e
 "inoremap { {}<LEFT>
 "inoremap {<CR> {<CR>}<ESC>O
 "inoremap {;<CR> {<CR>};<ESC>O
+inoremap kk <Esc>
 
 "Syntastic conf
 "let g:syntastic_error_symbol='✗'x
