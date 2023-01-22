@@ -83,10 +83,10 @@ alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad
 alias grep='grep -i --color'
 alias gti='git'
 alias k='kubectl'
-alias l='exa -F'
-alias la='exa -A'
-alias ll='exa -alF'
-alias lll='exa -alF'
+alias l='lsd -F'
+alias la='lsd -A'
+alias ll='lsd -alF'
+alias lll='lsd -alF'
 alias mvncc='mvn clean compile'
 alias mvncd='mvn clean deploy'
 alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
@@ -111,6 +111,7 @@ alias br='brazil release'
 alias bs='brazil server'
 alias bw='brazil workspace'
 alias bbr='brazil-recursive-cmd --all brazil-build'
+alias py='python3'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
