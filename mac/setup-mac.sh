@@ -44,4 +44,7 @@ done
 
 cd $script_dir
 
+## # install everything from the Brewfile
+## brew bundle
+
 echo "Done!"
