@@ -5,18 +5,28 @@ Plug 'bling/vim-airline'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
-Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } "NERDTree plugin which shows git status flags.
 Plug 'takac/vim-hardtime'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
+Plug 'simeji/winresizer'
+Plug 'tpope/vim-commentary' "Quick (un)comment line(s), shortcut key `\\`.
+"Plug 'mg979/vim-visual-multi' "Multiple cursors plugin for vim/neovim.
+
+Plug 'pangloss/vim-javascript'
+Plug 'vim-python/python-syntax'
+Plug 'fatih/vim-go'
+Plug 'elzr/vim-json'
+Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
 
 call plug#end()
 
@@ -45,7 +55,11 @@ set fileencodings=ucs-bom,utf-8,chinese,cp936
 
 set backspace=indent,eol,start
 
+set scrolloff=3
+
 syntax on
+set synmaxcol=200 "Don't perform highlight on lines that are longer than 200 chars.
+syntax sync minlines=1000
 
 colorscheme desert
 
@@ -76,11 +90,14 @@ map <silent> <F3> :call SwitchToNextBuffer(-1)<CR>
 map <silent> <F4> :call SwitchToNextBuffer(1)<CR>
 
 
-"NerdTree use <F5>
 "let NERDTreeWinPos='right'
 "let NERDTreeWinSize=31
 "let NERDTreeChDirMode=1
-map <F5> :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.pyc$', '\.o$', '\~$', '__pycache__', '\.mypy_cache', '\.DS_Store', '^\.git$', '\.o$', '\.so$', '\.egg$', "\.pytest_cache", "\.swp$", "\.swo$", "\.swn$"]
+"NerdTree toggle: <F5>
+"map <F5> :NERDTreeToggle<CR>
+"NerdTree toggle: ':NT'
+:command NT :NERDTreeToggle
 
 "trim 3+ blank lines into at most 2 blank lines
 function! TrimBlankLines()
@@ -102,7 +119,7 @@ autocmd BufWritePre *.java,*js,*.css,*.html :%s/\s\+$//e
 "inoremap { {}<LEFT>
 "inoremap {<CR> {<CR>}<ESC>O
 "inoremap {;<CR> {<CR>};<ESC>O
-inoremap kk <Esc>
+"inoremap kk <Esc>
 
 "Syntastic conf
 "let g:syntastic_error_symbol='✗'x
@@ -154,3 +171,14 @@ hi! CocErrorSign guifg=#550000
 " hi! CocInfoSign guibg=#353b45
 " hi! CocWarningSign guifg=#d1cd66
 let g:coc_node_path = '~/.nvm/versions/node/v18.13.0/bin/node'
+
+" win resizer
+let g:winresizer_start_key = '<C-Q>'
+
+"Plugin :: tpope/vim-commentary --------------------------------------- {{{
+"Type `\\` to toggle comments for current line or selected blocks.
+xmap <Leader><Leader>  <Plug>Commentary
+nmap <Leader><Leader>  <Plug>Commentary
+omap <Leader><Leader>  <Plug>Commentary
+nmap <Leader><Leader>  <Plug>CommentaryLine
+" End Plugin :: tpope/vim-commentary ---------------------------------- }}}
