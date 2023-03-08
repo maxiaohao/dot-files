@@ -24,7 +24,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/yarn
   zgen oh-my-zsh plugins/terraform
   zgen oh-my-zsh plugins/z
-  zgen load lukechilds/zsh-nvm
+  #zgen load lukechilds/zsh-nvm
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions
   zgen load zsh-users/zsh-syntax-highlighting
@@ -149,7 +149,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:/home/xma11/.dotnet/tools"
 export PATH="$PATH:$HOME/.nix-profile/bin"
 export PATH="$HOME/.toolbox/bin:/opt/homebrew/bin:$PATH"
-#export PATH="$PATH:/opt/homebrew/Cellar/node@16/16.17.1/bin"
+export PATH="$HOME/.nvm/versions/node/v18.13.0/bin:$PATH"
 export PATH="$(pyenv root)/shims:${PATH}"
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
