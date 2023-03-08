@@ -1,33 +1,40 @@
+icons_format = "{icon}"
+
+[theme]
 theme = "my"
-icons = "awesome"
+
+[icons]
+icons = "awesome4"
 
 [[block]]
 block = "cpu"
-info = 20
-warning = 40
-critical = 90
+#info = 20
+#warning = 40
+#critical = 90
 
 [[block]]
 block = "temperature"
-collapsed = true
-format = "{average}{max}"
+# collapsed = true
+format = " $icon $average $max"
 
 [[block]]
 block = "memory"
-display_type = "memory"
-format_mem = "{mem_used_percents}"
+# display_type = "memory"
+# format_mem = "{mem_used_percents}"
 # format_swap = "{swap_used_percents}"
-warning_mem = 50
-critical_mem = 80
-clickable = false
+# warning_mem = 50
+# critical_mem = 80
+# clickable = false
+format = " $icon $mem_used_percents.eng(w:1) "
 
 [[block]]
 block = "disk_space"
-format = "r:{available*_}"
+format = " r:$available"
 path = "/"
-alias = "/"
+#alias = "/"
 info_type = "available"
-unit = "GB"
+#unit = "GB"
+alert_unit = "GB"
 interval = 20
 warning = 20.0
 alert = 10.0
@@ -36,11 +43,12 @@ idle_bg = "#333377"
 
 [[block]]
 block = "disk_space"
-format = "h:{available*_}"
+format = " h:$available "
 path = "/home"
-alias = "/home"
+#alias = "/home"
 info_type = "available"
-unit = "GB"
+#unit = "GB"
+alert_unit = "GB"
 interval = 20
 warning = 20.0
 alert = 10.0
@@ -49,7 +57,7 @@ idle_bg = "#333377"
 
 [[block]]
 block = "net"
-format = "{ssid^16} {speed_up;K*B} {speed_down;K*B}"
+format = " $icon$ssid ^icon_net_down$speed_down.eng(prefix:K)^icon_net_up$speed_up.eng(prefix:K) "
 interval = 5
 
 [[block]]
@@ -64,7 +72,7 @@ idle_bg = "#777777"
 
 [[block]]
 block = "weather"
-format = "{location}: {temp} {weather} {wind}m/s {direction}"
+format = " $location: $temp $weather $wind m/s $direction "
 #api_key from $OPENWEATHERMAP_API_KEY and city_id from $OPENWEATHERMAP_CITY_ID
 service = { name = "openweathermap", units = "metric" }
 interval = 900
@@ -72,31 +80,39 @@ autolocate = true
 
 [[block]]
 block = "custom"
-cycle = ["xautolock -enable && echo ' ON'", "xautolock -disable && echo ' OFF'"]
-on_click = "true"
+cycle = ["xautolock -enable && echo '  ON '", "xautolock -disable && echo '  OFF '"]
+#on_click = "true"
 interval = "once"
 [block.theme_overrides]
 idle_fg = "#000000"
 idle_bg = "#777777"
+[[block.click]]
+cmd = "true"
+button = "left"
 
 [[block]]
 block = "sound"
 headphones_indicator = true
-on_click = "pavucontrol"
+#on_click = "pavucontrol"
 step_width = 2
 [block.theme_overrides]
 idle_bg = "#333377"
+[[block.click]]
+cmd = "pavucontrol"
+button = "left"
 
 [[block]]
 block = "battery"
 driver = "upower"
 interval = 60
-full_format = "{percentage} (F)"
+full_format = "$percentage (F)"
 
 [[block]]
 block = "time"
-icons_format = " "
+#icons_format = " "
 interval = 1
-format = "%a %d %b %I:%M:%S %p"
+#format = "%a %d %b %I:%M:%S %p"
 timezone = "Australia/Brisbane"
-locale = "en_AU"
+#locale = "en_AU"
+[block.format]
+full = "$timestamp.datetime(f:'%a %d %b %I:%M:%S %p', l:en_AU)"
