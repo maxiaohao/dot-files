@@ -56,6 +56,8 @@ alt + shift - l : yabai -m window --swap east
 alt - 1 : yabai -m display --focus $(yabai -m query --spaces --space 1 | jq .display); yabai -m space --focus 1
 alt - 2 : yabai -m display --focus $(yabai -m query --spaces --space 2 | jq .display); yabai -m space --focus 2
 alt - 3 : yabai -m display --focus $(yabai -m query --spaces --space 3 | jq .display); yabai -m space --focus 3
+alt + shift - n : yabai -m display --focus next
+alt + shift - p : yabai -m display --focus prev
 
 # move window to a space
 alt + shift - 1 : yabai -m window --space 1; yabai -m space --focus 1; yabai -m display --focus $(yabai -m query --spaces --space 1 | jq .display)
