@@ -147,10 +147,12 @@ export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:/home/xma11/.dotnet/tools"
-export PATH="$PATH:$HOME/.nix-profile/bin"
+export PATH="$HOME/.nix-profile/bin:$PATH"
 export PATH="$HOME/.toolbox/bin:/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.nvm/versions/node/v18.13.0/bin:$PATH"
 export PATH="$(pyenv root)/shims:${PATH}"
+
+export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
 

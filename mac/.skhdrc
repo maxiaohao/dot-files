@@ -3,12 +3,12 @@ alt + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # open terminal
 alt - y : open -na /Applications/Alacritty.app
+#
+# open launcher
+alt - d : open -a '/Applications/Alfred 5.app'
 
-# open firefox
-alt + shift - b : open -na '/Applications/Firefox Developer Edition.app'
-
-# flameshot
-#alt + shift - y : /Applications/flameshot.app/Contents/MacOS/flameshot gui
+# open browser
+alt + shift - b : open -na '/Applications/Brave Browser.app'
 
 # close focused window
 alt - w : cur_disp=$(yabai -m query --spaces | jq '.[]|select(."has-focus"==true)|.display'); yabai -m window --close; yabai -m display --focus $cur_disp
@@ -53,9 +53,12 @@ alt + shift - k : yabai -m window --swap north
 alt + shift - l : yabai -m window --swap east
 
 # go to a display
-alt - 1 : yabai -m display --focus $(yabai -m query --spaces --space 1 | jq .display); yabai -m space --focus 1
-alt - 2 : yabai -m display --focus $(yabai -m query --spaces --space 2 | jq .display); yabai -m space --focus 2
-alt - 3 : yabai -m display --focus $(yabai -m query --spaces --space 3 | jq .display); yabai -m space --focus 3
+#alt - 1 : yabai -m display --focus $(yabai -m query --spaces --space 1 | jq .display); yabai -m space --focus 1
+#alt - 2 : yabai -m display --focus $(yabai -m query --spaces --space 2 | jq .display); yabai -m space --focus 2
+#alt - 3 : yabai -m display --focus $(yabai -m query --spaces --space 3 | jq .display); yabai -m space --focus 3
+alt - 1 : yabai -m display --focus 1
+alt - 2 : yabai -m display --focus 2
+alt - 3 : yabai -m display --focus 3
 alt + shift - n : yabai -m display --focus next
 alt + shift - p : yabai -m display --focus prev
 
