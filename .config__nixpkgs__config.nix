@@ -11,6 +11,7 @@
         cloc
         coreutils
         curlie
+        direnv
         exa
         fd
         fzf
@@ -37,6 +38,7 @@
         tig
         tmux
         tree
+        vagrant
         vim
         vscode
         watch

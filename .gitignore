@@ -6,3 +6,6 @@
 *.log
 .~*
 .DS_Store
+.envrc
+.run
+node_modules

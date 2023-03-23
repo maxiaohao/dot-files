@@ -153,6 +153,7 @@ export PATH="$HOME/.nvm/versions/node/v18.13.0/bin:$PATH"
 export PATH="$(pyenv root)/shims:${PATH}"
 
 export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
+export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
 
@@ -194,3 +195,6 @@ HISTDB_FZF_DEFAULT_MODE=4
 
 # fzf
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store" --iglob "!.git"'
+
+# direnv
+eval "$(direnv hook zsh)"
