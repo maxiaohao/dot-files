@@ -45,3 +45,5 @@ colors:
     white:   '#eeeeec'
 selection:
   semantic_escape_chars: ",│`|\"' ()[]{}<>\t"
+window:
+  decorations: 'None'

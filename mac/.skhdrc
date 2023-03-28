@@ -8,10 +8,11 @@ alt - y : open -na /Applications/Alacritty.app
 alt - d : open -a '/Applications/Alfred 5.app'
 
 # open browser
-alt + shift - b : open -na '/Applications/Brave Browser.app'
+#alt + shift - b : open -na '/Applications/Brave Browser.app'
+alt + shift - b : open -na '/Applications/Firefox Developer Edition.app'
 
 # close focused window
-alt - w : cur_disp=$(yabai -m query --spaces | jq '.[]|select(."has-focus"==true)|.display'); yabai -m window --close; yabai -m display --focus $cur_disp
+alt - w : cur_disp=$(yabai -m query --windows | jq '.[]|select(."has-focus"==true)|.display'); cur_win=$(yabai -m query --windows | jq '.[]|select(."has-focus"==true)|.id'); yabai -m window --close $cur_win; yabai -m display --focus $cur_disp
 
 # bsp/stack(tab)/float mode
 alt - b : yabai -m space --layout bsp; yabai -m space --balance

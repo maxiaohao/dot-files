@@ -1,1 +1,6 @@
 Brewfile.lock.json
+.envrc
+.run
+logs
+*.log
+node_modules
