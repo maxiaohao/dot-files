@@ -1,5 +1,6 @@
-# reload yabai
-alt + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+# reload yabai and skhd
+#alt + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+alt + shift - r : brew services restart yabai; brew services restart skhd
 
 # open terminal
 alt - y : open -na /Applications/Alacritty.app
@@ -53,17 +54,39 @@ alt + shift - j : yabai -m window --swap south
 alt + shift - k : yabai -m window --swap north
 alt + shift - l : yabai -m window --swap east
 
-# go to a display
-#alt - 1 : yabai -m display --focus $(yabai -m query --spaces --space 1 | jq .display); yabai -m space --focus 1
-#alt - 2 : yabai -m display --focus $(yabai -m query --spaces --space 2 | jq .display); yabai -m space --focus 2
-#alt - 3 : yabai -m display --focus $(yabai -m query --spaces --space 3 | jq .display); yabai -m space --focus 3
-alt - 1 : yabai -m display --focus 1
-alt - 2 : yabai -m display --focus 2
-alt - 3 : yabai -m display --focus 3
-alt + shift - n : yabai -m display --focus next
-alt + shift - p : yabai -m display --focus prev
+# # go to a display (to deprecate)
+# #alt - 1 : yabai -m display --focus $(yabai -m query --spaces --space 1 | jq .display); yabai -m space --focus 1
+# #alt - 2 : yabai -m display --focus $(yabai -m query --spaces --space 2 | jq .display); yabai -m space --focus 2
+# #alt - 3 : yabai -m display --focus $(yabai -m query --spaces --space 3 | jq .display); yabai -m space --focus 3
+# alt - 1 : yabai -m display --focus 1
+# alt - 2 : yabai -m display --focus 2
+# alt - 3 : yabai -m display --focus 3
+# alt + shift - n : yabai -m display --focus next
+# alt + shift - p : yabai -m display --focus prev
 
-# move window to a space
+# go to a space
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt + shift - n : yabai -m space --focus next
+alt + shift - p : yabai -m space --focus prev
+
+# create/destroy a space
+
+# send window to a space
 alt + shift - 1 : yabai -m window --space 1; yabai -m space --focus 1; yabai -m display --focus $(yabai -m query --spaces --space 1 | jq .display)
 alt + shift - 2 : yabai -m window --space 2; yabai -m space --focus 2; yabai -m display --focus $(yabai -m query --spaces --space 2 | jq .display)
 alt + shift - 3 : yabai -m window --space 3; yabai -m space --focus 3; yabai -m display --focus $(yabai -m query --spaces --space 3 | jq .display)
+alt + shift - 4 : yabai -m window --space 4; yabai -m space --focus 4; yabai -m display --focus $(yabai -m query --spaces --space 4 | jq .display)
+alt + shift - 5 : yabai -m window --space 5; yabai -m space --focus 5; yabai -m display --focus $(yabai -m query --spaces --space 5 | jq .display)
+alt + shift - 6 : yabai -m window --space 6; yabai -m space --focus 6; yabai -m display --focus $(yabai -m query --spaces --space 6 | jq .display)
+
+# resize window
+cmd + alt + shift - h : yabai -m window --resize left:40:0; yabai -m window --resize right:-40:0
+cmd + alt + shift - j : yabai -m window --resize bottom:0:-40; yabai -m window --resize top:0:40
+cmd + alt + shift - k : yabai -m window --resize bottom:0:40; yabai -m window --resize top:0:-40
+cmd + alt + shift - l : yabai -m window --resize left:-40:0; yabai -m window --resize right:40:0
+

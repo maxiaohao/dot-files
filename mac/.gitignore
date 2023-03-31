@@ -4,3 +4,4 @@ Brewfile.lock.json
 logs
 *.log
 node_modules
+*.swp
