@@ -96,6 +96,11 @@ function hub_pr() {
   hub pull-request --browse -m $1
 }
 
+function mcd() {
+  mkdir -p $1
+  cd $1
+}
+
 #source ~/dev/tool/aws-cli-mfa/clearaws
 #source ~/dev/tool/aws-cli-mfa/getaws
 #alias awstoken="getaws default"

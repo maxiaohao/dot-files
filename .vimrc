@@ -56,6 +56,7 @@ set fileencodings=ucs-bom,utf-8,chinese,cp936
 set backspace=indent,eol,start
 
 set scrolloff=3
+set listchars+=nbsp:.
 
 syntax on
 set synmaxcol=200 "Don't perform highlight on lines that are longer than 200 chars.
