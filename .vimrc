@@ -171,7 +171,8 @@ let g:go_test_timeout = '3s'
 hi! CocErrorSign guifg=#550000
 " hi! CocInfoSign guibg=#353b45
 " hi! CocWarningSign guifg=#d1cd66
-let g:coc_node_path = '~/.nix-profile/bin/node'
+"let g:coc_node_path = '~/.nix-profile/bin/node'
+let g:coc_node_path = '/Users/kevin.ma/.nvm/versions/node/v16.20.2/bin/node'
 
 " win resizer
 let g:winresizer_start_key = '<C-Q>'

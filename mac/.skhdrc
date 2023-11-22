@@ -2,7 +2,8 @@
 #alt + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 # alt + shift - r : brew services restart yabai; brew services restart skhd
 # https://github.com/koekeishiya/yabai/issues/1738
-alt + shift - r : yabai --restart-service
+#alt + shift - r : yabai --restart-service
+alt + shift - r : sudo yabai --load-sa --start-service
 
 # open terminal
 alt - y : open -na /Applications/Alacritty.app

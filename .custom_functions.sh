@@ -242,4 +242,31 @@ _zsh_autosuggest_strategy_histdb_top() {
     suggestion=$(_histdb_query "$query")
 }
 
+get_token() {
+    identity=$(aws sts get-caller-identity --profile default)
+    username=$(echo -- "$identity" | sed -n 's!.*"arn:aws:iam::.*:user/\(.*\)".*!\1!p')
+    echo You are: $username >&2
+
+    mfa=$(aws iam list-mfa-devices --user-name "$username" --profile default)
+    device=$(echo -- "$mfa" | sed -n 's!.*"SerialNumber": "\(.*\)".*!\1!p')
+    echo Your MFA device is: $device >&2
+    echo -n "Enter your MFA code now: " >&2
+    read code
+    tokens=$(aws sts get-session-token --serial-number "$device" --token-code $code --profile default)
+    secret=$(echo -- "$tokens" | sed -n 's!.*"SecretAccessKey": "\(.*\)".*!\1!p')
+    session=$(echo -- "$tokens" | sed -n 's!.*"SessionToken": "\(.*\)".*!\1!p')
+    access=$(echo -- "$tokens" | sed -n 's!.*"AccessKeyId": "\(.*\)".*!\1!p')
+    expire=$(echo -- "$tokens" | sed -n 's!.*"Expiration": "\(.*\)".*!\1!p')
+    TEMP=$(uuidgen)
+    sed -n 1,3p ~/.aws/credentials >~/.$TEMP
+    echo "[default]" >>~/.$TEMP
+    echo "aws_access_key_id=$access" >>~/.$TEMP
+    echo "aws_secret_access_key=$secret" >>~/.$TEMP
+    echo "aws_session_token=$session" >>~/.$TEMP
+
+    mv ~/.$TEMP ~/.aws/credentials
+
+    echo Keys valid until $expire >&2
+}
+
 ZSH_AUTOSUGGEST_STRATEGY=histdb_top

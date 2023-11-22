@@ -1,6 +1,7 @@
 [core]
 	autocrlf = input
 	excludesFile = ~/.gitignore
+  pager = delta
 [push]
 	default = simple
 [commit]
@@ -17,3 +18,26 @@
 	email = kevin.ma@avetta.com
 [branch "mainline"]
 	pushRemote = Do not push on mainline
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+[delta]
+    features = decorations
+    line-numbers = true
+    side-by-side = false
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    true-color = always
+[delta "interactive"]
+    keep-plus-minus-markers = false
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
