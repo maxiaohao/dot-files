@@ -1,6 +1,8 @@
 DISABLE_AUTO_UPDATE=true
 
-source /usr/share/zsh/share/zgen.zsh
+[[ -s "/usr/share/zsh/share/zgen.zsh" ]] && source /usr/share/zsh/share/zgen.zsh
+
+[[ -s "${HOME}/.zgen/zgen.zsh" ]] && source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
   zgen oh-my-zsh
@@ -135,8 +137,8 @@ export PATH="$PATH:/home/xma11/.dotnet/tools"
 export PATH="$PATH:$HOME/.nix-profile/bin"
 
 # fzf
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+[[ -s "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
+[[ -s "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
 
