@@ -7,6 +7,7 @@ alt + shift - r : sudo yabai --load-sa --start-service
 
 # open terminal
 alt - y : open -na /Applications/Alacritty.app
+#alt - y : open -na /Applications/iTerm.app
 #
 # open launcher
 alt - d : open -a '/Applications/Alfred 5.app'

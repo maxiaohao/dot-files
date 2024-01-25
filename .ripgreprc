@@ -8,3 +8,6 @@ web:*.html, *.css, *.js, *.jsx, *.ts, *.tsx, *.less, *.mjs
 
 --type-add
 config:rc, Brewfile, *.yml, *.json, *.yaml, *.toml, *.xml
+
+--type-add
+jsp:*.jsp

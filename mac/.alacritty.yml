@@ -17,7 +17,6 @@ font:
     family: Iosevka SS04
     style: Bold Italic
   size: 18
-draw_bold_text_with_bright_colors: true
 colors:
   primary:
     background: '#333333'
@@ -43,6 +42,7 @@ colors:
     magenta: '#ad7fa8'
     cyan:    '#34e2e2'
     white:   '#eeeeec'
+  draw_bold_text_with_bright_colors: true
 selection:
   semantic_escape_chars: ",│`|\"' ()[]{}<>\t"
 window:
