@@ -112,6 +112,8 @@ alias bs='brazil server'
 alias bw='brazil workspace'
 alias bbr='brazil-recursive-cmd --all brazil-build'
 alias py='python3'
+alias fda='fd --no-ignore --hidden'
+alias listening_ports='sudo lsof -iTCP -sTCP:LISTEN -nP'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
