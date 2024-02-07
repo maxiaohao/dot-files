@@ -15,24 +15,27 @@
         bat
         bc
         btop
+        bzip2
         cloc
         colima
         coreutils
+        curl
         curlie
         delta
         diffutils
         direnv
         dnsutils
-        exa
         fd
         findutils
         fzf
         gawk
         git
+        gnugrep
         gnupg
         gnused
         gnutar
         go
+        gzip
         htop
         inetutils
         iterm2
@@ -63,7 +66,6 @@
         tree
         unzip
         util-linux
-        vagrant
         vim
         vscode
         watch

@@ -205,3 +205,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store"
 # direnv
 eval "$(direnv hook zsh)"
 
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
