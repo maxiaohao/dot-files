@@ -1,6 +1,6 @@
 # to install all: `nix-env -iA nixpkgs.my`
 # to upgrade all: `nix-env -u`
-# to clean others: `nix-collect-garbage`
+# to clean others: `nix-env -iA nixpkgs.my && nix-collect-garbage`
 # to clean old generations: `nix-env --delete-generations old`
 {
   allowUnfree = true;
@@ -12,6 +12,7 @@
       name = "my";
       paths = [
         alacritty
+        bash
         bat
         bc
         btop
@@ -25,8 +26,10 @@
         diffutils
         direnv
         dnsutils
+        eza
         fd
         findutils
+        fnm
         fzf
         gawk
         git
@@ -35,6 +38,7 @@
         gnused
         gnutar
         go
+        gron
         gzip
         htop
         inetutils
@@ -47,12 +51,15 @@
         mediainfo
         meld
         ncmpc
+        neofetch
+        neovim
         nmap
-        nodejs-18_x
+        notcurses
         openssh
         procps
         pv
         pwgen
+        pyenv
         ranger
         rar
         readline
@@ -60,12 +67,14 @@
         rsync
         scrcpy
         shellcheck
+        starship
         stern
         tig
         tmux
         tree
         unzip
         util-linux
+        vifm
         vim
         vscode
         watch
@@ -75,6 +84,8 @@
         yq
         yt-dlp
         zip
+        zoxide
+        zsh
       ];
     };
   };

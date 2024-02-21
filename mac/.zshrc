@@ -1,9 +1,9 @@
 DISABLE_AUTO_UPDATE=true
 
-export NVM_LAZY_LOAD=true
+#export NVM_LAZY_LOAD=true
 HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
 
-source "${HOME}/.zgen/zgen.zsh"
+[[ -r ${HOME}/.zgen/zgen.zsh ]] && source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
   zgen oh-my-zsh
@@ -23,7 +23,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/shrink-path
   zgen oh-my-zsh plugins/yarn
   zgen oh-my-zsh plugins/terraform
-  zgen oh-my-zsh plugins/z
+  #zgen oh-my-zsh plugins/z
   #zgen load lukechilds/zsh-nvm
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions
@@ -60,7 +60,7 @@ SAVEHIST=500000
 unsetopt nomatch
 
 alias ack='ack -i'
-alias cat='bat'
+#alias cat='bat'
 alias cda='cd ~/dev/citrus/adread'
 alias cdd='cd ~/dev/citrus/devops'
 alias cddm='cd ~/dev/citrus/devops/module'
@@ -83,10 +83,11 @@ alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad
 alias grep='grep -i --color'
 alias gti='git'
 alias k='kubectl'
-alias l='lsd -F'
-alias la='lsd -A'
-alias ll='lsd -alF'
-alias lll='lsd -alF'
+alias l='eza -F --icons'
+alias la='eza -A --icons'
+alias ll='eza -alo --git --icons'
+alias lll='eza -alo --git --git-repos --icons'
+alias llr='eza -alo --git --git-repos -T --icons'
 alias mvncc='mvn clean compile'
 alias mvncd='mvn clean deploy'
 alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
@@ -112,7 +113,7 @@ alias bs='brazil server'
 alias bw='brazil workspace'
 alias bbr='brazil-recursive-cmd --all brazil-build'
 alias py='python3'
-alias fda='fd --no-ignore --hidden'
+alias fd='fd --no-ignore --hidden'
 alias listening_ports='sudo lsof -iTCP -sTCP:LISTEN -nP'
 
 export LESS=-R
@@ -142,16 +143,14 @@ export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 export XDG_CONFIG_HOME="$HOME/.config"
-#export LDFLAGS="-L/opt/homebrew/opt/node@16/lib"
-#export CPPFLAGS="-I/opt/homebrew/opt/node@16/include"
+export TERM=tmux-256color
 
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH=$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
+export PATH="$PATH:/opt/homebrew/bin"
+export PATH="$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:/home/xma11/.dotnet/tools"
 export PATH="$HOME/.nix-profile/bin:$PATH"
-export PATH="$HOME/.toolbox/bin:/opt/homebrew/bin:$PATH"
-export PATH="$HOME/.nvm/versions/node/v18.13.0/bin:$PATH"
 export PATH="$(pyenv root)/shims:${PATH}"
 
 export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
@@ -203,9 +202,17 @@ HISTDB_FZF_DEFAULT_MODE=4
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store" --iglob "!.git"'
 
 # direnv
-eval "$(direnv hook zsh)"
+[[ -x "$(command -v direnv)" ]] && eval "$(direnv hook zsh)"
 
-# Nix
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
+# zoxide
+[[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init zsh)"
+
+# fnm
+[[ -x "$(command -v fnm)" ]] && eval "$(fnm env --use-on-cd)"
+
+# nix
+[[ -r '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]] &&  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+
+# starship
+[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
+

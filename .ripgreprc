@@ -1,4 +1,5 @@
 --ignore-case
+--hidden
 
 --type-add
 proto:*.proto

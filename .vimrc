@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
@@ -145,7 +145,7 @@ highlight LineNr ctermfg=240
 
 hi Search cterm=NONE ctermfg=grey ctermbg=4
 
-let g:airline_powerline_fonts = 0
+"let g:airline_powerline_fonts = 0
 
 let g:hardtime_default_on = 0
 let g:hardtime_timeout = 200
