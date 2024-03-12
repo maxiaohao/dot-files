@@ -12,6 +12,7 @@
       name = "my";
       paths = [
         alacritty
+        atuin
         bash
         bat
         bc
@@ -33,28 +34,35 @@
         fzf
         gawk
         git
+        glow
         gnugrep
         gnupg
         gnused
         gnutar
         go
         gron
+        gum
         gzip
         htop
         inetutils
         iterm2
+        jless
         jq
+        kondo
         kubectl
         less
         lsd
         lsof
         mediainfo
         meld
+        mprocs
+        navi
         ncmpc
         neofetch
         neovim
         nmap
         notcurses
+        numbat
         openssh
         procps
         pv
@@ -69,18 +77,23 @@
         shellcheck
         starship
         stern
+        tealdeer
         tig
         tmux
+        tokei
         tree
         unzip
         util-linux
         vifm
         vim
+        vivid
         vscode
         watch
         wget
+        xh
         xz
         yarn
+        yazi
         yq
         yt-dlp
         zip

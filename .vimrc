@@ -142,6 +142,7 @@ set colorcolumn=101
 highlight ColorColumn ctermbg=238
 
 highlight LineNr ctermfg=240
+"highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
 hi Search cterm=NONE ctermfg=grey ctermbg=4
 

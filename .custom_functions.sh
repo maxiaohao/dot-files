@@ -225,7 +225,7 @@ tshow-txt() {
 }
 
 f() {
-  file=$(fzf --preview 'bat --style=numbers --color=always --line-range :100 {}')
+  file=$(fzf --preview 'bat --style=numbers --color=always --line-range :100 {}' --bind 'ctrl-j:preview-down,ctrl-k:preview-up')
   [[ "$file" != "" ]] && $EDITOR $file
 }
 

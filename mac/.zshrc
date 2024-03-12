@@ -33,6 +33,7 @@ if ! zgen saved; then
   zgen load larkery/zsh-histdb histdb-interactive.zsh
   zgen load m42e/zsh-histdb-fzf fzf-histdb.zsh
   zgen load junegunn/fzf shell/completion.zsh
+  #zgen load Aloxaf/fzf-tab
   zgen save
 fi
 
@@ -105,7 +106,7 @@ alias tmux='tmux -2'
 alias v='vim'
 alias watch='watch '
 alias gs='gsutil'
-alias curl='curlie'
+#alias curl='curlie'
 alias b='brazil'
 alias bb='brazil-build'
 alias br='brazil release'
@@ -115,6 +116,8 @@ alias bbr='brazil-recursive-cmd --all brazil-build'
 alias py='python3'
 alias fd='fd --no-ignore --hidden'
 alias listening_ports='sudo lsof -iTCP -sTCP:LISTEN -nP'
+alias yless="jless --yaml"
+alias difft="difft --display inline"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
@@ -143,7 +146,7 @@ export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 export XDG_CONFIG_HOME="$HOME/.config"
-export TERM=tmux-256color
+export TERM="tmux-256color"
 
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$PATH:/opt/homebrew/bin"
@@ -155,6 +158,9 @@ export PATH="$(pyenv root)/shims:${PATH}"
 
 export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
 export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
+
+# dotnet7
+export PATH="$PATH:/Users/kevin.ma/dev/tool/dotnet7"
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
 
@@ -216,3 +222,5 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store"
 # starship
 [[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
 
+# atuin
+[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"

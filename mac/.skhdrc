@@ -27,6 +27,9 @@ alt + shift - b : yabai -m config layout bsp
 alt + shift - t : yabai -m config layout stack
 alt + shift - f : yabai -m config layout float
 
+# toggle vertical/horizontal
+alt - l : yabai -m window --toggle split
+
 # enter fullscreen mode for the focused container
 alt - space : yabai -m window --toggle zoom-fullscreen
 
