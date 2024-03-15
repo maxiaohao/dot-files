@@ -1,5 +1,7 @@
-sudo yabai --load-sa --start-service
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa --start-service"
+#sudo yabai --load-sa --start-service
+#yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa --start-service"
+sudo yabai --start-service
+yabai -m signal --add event=dock_did_restart action="sudo yabai --start-service"
 # yabai -m signal --add event=display_added action="space_id=$(yabai -m query --spaces | jq '.[-1].id'); yabai -m space --focus $space_id; yabai -m space --display $YABAI_DISPLAY_ID"
 
 # yabai -m rule --add app='^Microsoft Teams$' title='^Microsoft Teams Notification$' border=off
