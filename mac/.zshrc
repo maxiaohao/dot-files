@@ -222,5 +222,6 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store"
 # starship
 [[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
 
-# atuin
-[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
+# atuin (not as good as histodb)
+#[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
+

@@ -21,6 +21,7 @@
         cloc
         colima
         coreutils
+        csharp-ls
         curl
         curlie
         delta
@@ -30,6 +31,7 @@
         eza
         fd
         findutils
+        fish
         fnm
         fzf
         gawk
@@ -40,6 +42,7 @@
         gnused
         gnutar
         go
+        gopls
         gron
         gum
         gzip
@@ -61,6 +64,7 @@
         neofetch
         neovim
         nmap
+        nodePackages.bash-language-server
         notcurses
         numbat
         openssh

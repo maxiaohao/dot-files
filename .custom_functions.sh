@@ -7,7 +7,7 @@ function tm() {
     if [ $? != 0 ]; then
       cd $HOME
       tmux new-session -s $SESS_NAME -d
-      tmux neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; next \; attach
+      tmux neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; neww \; attach
     fi
     tmux attach -t $SESS_NAME
   fi

@@ -86,8 +86,7 @@
                                         "^com\\.apple\\.Terminal$",
                                         "^io\\.alacritty$", "^org\\.alacritty$",
                                         "^com\\.jetbrains\\.intellij$",
-                                        "^com\\.googlecode\\.iterm2$",
-                                        "^com\\.microsoft\\.VSCode$"
+                                        "^com\\.googlecode\\.iterm2$"
                                     ],
                                     "type": "frontmost_application_if"
                                   }
@@ -103,8 +102,7 @@
                                         "^com\\.apple\\.Terminal$",
                                         "^io\\.alacritty$", "^org\\.alacritty$",
                                         "^com\\.jetbrains\\.intellij$",
-                                        "^com\\.googlecode\\.iterm2$",
-                                        "^com\\.microsoft\\.VSCode$"
+                                        "^com\\.googlecode\\.iterm2$"
                                     ],
                                     "type": "frontmost_application_if"
                                   }
@@ -120,8 +118,7 @@
                                         "^com\\.apple\\.Terminal$",
                                         "^io\\.alacritty$", "^org\\.alacritty$",
                                         "^com\\.jetbrains\\.intellij$",
-                                        "^com\\.googlecode\\.iterm2$",
-                                        "^com\\.microsoft\\.VSCode$"
+                                        "^com\\.googlecode\\.iterm2$"
                                     ],
                                     "type": "frontmost_application_if"
                                   }
@@ -137,8 +134,7 @@
                                         "^com\\.apple\\.Terminal$",
                                         "^io\\.alacritty$", "^org\\.alacritty$",
                                         "^com\\.jetbrains\\.intellij$",
-                                        "^com\\.googlecode\\.iterm2$",
-                                        "^com\\.microsoft\\.VSCode$"
+                                        "^com\\.googlecode\\.iterm2$"
                                     ],
                                     "type": "frontmost_application_if"
                                   }
@@ -154,8 +150,7 @@
                                         "^com\\.apple\\.Terminal$",
                                         "^io\\.alacritty$", "^org\\.alacritty$",
                                         "^com\\.jetbrains\\.intellij$",
-                                        "^com\\.googlecode\\.iterm2$",
-                                        "^com\\.microsoft\\.VSCode$"
+                                        "^com\\.googlecode\\.iterm2$"
                                     ],
                                     "type": "frontmost_application_if"
                                   }

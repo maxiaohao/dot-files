@@ -4,7 +4,7 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'bling/vim-airline'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'easymotion/vim-easymotion'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -16,7 +16,7 @@ Plug 'takac/vim-hardtime'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
+"Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
 Plug 'simeji/winresizer'
 Plug 'tpope/vim-commentary' "Quick (un)comment line(s), shortcut key `\\`.
 "Plug 'mg979/vim-visual-multi' "Multiple cursors plugin for vim/neovim.
@@ -97,8 +97,11 @@ map <silent> <F4> :call SwitchToNextBuffer(1)<CR>
 let NERDTreeIgnore=['\.pyc$', '\.o$', '\~$', '__pycache__', '\.mypy_cache', '\.DS_Store', '^\.git$', '\.o$', '\.so$', '\.egg$', "\.pytest_cache", "\.swp$", "\.swo$", "\.swn$"]
 "NerdTree toggle: <F5>
 "map <F5> :NERDTreeToggle<CR>
+map <C-T> :NERDTreeToggle<CR>
+map <C-L> :NERDTreeFind<CR>
 "NerdTree toggle: ':NT'
 :command NT :NERDTreeToggle
+"let NERDTreeMapOpenInTab='<ENTER>'
 
 "trim 3+ blank lines into at most 2 blank lines
 function! TrimBlankLines()
@@ -168,20 +171,88 @@ augroup END
 let g:go_test_timeout = '3s'
 "let g:go_term_enabled = 1
 
-" coc
-hi! CocErrorSign guifg=#550000
-" hi! CocInfoSign guibg=#353b45
-" hi! CocWarningSign guifg=#d1cd66
-"let g:coc_node_path = '~/.nix-profile/bin/node'
-let g:coc_node_path = '/Users/kevin.ma/.nvm/versions/node/v16.20.2/bin/node'
+
+
+
+nmap <C-n> :bn<CR>
+nmap <C-p> :bp<CR>
+
+set showtabline=1
 
 " win resizer
 let g:winresizer_start_key = '<C-Q>'
 
-"Plugin :: tpope/vim-commentary --------------------------------------- {{{
-"Type `\\` to toggle comments for current line or selected blocks.
-xmap <Leader><Leader>  <Plug>Commentary
-nmap <Leader><Leader>  <Plug>Commentary
-omap <Leader><Leader>  <Plug>Commentary
-nmap <Leader><Leader>  <Plug>CommentaryLine
-" End Plugin :: tpope/vim-commentary ---------------------------------- }}}
+" toggle comment/uncomment
+noremap <leader>/ :Commentary<CR>
+
+" for tpope/vim-commentary
+filetype plugin indent on
+
+
+""""""""""""""""""""""""
+""""" coc - BEGIN """"""
+""""""""""""""""""""""""
+"hi! CocErrorSign guifg=#880000
+hi! CocErrorSign guifg=#d1666a
+" hi! CocInfoSign guibg=#353b45
+" hi! CocWarningSign guifg=#d1cd66
+"let g:coc_node_path = '~/.nix-profile/bin/node'
+let g:coc_node_path = '/Users/kevin.ma/Library/Application Support/fnm/aliases/default/bin/node'
+
+set nobackup
+set nowritebackup
+set updatetime=300
+set signcolumn=yes
+" To suppress the "ATTENTION" message when external commands are executed
+set shortmess+=c
+
+
+" <TAB> for selecting an item in auto-completion
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<TAB>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Use Leader+h to show documentation in preview window.
+nnoremap <silent> <LEADER>h :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call ShowDocumentation()<CR>
+"
+" function! ShowDocumentation()
+"   if CocAction('hasProvider', 'hover')
+"     call CocActionAsync('doHover')
+"   else
+"     call feedkeys('K', 'in')
+"   endif
+" endfunction
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+"""""""""""""""""""""
+""""" coc - END """""
+"""""""""""""""""""""
