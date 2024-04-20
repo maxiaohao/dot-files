@@ -17,7 +17,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/git-flow
   zgen oh-my-zsh plugins/golang
-  zgen oh-my-zsh plugins/kubectl
+  #zgen oh-my-zsh plugins/kubectl
   zgen oh-my-zsh plugins/mvn
   zgen oh-my-zsh plugins/npm
   zgen oh-my-zsh plugins/shrink-path
@@ -114,7 +114,7 @@ alias bs='brazil server'
 alias bw='brazil workspace'
 alias bbr='brazil-recursive-cmd --all brazil-build'
 alias py='python3'
-alias fd='fd --no-ignore --hidden'
+alias fda='fd --no-ignore --hidden'
 alias listening_ports='sudo lsof -iTCP -sTCP:LISTEN -nP'
 alias yless="jless --yaml"
 alias difft="difft --display inline"
@@ -152,7 +152,8 @@ export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$PATH:/home/xma11/.dotnet/tools"
+export PATH="$PATH:$HOME/.dotnet"
+export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$HOME/.nix-profile/bin:$PATH"
 export PATH="$(pyenv root)/shims:${PATH}"
 
@@ -160,7 +161,7 @@ export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
 export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
 
 # dotnet7
-export PATH="$PATH:/Users/kevin.ma/dev/tool/dotnet7"
+#export PATH="$PATH:/Users/kevin.ma/dev/tool/dotnet7"
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
 
@@ -192,6 +193,9 @@ true
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
+
+# kubectl auto completion
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
 # fix Home/End keys in zsh in tmux
 bindkey "\E[1~" beginning-of-line
