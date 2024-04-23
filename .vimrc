@@ -103,8 +103,7 @@ map <C-L> :NERDTreeFind<CR>
 """"""""""""""""""""""""
 """"" coc - BEGIN """"""
 """"""""""""""""""""""""
-"let g:coc_node_path = '~/.nix-profile/bin/node'
-let g:coc_node_path = '/Users/kevin.ma/Library/Application Support/fnm/aliases/default/bin/node'
+"let g:coc_node_path = '/Users/kevin.ma/dev/tool/IN_PATH/node'
 
 set nobackup
 set nowritebackup
@@ -147,6 +146,9 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+
+highlight CocFloating ctermbg=24
+highlight CocMenuSel ctermbg=166
 
 """""""""""""""""""""
 """"" coc - END """""
@@ -222,6 +224,9 @@ filetype plugin indent on
 
 " only auto pair {} for jiangmiao/auto-pairs
 let g:AutoPairs = {'{':'}'}
+
+" shortcut gb to remove blank lines in the selected lines
+vnoremap gb :<C-u>'<,'>g/^$/d<CR>
 
 """""""""""""""""""""""
 """"" misc - END """"""
