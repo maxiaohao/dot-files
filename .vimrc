@@ -73,7 +73,7 @@ colorscheme desert
 highlight ColorColumn ctermbg=237
 highlight LineNr ctermfg=240
 highlight Search cterm=NONE ctermfg=grey ctermbg=4
-highlight CursorLine cterm=none term=none ctermbg=235
+highlight CursorLine cterm=none term=none ctermbg=234
 autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 """"""""""""""""""""""""""
@@ -90,9 +90,19 @@ autocmd WinLeave * setlocal nocursorline
 "let NERDTreeWinSize=31
 "let NERDTreeChDirMode=1
 let NERDTreeIgnore=['\.pyc$', '\.o$', '\~$', '__pycache__', '\.mypy_cache', '\.DS_Store', '^\.git$', '\.o$', '\.so$', '\.egg$', "\.pytest_cache", "\.swp$", "\.swo$", "\.swn$"]
-map <C-T> :NERDTreeToggle<CR>
-map <C-L> :NERDTreeFind<CR>
+"map <C-T> :NERDTreeToggle<CR>
+"map <C-L> :NERDTreeFind<CR>
 :command NT :NERDTreeToggle
+
+map <C-L> :call ToggleNERDTreeFind()<CR>
+
+function! ToggleNERDTreeFind()
+  if exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1
+    NERDTreeClose
+  else
+    NERDTreeFind
+  endif
+endfunction
 """""""""""""""""""""""""""
 """"" NERDTree - END """"""
 """""""""""""""""""""""""""
@@ -147,8 +157,9 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-highlight CocFloating ctermbg=24
-highlight CocMenuSel ctermbg=166
+highlight CocFloating ctermbg=24 ctermfg=251
+highlight CocMenuSel ctermbg=130
+"highlight CocInfoSign ctermfg=1
 
 """""""""""""""""""""
 """"" coc - END """""
@@ -173,8 +184,8 @@ noremap g/ :Commentary<CR>
 " gq for :bd
 noremap gq :bd<CR>
 
-" Ctrl+Shift+t to run :GoTest
-nnoremap <C-S-t> :GoTest<CR>
+" gt to run :GoTest
+nnoremap <C-T> :GoTest<CR>
 """"""""""""""""""""""""""""
 """"" other keys - END """""
 """"""""""""""""""""""""""""
@@ -227,6 +238,19 @@ let g:AutoPairs = {'{':'}'}
 
 " shortcut gb to remove blank lines in the selected lines
 vnoremap gb :<C-u>'<,'>g/^$/d<CR>
+
+
+" shortcut gb to toggle :Git blame in normal mode
+nnoremap gb :call ToggleGitBlame()<CR>
+
+function! ToggleGitBlame()
+  let blame_buffer = bufnr('*fugitiveblame')
+  if blame_buffer != -1
+    execute blame_buffer . 'bwipeout!'
+  else
+    Git blame
+  endif
+endfunction
 
 """""""""""""""""""""""
 """"" misc - END """"""
