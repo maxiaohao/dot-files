@@ -1,6 +1,6 @@
 # to install all: `nix-env -iA nixpkgs.my`
 # to upgrade all: `nix-env -u`
-# to clean others: `nix-env -iA nixpkgs.my && nix-collect-garbage`
+# to clean others: `nix-collect-garbage`
 # to clean old generations: `nix-env --delete-generations old`
 {
   allowUnfree = true;
@@ -12,7 +12,6 @@
       name = "my";
       paths = [
         alacritty
-        atuin
         bash
         bat
         bc

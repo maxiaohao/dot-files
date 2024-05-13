@@ -184,8 +184,9 @@ noremap g/ :Commentary<CR>
 " gq for :bd
 noremap gq :bd<CR>
 
-" gt to run :GoTest
+" gt or C-T to run :GoTest
 nnoremap <C-T> :GoTest<CR>
+nnoremap gt :GoTest<CR>
 """"""""""""""""""""""""""""
 """"" other keys - END """""
 """"""""""""""""""""""""""""
