@@ -52,6 +52,7 @@
         jq
         kondo
         kubectl
+        lazygit
         less
         lsd
         lsof

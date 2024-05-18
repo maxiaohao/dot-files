@@ -124,7 +124,7 @@ set shortmess+=c
 
 " <TAB> OR <ENTER> for selecting an item in auto-completion
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<TAB>"
-inoremap <silent><expr> <ENTER> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<ENTER>"
+"inoremap <silent><expr> <ENTER> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<ENTER>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.

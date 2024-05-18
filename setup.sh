@@ -27,7 +27,7 @@ fn_link() {
   filename=$(basename $full_symlink_filename)
   dir=$(dirname $full_symlink_filename)
   # echo "full_raw=$full_raw_filename, symlink=$full_symlink_filename, filename=$filename, dir=$dir"
-  rm -f $full_symlink_filename
+  rm -rf $full_symlink_filename
   mkdir -p $dir
   echo "Refreshing symlink: $full_symlink_filename -> $full_raw_filename ..."
   ln -s $full_raw_filename $full_symlink_filename
@@ -52,7 +52,7 @@ cd $script_dir
 
 echo -n "Making symlinks for dot files..." && fn_confirm && \
 for dotfile in .*; do
-  if [[ -f $dotfile ]]; then
+  if [[ -e $dotfile ]]; then
     fn_link "$dotfile";
   fi
 done
