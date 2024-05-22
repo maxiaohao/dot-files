@@ -52,7 +52,7 @@ cd $script_dir
 
 echo -n "Making symlinks for dot files..." && fn_confirm && \
 for dotfile in .*; do
-  if [[ -e $dotfile ]]; then
+  if [[ -e $dotfile && $dotfile != ".git" ]]; then
     fn_link "$dotfile";
   fi
 done

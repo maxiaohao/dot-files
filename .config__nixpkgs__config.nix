@@ -1,6 +1,12 @@
+## fix channel (if missing)
+# nix-channel --list
+# nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+# nix-channel --list
+# nix-channel --update
+#
 # to install all: `nix-env -iA nixpkgs.my`
 # to upgrade all: `nix-env -u`
-# to clean others: `nix-collect-garbage`
+# to clean others: `nix-collect-garbage -d`
 # to clean old generations: `nix-env --delete-generations old`
 {
   allowUnfree = true;
@@ -12,6 +18,7 @@
       name = "my";
       paths = [
         alacritty
+        awscli
         bash
         bat
         bc
