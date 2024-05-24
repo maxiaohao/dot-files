@@ -38,21 +38,42 @@ TERM = "xterm-256color"
 WINIT_X11_SCALE_FACTOR = "1.0"
 
 [font]
-size = 23.75 # for D2CodingLigature Nerd Font
-#size = 22 # for Iosevka SS04
+#size = 19 # for DejaVuSansM / BitstromWera
+#size = 23.75 # for D2CodingLigature Nerd Font
+size = 22 # for IosevkaTermSS04 Nerd Font
 
 [font.normal]
 #family = "Cascadia Code NF"
-family = "D2CodingLigature Nerd Font"
-#family = "DejaVuSansM Nerd Font Mono"
-#family = "Iosevka Term SS04"
-#family = "IosevkaTermSS04 Nerd Font"
+#family = "D2CodingLigature Nerd Font"
+#family = "DejaVuSansM Nerd Font"
+family = "IosevkaTermSS04 Nerd Font"
 #family = "JetBrainsMono Nerd Font"
-#family = "M+1Code Nerd Font Mono"
-#family = "MesloLGS Nerd Font Mono"
-#family = "Mononoki Nerd Font Mono"
+#family = "M+1Code Nerd Font"
+#family = "MesloLGS Nerd Font"
+#family = "Mononoki Nerd Font"
 #family = "UbuntuMono Nerd Font"
 #family = "VictorMono Nerd Font"
+
+#style = "Bold"
+#style = "Medium"
+#style = "Regular"
+style = "Light"
+#style = "ExtraLight"
+#style = "Thin"
+
+[font.bold]
+#style = "SemiBold"
+style = "Bold"
+#style = "ExtraBold"
+
+[font.italic]
+#style = "Italic"
+style = "Light Italic"
+
+[font.bold_italic]
+#style = "SemiBold Italic"
+style = "Bold Italic"
+#style = "ExtraBold Italic"
 
 [scrolling]
 history = 99999
