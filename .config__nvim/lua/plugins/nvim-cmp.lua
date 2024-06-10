@@ -1,13 +1,15 @@
+local cmp = require("cmp")
 return {
   {
     "hrsh7th/nvim-cmp",
     opts = {
       window = {
-        completion = require("cmp").config.window.bordered(),
-        documentation = require("cmp").config.window.bordered(),
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
       },
-      mapping = require("cmp").mapping.preset.insert({
-        ["<Tab>"] = require("cmp").mapping.confirm({ select = true }),
+      mapping = cmp.mapping.preset.insert({
+        ["<Tab>"] = cmp.mapping.confirm(),
+        ["<CR>"] = cmp.mapping.abort(),
       }),
     },
   },
