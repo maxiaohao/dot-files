@@ -3,6 +3,9 @@ DISABLE_AUTO_UPDATE=true
 #export NVM_LAZY_LOAD=true
 HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
 
+# disable bracketed-paste-magic
+DISABLE_MAGIC_FUNCTIONS=true
+
 [[ -r ${HOME}/.zgen/zgen.zsh ]] && source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then

@@ -52,6 +52,7 @@
         gron
         gum
         gzip
+        kubernetes-helm
         htop
         inetutils
         iterm2
