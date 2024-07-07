@@ -236,3 +236,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store"
 # atuin (not as good as histodb)
 #[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
 
+# auto completion for 'tool' (personal trivial tool written in Go)
+[[ $commands[tool] ]] && source <(tool completion zsh)
+
+

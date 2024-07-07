@@ -8,6 +8,11 @@
 # to upgrade all: `nix-env -u`
 # to clean others: `nix-collect-garbage -d`
 # to clean old generations: `nix-env --delete-generations old`
+#
+# Upon error: cannot connect to socket at '/nix/var/nix/daemon-socket/socket': Connection refused
+# Try:
+# sudo launchctl list | grep org.nixos
+# sudo launchctl kickstart -k system/org.nixos.nix-daemon
 {
   allowUnfree = true;
   permittedInsecurePackages = [
@@ -17,7 +22,6 @@
     my= pkgs.buildEnv {
       name = "my";
       paths = [
-        alacritty
         awscli
         bash
         bat
