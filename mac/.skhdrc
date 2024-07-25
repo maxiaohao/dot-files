@@ -10,7 +10,9 @@ alt - y : open -na /Applications/Alacritty.app
 #alt - y : open -na /Applications/iTerm.app
 #
 # open launcher
-alt - d : open -a '/Applications/Alfred 5.app'
+#alt - d : open -a '/Applications/Alfred 5.app'
+#alt - d : open -a '/Applications/Quicksilver.app'
+alt - d : ls /Applications/ /Applications/Utilities/ /System/Applications/ /System/Applications/Utilities/ | grep '\.app$' | sed 's/\.app$//g' | choose -s 36 -c CE5C00 | xargs -I {} open -a "{}.app"
 
 # open browser
 #alt + shift - b : open -na '/Applications/Brave Browser.app'

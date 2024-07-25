@@ -13,6 +13,8 @@
 # Try:
 # sudo launchctl list | grep org.nixos
 # sudo launchctl kickstart -k system/org.nixos.nix-daemon
+#
+# Fix ssl cert: https://github.com/NixOS/nix/issues/8081#issuecomment-1962419263
 {
   allowUnfree = true;
   permittedInsecurePackages = [
@@ -56,7 +58,6 @@
         gron
         gum
         gzip
-        kubernetes-helm
         htop
         inetutils
         iterm2
@@ -64,6 +65,7 @@
         jq
         kondo
         kubectl
+        kubernetes-helm
         lazygit
         less
         lsd
