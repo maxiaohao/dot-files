@@ -2,14 +2,16 @@
 # nix-channel --list
 # nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 # nix-channel --list
+#
+## first we need to update the channel before doing an upgrade for pkgs
 # nix-channel --update
 #
 # to install all: `nix-env -iA nixpkgs.my`
-# to upgrade all: `nix-env -u`
-# to clean others: `nix-collect-garbage -d`
-# to clean old generations: `nix-env --delete-generations old`
+# to upgrade all: `nix-env -u` ## this does NOT actually upgrade (use the install cmd for an upgrade)
+# to clean garbage: `nix-collect-garbage -d`
+# to clean old gen: `nix-env --delete-generations old`
 #
-# Upon error: cannot connect to socket at '/nix/var/nix/daemon-socket/socket': Connection refused
+# Troubleshooting: cannot connect to socket at '/nix/var/nix/daemon-socket/socket': Connection refused
 # Try:
 # sudo launchctl list | grep org.nixos
 # sudo launchctl kickstart -k system/org.nixos.nix-daemon

@@ -13,8 +13,8 @@ if ! zgen saved; then
   #zgen oh-my-zsh plugins/autojump
   zgen oh-my-zsh plugins/aws
   zgen oh-my-zsh plugins/colored-man-pages
-  zgen oh-my-zsh plugins/docker
-  zgen oh-my-zsh plugins/docker-compose
+  #zgen oh-my-zsh plugins/docker
+  #zgen oh-my-zsh plugins/docker-compose
   zgen oh-my-zsh plugins/gcloud
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/git-extras
@@ -201,8 +201,10 @@ true
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 
-# kubectl auto completion
+[[ $commands[docker] ]] && source <(docker completion zsh)
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+[[ $commands[helm] ]] && source <(helm completion zsh)
+[[ $commands[tool] ]] && source <(tool completion zsh)
 
 # fix Home/End keys in zsh in tmux
 bindkey "\E[1~" beginning-of-line
@@ -236,7 +238,5 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store"
 # atuin (not as good as histodb)
 #[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
 
-# auto completion for 'tool' (personal trivial tool written in Go)
-[[ $commands[tool] ]] && source <(tool completion zsh)
 
 

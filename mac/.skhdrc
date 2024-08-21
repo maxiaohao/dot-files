@@ -2,7 +2,7 @@
 #alt + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 # alt + shift - r : brew services restart yabai; brew services restart skhd
 # https://github.com/koekeishiya/yabai/issues/1738
-alt + shift - r : yabai --restart-service
+ctrl + alt + shift - r : yabai --restart-service
 #alt + shift - r : sudo yabai --load-sa --start-service
 
 # open terminal
@@ -12,7 +12,7 @@ alt - y : open -na /Applications/Alacritty.app
 # open launcher
 #alt - d : open -a '/Applications/Alfred 5.app'
 #alt - d : open -a '/Applications/Quicksilver.app'
-alt - d : ls /Applications/ /Applications/Utilities/ /System/Applications/ /System/Applications/Utilities/ | grep '\.app$' | sed 's/\.app$//g' | choose -s 36 -c CE5C00 | xargs -I {} open -a "{}.app"
+alt - d : cat <(ls /Applications/ /Applications/Utilities/ /System/Applications/ /System/Applications/Utilities/ | grep '\.app$') <(ls $HOME/dev/tool/go_path/bin | xargs -I {} readlink -f "$HOME/dev/tool/go_path/bin/{}") | choose -s 36 -c CE5C00 | xargs -I {} open -a "{}"
 
 # open browser
 #alt + shift - b : open -na '/Applications/Brave Browser.app'
