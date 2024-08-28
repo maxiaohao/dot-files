@@ -90,6 +90,7 @@ alias k='kubectl'
 alias l='eza -F --icons'
 alias la='eza -A --icons'
 alias ll='eza -alo --git --icons'
+alias llt='eza -alo --git --icons --sort=time'
 alias lll='eza -alo --git --git-repos --icons'
 alias llr='eza -alo --git --git-repos -T --icons'
 alias mvncc='mvn clean compile'
@@ -153,7 +154,8 @@ export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 export XDG_CONFIG_HOME="$HOME/.config"
-export TERM="tmux-256color"
+#export TERM="tmux-256color"
+export TERM="alacritty"
 
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$PATH:/opt/homebrew/bin"

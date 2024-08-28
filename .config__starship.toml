@@ -54,14 +54,12 @@ format = '[$user]($style) '
 show_always = false
 
 
-
 [aws]
 disabled = true
 symbol = "  "
 
 [gcloud]
 disabled = true
-
 
 
 [buf]
@@ -105,6 +103,7 @@ disabled = true
 symbol = " "
 
 [golang]
+detect_extensions = []
 format = '[$symbol($version)]($style) '
 symbol = " "
 
@@ -132,6 +131,7 @@ symbol = " "
 ssh_symbol = " "
 
 [java]
+detect_extensions = []
 format = '[$symbol($version)]($style) '
 symbol = " "
 
@@ -161,6 +161,7 @@ symbol = "󰆥 "
 symbol = " "
 
 [nodejs]
+detect_extensions = []
 format = '[$symbol($version)]($style) '
 symbol = " "
 
@@ -222,6 +223,7 @@ disabled = true
 symbol = " "
 
 [python]
+detect_extensions = []
 format = '[$symbol($version)]($style) '
 symbol = " "
 
@@ -248,4 +250,3 @@ symbol = " "
 [zig]
 disabled = true
 symbol = " "
-
