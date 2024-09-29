@@ -154,8 +154,11 @@ export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 export XDG_CONFIG_HOME="$HOME/.config"
-#export TERM="tmux-256color"
-export TERM="alacritty"
+if [[ "$TMUX" == "" ]]; then
+  export TERM="alacritty"
+else
+  export TERM="tmux-256color"
+fi
 
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$PATH:/opt/homebrew/bin"

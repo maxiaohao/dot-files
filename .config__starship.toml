@@ -25,7 +25,8 @@ disabled = true
 format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
 
 [kubernetes]
-disabled = true
+disabled = false
+format = '[$context( \($namespace\))]($style) '
 
 [package]
 disabled = true
