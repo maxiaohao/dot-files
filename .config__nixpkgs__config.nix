@@ -3,13 +3,16 @@
 # nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 # nix-channel --list
 #
-## first we need to update the channel before doing an upgrade for pkgs
+## 1) we need to update the channel before doing an upgrade for pkgs
 # nix-channel --update
 #
-# to install all: `nix-env -iA nixpkgs.my`
+## 2) to install all:
+# nix-env -iA nixpkgs.my
+#
 # to upgrade all: `nix-env -u` ## this does NOT actually upgrade (use the install cmd for an upgrade)
 # to clean garbage: `nix-collect-garbage -d`
 # to clean old gen: `nix-env --delete-generations old`
+# - Done
 #
 # Troubleshooting: cannot connect to socket at '/nix/var/nix/daemon-socket/socket': Connection refused
 # Try:
@@ -17,6 +20,8 @@
 # sudo launchctl kickstart -k system/org.nixos.nix-daemon
 #
 # Fix ssl cert: https://github.com/NixOS/nix/issues/8081#issuecomment-1962419263
+#
+# Or, manually run the daemon on demand: sudo nix-daemon
 {
   allowUnfree = true;
   permittedInsecurePackages = [
@@ -32,6 +37,7 @@
         bc
         btop
         bzip2
+        clipcat
         cloc
         colima
         coreutils
@@ -46,6 +52,7 @@
         fd
         findutils
         fish
+        flameshot
         fnm
         fzf
         gawk
@@ -82,7 +89,6 @@
         nmap
         nodePackages.bash-language-server
         notcurses
-        numbat
         openssh
         procps
         pv
