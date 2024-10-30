@@ -1,0 +1,8 @@
+server_endpoint = "/var/folders/_7/ylzgmjcj5yj6g19nkj5fkt500000gp/T/clipcat/grpc.sock"
+preview_length = 100
+
+[log]
+emit_journald = true
+emit_stdout = false
+emit_stderr = false
+level = "INFO"

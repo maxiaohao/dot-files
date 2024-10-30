@@ -1,0 +1,31 @@
+server_endpoint = "/var/folders/_7/ylzgmjcj5yj6g19nkj5fkt500000gp/T/clipcat/grpc.sock"
+finder = "choose"
+preview_length = 80
+
+[rofi]
+line_length = 70
+menu_length = 15
+menu_prompt = "Clipcat"
+extra_arguments = []
+
+[dmenu]
+line_length = 70
+menu_length = 15
+menu_prompt = "Clipcat"
+extra_arguments = []
+
+[choose]
+line_length = 60
+menu_length = 24
+menu_prompt = "clipcat"
+extra_arguments = ["-c", "CE5C00"]
+
+[custom_finder]
+program = "fzf"
+args = []
+
+[log]
+emit_journald = true
+emit_stdout = false
+emit_stderr = false
+level = "INFO"
