@@ -90,6 +90,7 @@
         nodePackages.bash-language-server
         notcurses
         openssh
+        pigz
         procps
         pv
         pwgen

@@ -40,7 +40,8 @@ WINIT_X11_SCALE_FACTOR = "1.0"
 [font]
 #size = 19 # for DejaVuSansM / BitstromWera
 #size = 23.75 # for D2CodingLigature Nerd Font
-size = 22 # for IosevkaTermSS04 Nerd Font
+#size = 22.5 # for IosevkaTermSS04 Nerd Font
+size = 20.5 # for IosevkaTermSS04 Nerd Font
 
 [font.normal]
 #family = "Cascadia Code NF"
@@ -80,3 +81,7 @@ semantic_escape_chars = ",│`|\"' ()[]{}<>\t"
 
 [window]
 decorations = "None"
+
+[[hints.enabled]]
+command = "xdg-open"
+hyperlinks = true

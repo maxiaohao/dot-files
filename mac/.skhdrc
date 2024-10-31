@@ -15,10 +15,10 @@ alt - y : open -na /Applications/Alacritty.app
 alt - d : cat <(ls /Applications/ /Applications/Utilities/ /System/Applications/ /System/Applications/Utilities/ | grep '\.app$') <(ls $HOME/dev/tool/go_path/bin | xargs -I {} readlink -f "$HOME/dev/tool/go_path/bin/{}") | choose -s 36 -c CE5C00 | xargs -I {} open -a "{}"
 
 # clipcat-menu
-alt - p : clipcat-menu
+alt + shift - p : clipcat-menu
 
 # screenshot
-alt - u : flameshot gui
+alt + shift - y : flameshot gui
 
 # open browser
 #alt + shift - b : open -na '/Applications/Brave Browser.app'
