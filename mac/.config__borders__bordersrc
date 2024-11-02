@@ -2,7 +2,7 @@
 
 options=(
 	style=square
-	width=10.0
+	width=22.0
 	active_color=0xFFCE5C00
 )
 

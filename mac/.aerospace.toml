@@ -2,14 +2,16 @@ start-at-login = true
 accordion-padding = 0
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 after-startup-command = [ 'exec-and-forget $HOME/.nix-profile/bin/clipcatd -r' ]
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
 
 [gaps]
-inner.horizontal = 5
-inner.vertical   = 5
-outer.left       = 5
-outer.bottom     = 5
-outer.top        = 5
-outer.right      = 5
+inner.horizontal = 11
+inner.vertical   = 11
+outer.left       = 11
+outer.bottom     = 11
+outer.top        = 11
+outer.right      = 11
 
 [mode.main.binding]
 alt-y = 'exec-and-forget open -n /Applications/Alacritty.app'
@@ -20,51 +22,58 @@ alt-d = 'exec-and-forget cat <(ls /Applications/ /Applications/Utilities/ /Syste
 
 alt-w = 'close'
 
-alt-h = 'focus --boundaries all-monitors-outer-frame left'
-alt-j = 'focus --boundaries all-monitors-outer-frame down'
-alt-k = 'focus --boundaries all-monitors-outer-frame up'
-alt-l = 'focus --boundaries all-monitors-outer-frame right'
+alt-h = 'focus --boundaries all-monitors-outer-frame --ignore-floating left'
+alt-j = 'focus --boundaries all-monitors-outer-frame --ignore-floating down'
+alt-k = 'focus --boundaries all-monitors-outer-frame --ignore-floating up'
+alt-l = 'focus --boundaries all-monitors-outer-frame --ignore-floating right'
 
-alt-p = 'focus left'
-alt-n = 'focus right'
+alt-p = 'focus --ignore-floating up'
+alt-n = 'focus --ignore-floating down'
+
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+alt-space = 'fullscreen'
+alt-shift-space = 'layout floating tiling'
+
+alt-t = ['flatten-workspace-tree', 'layout v_accordion']
+alt-e = ['flatten-workspace-tree', 'layout tiles horizontal vertical']
+
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+
+alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+
+alt-comma = 'mode service'
+alt-r = 'mode resize'
+
+cmd-h = []
+cmd-alt-h = []
+
+[mode.resize.binding]
+h = 'resize width -100'
+j = 'resize height +100'
+k = 'resize height -100'
+l = 'resize width +100'
+enter = 'mode main'
+esc = 'mode main'
+
+[mode.service.binding]
+r = ['flatten-workspace-tree', 'mode main']
+enter = ['reload-config', 'mode main']
+esc = ['reload-config', 'mode main']
 
 alt-shift-h = ['join-with left', 'mode main']
 alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-alt-space = 'fullscreen'
-alt-shift-space = 'layout floating tiling'
-
-alt-t = 'layout h_accordion'
-alt-e = 'layout tiles horizontal vertical'
-
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-
-alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
-alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
-alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
-alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
-
-cmd-h = []
-cmd-alt-h = []
-
-alt-shift-r = 'flatten-workspace-tree'
-
-alt-r = 'mode resize'
-
-[mode.resize.binding]
-h = 'resize width -50'
-j = 'resize height +50'
-k = 'resize height -50'
-l = 'resize width +50'
-enter = 'mode main'
-esc = 'mode main'
-
 [workspace-to-monitor-force-assignment]
-1 = 'built-in'
-2 = 'DELL'
-3 = 'VA'
+1 = 1
+2 = 2
+3 = 3
