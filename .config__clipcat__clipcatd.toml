@@ -2,7 +2,7 @@ daemonize = true
 pid_file = "/var/folders/_7/ylzgmjcj5yj6g19nkj5fkt500000gp/T/clipcatd.pid"
 primary_threshold_ms = 5000
 max_history = 5000
-synchronize_selection_with_clipboard = true
+synchronize_selection_with_clipboard = false
 history_file_path = "/Users/kevin.ma/Library/Caches/clipcat/clipcatd-history"
 snippets = []
 
@@ -14,7 +14,7 @@ level = "INFO"
 
 [watcher]
 enable_clipboard = true
-enable_primary = true
+enable_primary = false
 enable_secondary = false
 sensitive_x11_atoms = ["x-kde-passwordManagerHint"]
 filter_text_min_length = 1

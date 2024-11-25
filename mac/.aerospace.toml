@@ -1,6 +1,6 @@
-start-at-login = true
+start-at-login = false
 accordion-padding = 0
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+# on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 after-startup-command = [ 'exec-and-forget $HOME/.nix-profile/bin/clipcatd -r' ]
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -21,6 +21,7 @@ cmd-alt-y = 'exec-and-forget $HOME/.nix-profile/bin/flameshot gui'
 alt-d = 'exec-and-forget cat <(ls /Applications/ /Applications/Utilities/ /System/Applications/ /System/Applications/Utilities/ | grep "\.app$") <(ls $HOME/dev/tool/go_path/bin | xargs -I {} readlink -f "$HOME/dev/tool/go_path/bin/{}") | choose -s 36 -c CE5C00 | xargs -I {} open -a "{}"'
 
 alt-w = 'close'
+alt-m = 'move-mouse monitor-lazy-center'
 
 alt-h = 'focus --boundaries all-monitors-outer-frame --ignore-floating left'
 alt-j = 'focus --boundaries all-monitors-outer-frame --ignore-floating down'

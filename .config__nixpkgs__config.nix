@@ -77,6 +77,7 @@
         kubernetes-helm
         lazygit
         less
+        lf
         lsd
         lsof
         mediainfo
@@ -95,7 +96,6 @@
         pv
         pwgen
         pyenv
-        ranger
         rar
         readline
         ripgrep

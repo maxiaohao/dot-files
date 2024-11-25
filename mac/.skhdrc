@@ -16,6 +16,7 @@ alt - d : cat <(ls /Applications/ /Applications/Utilities/ /System/Applications/
 
 # clipcat-menu
 alt + shift - p : clipcat-menu
+alt + ctrl - p : clipcat-menu
 
 # screenshot
 alt + shift - y : flameshot gui
@@ -29,6 +30,7 @@ alt - w : cur_disp=$(yabai -m query --windows | jq '.[]|select(."has-focus"==tru
 
 # bsp/stack(tab)/float mode
 alt - b : yabai -m space --layout bsp; yabai -m space --balance
+alt - e : yabai -m space --layout bsp; yabai -m space --balance
 alt - t : yabai -m space --layout stack
 alt - f : yabai -m space --layout float
 alt + shift - b : yabai -m config layout bsp
@@ -54,7 +56,7 @@ alt - l: yabai -m window --focus east
 alt - p: yabai -m window --focus stack.prev
 alt - n: yabai -m window --focus stack.next
 alt - a: yabai -m window --focus stack.first
-alt - e: yabai -m window --focus stack.last
+#alt - e: yabai -m window --focus stack.last
 
 # Add the active window to the window or stack to the {direction}
 # Note that this only works when the active window does *not* already belong to a stack
