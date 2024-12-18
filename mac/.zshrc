@@ -52,7 +52,8 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-#compinit
+fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
+compinit
 
 # don't share cmd history among windows
 # setopt nosharehistory
@@ -159,14 +160,18 @@ if [[ "$TMUX" == "" ]]; then
 else
   export TERM="tmux-256color"
 fi
+#export TERM="alacritty"
 
-export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+#export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$PATH:/opt/homebrew/bin"
-export PATH="$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin"
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/dev/tool/IN_PATH:$GOPATH/bin:$PATH"
+#export PATH="$HOME/dev/tool/IN_PATH/coreutils:$PATH"
+#export PATH="$HOME/dev/tool/IN_PATH/awk:$PATH"
+#export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.dotnet"
 export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$PATH:$HOME/.nix-profile/bin"
+#export PATH="$PATH:$HOME/.nix-profile/bin"
+#export PATH="$PATH:/nix/var/nix/profiles/default/bin"
 export PATH="$(pyenv root)/shims:${PATH}"
 
 export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"

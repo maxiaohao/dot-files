@@ -16,7 +16,7 @@ outer.right      = 11
 [mode.main.binding]
 alt-y = 'exec-and-forget open -n /Applications/Alacritty.app'
 alt-b = 'exec-and-forget open -n /Applications/Firefox.app'
-cmd-alt-p = 'exec-and-forget $HOME/.nix-profile/bin/clipcat-menu'
+cmd-alt-p = 'exec-and-forget $HOME/dev/tool/IN_PATH/clipcat-menu'
 cmd-alt-y = 'exec-and-forget $HOME/.nix-profile/bin/flameshot gui'
 alt-d = 'exec-and-forget cat <(ls /Applications/ /Applications/Utilities/ /System/Applications/ /System/Applications/Utilities/ | grep "\.app$") <(ls $HOME/dev/tool/go_path/bin | xargs -I {} readlink -f "$HOME/dev/tool/go_path/bin/{}") | choose -s 36 -c CE5C00 | xargs -I {} open -a "{}"'
 
