@@ -2,6 +2,7 @@
 	autocrlf = input
 	excludesFile = ~/.gitignore
   pager = delta --tabs 2
+	hooksPath = /Users/kevin.ma/.githooks
 [push]
 	default = simple
 [commit]

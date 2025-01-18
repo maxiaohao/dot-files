@@ -53,7 +53,6 @@ zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
 fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
-compinit
 
 # don't share cmd history among windows
 # setopt nosharehistory
@@ -88,12 +87,12 @@ alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad
 alias grep='grep -i --color'
 alias gti='git'
 alias k='kubectl'
-alias l='eza -F --icons'
-alias la='eza -A --icons'
-alias ll='eza -alo --git --icons'
-alias llt='eza -alo --git --icons --sort=time'
-alias lll='eza -alo --git --git-repos --icons'
-alias llr='eza -alo --git --git-repos -T --icons'
+alias l='eza'
+alias la='eza --icons -A'
+alias ll='eza --git --icons -alo'
+alias llt='eza --git --icons --sort=time -alo'
+alias lll='eza --git --git-repos --icons -alo'
+alias llr='eza --git --git-repos -T --icons -alo'
 alias mvncc='mvn clean compile'
 alias mvncd='mvn clean deploy'
 alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
@@ -208,7 +207,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.config/gcloud/application_default_
 
 true
 
-autoload -U +X bashcompinit && bashcompinit
+#autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 
 [[ $commands[docker] ]] && source <(docker completion zsh)
@@ -248,5 +247,6 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store"
 # atuin (not as good as histodb)
 #[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
 
-
+autoload -U compinit
+compinit
 

@@ -1,0 +1,38 @@
+#!/bin/bash
+
+## To enable
+# git config --global core.hooksPath $HOME/.githooks
+
+## To disable
+# git config --global --unset core.hooksPath
+
+commit_msg_file="$1"
+commit_msg=$(cat "$commit_msg_file")
+
+if [[ -z "$commit_msg" || "$commit_msg" =~ ^# ]]; then
+  echo "Error: Commit message cannot be empty!"
+  exit 1
+fi
+
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+ticket_number=$(docker run --rm busybox sh -c "echo $branch_name | sed -n 's|.*/\([a-zA-Z]\+-[0-9]\+\).*|\1|p' | tr '[:lower:]' '[:upper:]'")
+
+if [ -z "$ticket_number" ]; then
+  exec </dev/tty
+  echo -n "No ticket number found in branch name. Continue? (y/N) "
+  resp=$(docker run --rm -it busybox sh -c 'read -r')
+  resp=$(docker run --rm busybox sh -c "echo $resp | tr '[:lower:]' '[:upper:]' | tr -d '\n' | tr -d '\r'")
+  echo "$resp"
+  if [[ "$resp" == "YES" || "$resp" == "Y" ]]; then
+    exit 0
+  else
+    echo "Commit aborted."
+    exit 1
+  fi
+fi
+
+if docker run --rm busybox sh -c "echo $commit_msg | grep -iq $ticket_number"; then
+  exit 0 # do nothing if the commit message already contains the ticket nubmer (ignore-case)
+fi
+
+echo "[$ticket_number] $commit_msg" >"$commit_msg_file"
