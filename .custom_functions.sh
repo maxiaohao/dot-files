@@ -131,7 +131,8 @@ awstoken() {
   echo Keys valid until $expire >&2
 
   # login ecr
-  $(echo $(aws ecr get-login --region ap-southeast-2) | sed -e 's/-e none //g')
+  #$(echo $(aws ecr get-login --region ap-southeast-2) | sed -e 's/-e none //g')
+  aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 635705773620.dkr.ecr.ap-southeast-2.amazonaws.com
 }
 
 alias gcmsg 2>/dev/null >/dev/null && unalias gcmsg

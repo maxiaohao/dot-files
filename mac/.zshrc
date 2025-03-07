@@ -126,6 +126,7 @@ alias yless="jless --yaml"
 alias difft="difft --display inline"
 alias top="btop"
 alias lg="lazygit"
+alias sed="gsed"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
