@@ -472,6 +472,7 @@
                       "^io\\.alacritty$",
                       "^org\\.alacritty$",
                       "^com\\.jetbrains\\.intellij$",
+                      "^com\\.jetbrains\\.cwm\\.guest$",
                       "^com\\.jetbrains\\.datagrip$",
                       "^com\\.jetbrains\\.WebStorm$",
                       "^com\\.googlecode\\.iterm2$"
@@ -497,6 +498,7 @@
                       "^io\\.alacritty$",
                       "^org\\.alacritty$",
                       "^com\\.jetbrains\\.intellij$",
+                      "^com\\.jetbrains\\.cwm\\.guest$",
                       "^com\\.jetbrains\\.datagrip$",
                       "^com\\.jetbrains\\.WebStorm$",
                       "^com\\.googlecode\\.iterm2$"
@@ -522,6 +524,7 @@
                       "^io\\.alacritty$",
                       "^org\\.alacritty$",
                       "^com\\.jetbrains\\.intellij$",
+                      "^com\\.jetbrains\\.cwm\\.guest$",
                       "^com\\.jetbrains\\.datagrip$",
                       "^com\\.jetbrains\\.WebStorm$",
                       "^com\\.googlecode\\.iterm2$"
@@ -547,6 +550,7 @@
                       "^io\\.alacritty$",
                       "^org\\.alacritty$",
                       "^com\\.jetbrains\\.intellij$",
+                      "^com\\.jetbrains\\.cwm\\.guest$",
                       "^com\\.jetbrains\\.datagrip$",
                       "^com\\.jetbrains\\.WebStorm$",
                       "^com\\.googlecode\\.iterm2$"
@@ -582,6 +586,7 @@
                       "^io\\.alacritty$",
                       "^org\\.alacritty$",
                       "^com\\.jetbrains\\.intellij$",
+                      "^com\\.jetbrains\\.cwm\\.guest$",
                       "^com\\.jetbrains\\.datagrip$",
                       "^com\\.jetbrains\\.WebStorm$",
                       "^com\\.googlecode\\.iterm2$"

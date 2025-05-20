@@ -40,11 +40,11 @@ yabai -m config auto_balance                 off
 # SPACEBAR_HEIGHT=$(spacebar -m config height)
 #yabai -m config external_bar all:0:26
 
-yabai -m config top_padding                  11
-yabai -m config bottom_padding               11
-yabai -m config left_padding                 11
-yabai -m config right_padding                11
-yabai -m config window_gap                   11
+yabai -m config top_padding                  6
+yabai -m config bottom_padding               6
+yabai -m config left_padding                 6
+yabai -m config right_padding                6
+yabai -m config window_gap                   6
 yabai -m config layout                       bsp
 
 #for space in $(yabai -m query --spaces | jq '.[].index'); do

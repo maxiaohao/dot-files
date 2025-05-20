@@ -32,6 +32,7 @@ alt - w : cur_disp=$(yabai -m query --windows | jq '.[]|select(."has-focus"==tru
 # bsp/stack(tab)/float mode
 alt - b : yabai -m space --layout bsp; yabai -m space --balance
 alt - e : yabai -m space --layout bsp; yabai -m space --balance
+alt - r : yabai -m space --rotate 270
 alt - t : yabai -m space --layout stack
 alt - f : yabai -m space --layout float
 alt + shift - b : yabai -m config layout bsp
@@ -103,10 +104,15 @@ alt + shift - 5 : yabai -m window --space 5; yabai -m space --focus 5; yabai -m 
 alt + shift - 6 : yabai -m window --space 6; yabai -m space --focus 6; yabai -m display --focus $(yabai -m query --spaces --space 6 | jq .display)
 
 # resize window
-cmd + alt + shift - h : yabai -m window --resize left:40:0; yabai -m window --resize right:-40:0
-cmd + alt + shift - j : yabai -m window --resize bottom:0:-40; yabai -m window --resize top:0:40
-cmd + alt + shift - k : yabai -m window --resize bottom:0:40; yabai -m window --resize top:0:-40
-cmd + alt + shift - l : yabai -m window --resize left:-40:0; yabai -m window --resize right:40:0
+## cmd + alt + shift - h : yabai -m window --resize left:100:0; yabai -m window --resize right:-100:0
+## cmd + alt + shift - j : yabai -m window --resize bottom:0:-100; yabai -m window --resize top:0:100
+## cmd + alt + shift - k : yabai -m window --resize bottom:0:100; yabai -m window --resize top:0:-100
+## cmd + alt + shift - l : yabai -m window --resize left:-100:0; yabai -m window --resize right:100:0
+
+cmd + alt + shift - h : yabai -m window --resize left:80:0
+cmd + alt + shift - j : yabai -m window --resize bottom:0:-80
+cmd + alt + shift - k : yabai -m window --resize bottom:0:80
+cmd + alt + shift - l : yabai -m window --resize left:-80:0
 
 # switch to recent widnow
 #alt - tab : yabai -m window --focus recent
