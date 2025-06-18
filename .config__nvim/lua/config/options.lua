@@ -27,5 +27,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- vim.g.snacks_animate_scroll = false
--- to disable all animations
 vim.g.snacks_animate = false
