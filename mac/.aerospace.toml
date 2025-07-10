@@ -1,23 +1,30 @@
-start-at-login = false
+#start-at-login = false
+start-at-login = true
 accordion-padding = 0
 # on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-after-startup-command = [ 'exec-and-forget $HOME/.nix-profile/bin/clipcatd -r' ]
+#after-startup-command = [ 'exec-and-forget $HOME/.nix-profile/bin/clipcatd -r' ]
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
 [gaps]
-inner.horizontal = 11
-inner.vertical   = 11
-outer.left       = 11
-outer.bottom     = 11
-outer.top        = 11
-outer.right      = 11
+# inner.horizontal = 11
+# inner.vertical = 11
+# outer.left = 11
+# outer.bottom = 11
+# outer.top = 11
+# outer.right = 11
+### for borders width = 12 ###
+inner.horizontal = 6
+inner.vertical = 6
+outer.left = 6
+outer.bottom = 6
+outer.top = 6
+outer.right = 6
 
 [mode.main.binding]
 alt-y = 'exec-and-forget open -n /Applications/Alacritty.app'
-alt-b = 'exec-and-forget open -n /Applications/Firefox.app'
-cmd-alt-p = 'exec-and-forget $HOME/dev/tool/IN_PATH/clipcat-menu'
-cmd-alt-y = 'exec-and-forget $HOME/.nix-profile/bin/flameshot gui'
+#cmd-alt-p = 'exec-and-forget $HOME/dev/tool/IN_PATH/clipcat-menu'
+#cmd-alt-y = 'exec-and-forget $HOME/.nix-profile/bin/flameshot gui'
 alt-d = 'exec-and-forget cat <(ls /Applications/ /Applications/Utilities/ /System/Applications/ /System/Applications/Utilities/ | grep "\.app$") <(ls $HOME/dev/tool/go_path/bin | xargs -I {} readlink -f "$HOME/dev/tool/go_path/bin/{}") | choose -s 36 -c CE5C00 | xargs -I {} open -a "{}"'
 
 alt-w = 'close'
@@ -40,6 +47,7 @@ alt-space = 'fullscreen'
 alt-shift-space = 'layout floating tiling'
 
 alt-t = ['flatten-workspace-tree', 'layout v_accordion']
+alt-b = ['flatten-workspace-tree', 'layout v_accordion']
 alt-e = ['flatten-workspace-tree', 'layout tiles horizontal vertical']
 
 alt-1 = 'workspace 1'
