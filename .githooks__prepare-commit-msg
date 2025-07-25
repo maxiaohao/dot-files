@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## save this file as $HOME/.githooks/prepare-commit-msg
+
 ## To enable
 # git config --global core.hooksPath $HOME/.githooks
 
@@ -12,6 +14,13 @@ commit_msg=$(cat "$commit_msg_file")
 if [[ -z "$commit_msg" || "$commit_msg" =~ ^# ]]; then
   echo "Error: Commit message cannot be empty!"
   exit 1
+fi
+
+work_dir_for_tickets=$(realpath "$HOME/dev/avetta")
+current_dir=$(realpath "$PWD")
+
+if [[ "$current_dir" == "$work_dir_for_tickets"/* ]]; then
+  exit 0 # do nothing if $current_dir is not in $work_dir_for_tickets
 fi
 
 branch_name=$(git rev-parse --abbrev-ref HEAD)
