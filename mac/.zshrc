@@ -87,6 +87,8 @@ alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad
 alias grep='grep -i --color'
 alias gti='git'
 alias k='kubectl'
+alias h='helm'
+alias g='gemini'
 alias l='eza'
 alias la='eza --icons -A'
 alias ll='eza --git --icons -alo'

@@ -19,7 +19,7 @@ fi
 work_dir_for_tickets=$(realpath "$HOME/dev/avetta")
 current_dir=$(realpath "$PWD")
 
-if [[ "$current_dir" == "$work_dir_for_tickets"/* ]]; then
+if [[ "$current_dir" != "$work_dir_for_tickets"/* ]]; then
   exit 0 # do nothing if $current_dir is not in $work_dir_for_tickets
 fi
 

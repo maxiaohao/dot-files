@@ -4,7 +4,7 @@ return {
     opts = {
       adapters = {
         ["neotest-golang"] = {
-          args = { "-count=1", "-timeout=3s" },
+          go_test_args = { "-v", "-race", "-count=1", "-timeout=3s" },
         },
       },
     },
