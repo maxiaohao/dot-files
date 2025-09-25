@@ -87,3 +87,7 @@ alt-shift-l = ['join-with right', 'mode main']
 1 = 1
 2 = 2
 3 = 3
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'LICEcap'
+run = 'layout floating'

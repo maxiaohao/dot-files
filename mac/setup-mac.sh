@@ -23,7 +23,7 @@ fn_confirm() {
 fn_link() {
   raw_filename=$1
   full_raw_filename=$(readlink -f $raw_filename)
-  full_symlink_filename="$HOME/${raw_filename//__/\/}"
+  full_symlink_filename="$HOME/${raw_filename//__//}"
   filename=$(basename $full_symlink_filename)
   dir=$(dirname $full_symlink_filename)
   # echo "full_raw=$full_raw_filename, symlink=$full_symlink_filename, filename=$filename, dir=$dir"
@@ -35,12 +35,12 @@ fn_link() {
 
 cd $script_dir
 
-echo -n "Making symlinks for dot files (MacOSX)..." && fn_confirm && \
-for dotfile in .*; do
-  if [[ -f $dotfile ]]; then
-    fn_link "$dotfile";
-  fi
-done
+echo -n "Making symlinks for dot files (MacOSX)..." && fn_confirm &&
+  for dotfile in .*; do
+    if [[ -f $dotfile ]]; then
+      fn_link "$dotfile"
+    fi
+  done
 
 cd $script_dir
 

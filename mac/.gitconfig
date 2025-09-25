@@ -15,7 +15,7 @@
 	helper =
 	helper = !/usr/bin/gh auth git-credential
 [user]
-	name = KevinMa
+	name = Kevin Ma
 	email = kevin.ma@avetta.com
 [branch "mainline"]
 	pushRemote = Do not push on mainline

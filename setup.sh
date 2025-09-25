@@ -23,10 +23,10 @@ fn_confirm() {
 fn_link() {
   raw_filename=$1
   full_raw_filename=$(readlink -f $raw_filename)
-  full_symlink_filename="$HOME/${raw_filename//__/\/}"
+  full_symlink_filename="$HOME/${raw_filename//__//}"
   filename=$(basename $full_symlink_filename)
   dir=$(dirname $full_symlink_filename)
-  # echo "full_raw=$full_raw_filename, symlink=$full_symlink_filename, filename=$filename, dir=$dir"
+  echo "full_raw=$full_raw_filename, symlink=$full_symlink_filename, filename=$filename, dir=$dir"
   rm -rf $full_symlink_filename
   mkdir -p $dir
   echo "Refreshing symlink: $full_symlink_filename -> $full_raw_filename ..."
@@ -36,7 +36,7 @@ fn_link() {
 fn_setup_user_systemd_service() {
   raw_filename=$1
   full_raw_filename=$(readlink -f $raw_filename)
-  full_new_filename="$HOME/${raw_filename//__/\/}"
+  full_new_filename="$HOME/${raw_filename//__//}"
   filename=$(basename $full_new_filename)
   dir=$(dirname $full_new_filename)
   rm -f $full_new_filename
@@ -51,7 +51,7 @@ cd $script_dir
 
 echo -n "Making symlinks for dot files..." && fn_confirm &&
   for dotfile in .*; do
-    if [[ -e $dotfile && $dotfile != ".git" ]]; then
+    if [[ -e $dotfile && $dotfile != ".git" && $dotfile != "." && $dotfile != ".." ]]; then
       fn_link "$dotfile"
     fi
   done
