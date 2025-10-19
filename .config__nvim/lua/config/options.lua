@@ -28,3 +28,5 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- vim.g.snacks_animate_scroll = false
 vim.g.snacks_animate = false
+
+vim.o.winborder = "rounded"
