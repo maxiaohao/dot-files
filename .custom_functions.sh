@@ -270,4 +270,26 @@ get_token() {
     echo Keys valid until $expire >&2
 }
 
+print_active_window() {
+  while true; do
+    osascript -e 'tell application "System Events"
+      set frontProcess to first application process whose frontmost is true
+      set frontAppName to name of frontProcess
+      set frontPID to unix id of frontProcess
+      set windowName to "No Window"
+      tell frontProcess
+        if (count of windows) > 0 then
+          set windowName to name of window 1
+        end if
+      end tell
+      return "PID: " & frontPID & " | App: " & frontAppName & " | Window: " & windowName
+    end tell'
+    sleep 1
+  done
+}
+
+mdread() {
+  mdcat "$@" | bat;
+}
+
 ZSH_AUTOSUGGEST_STRATEGY=histdb_top
