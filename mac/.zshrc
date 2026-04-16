@@ -129,6 +129,7 @@ alias difft="difft --display inline"
 alias top="btop"
 alias lg="lazygit"
 alias sed="gsed"
+alias c="claude"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
@@ -157,6 +158,7 @@ export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 export XDG_CONFIG_HOME="$HOME/.config"
+export HOMEBREW_NO_AUTO_UPDATE=1
 if [[ "$TMUX" == "" ]]; then
   export TERM="alacritty"
 else
@@ -165,6 +167,7 @@ fi
 #export TERM="alacritty"
 
 #export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$PATH:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/bin"
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$HOME/dev/tool/IN_PATH:$GOPATH/bin:$PATH"
 #export PATH="$HOME/dev/tool/IN_PATH/coreutils:$PATH"
@@ -178,6 +181,7 @@ export PATH="$(pyenv root)/shims:${PATH}"
 
 export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
 export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
+
 
 # dotnet7
 #export PATH="$PATH:/Users/kevin.ma/dev/tool/dotnet7"
@@ -222,12 +226,12 @@ complete -o nospace -C /usr/bin/terraform terraform
 bindkey "\E[1~" beginning-of-line
 bindkey "\E[4~" end-of-line
 
-# histdb revserse isearch
-bindkey '^[^r' _histdb-isearch
-
-# settings for m42e/zsh-histdb-fzf
-bindkey '^R' histdb-fzf-widget
-HISTDB_FZF_DEFAULT_MODE=4
+# # histdb revserse isearch
+# bindkey '^[^r' _histdb-isearch
+#
+# # settings for m42e/zsh-histdb-fzf
+# bindkey '^R' histdb-fzf-widget
+# HISTDB_FZF_DEFAULT_MODE=4
 
 # fzf
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store" --iglob "!.git"'
@@ -248,7 +252,8 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store"
 [[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
 
 # atuin (not as good as histodb)
-#[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
+[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
+#[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh)"
 
 autoload -U compinit
 compinit
