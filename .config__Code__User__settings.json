@@ -1,0 +1,21 @@
+{
+  "database-client.autoSync": true,
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.fontFamily": "Iosevka SS04, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": false,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "editor.fontSize": 16,
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "Dark Modern",
+  "claudeCode.preferredLocation": "panel",
+  "terminal.integrated.fontWeight": "normal",
+  "editor.fontWeight": "normal",
+  "chat.mcp.gallery.enabled": true
+}

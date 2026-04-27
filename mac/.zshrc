@@ -186,6 +186,11 @@ export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
 # dotnet7
 #export PATH="$PATH:/Users/kevin.ma/dev/tool/dotnet7"
 
+# dotnet10
+#export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
+export DOTNET_ROOT="/Users/xma11/dev/tool/dotnet10"
+export PATH="$DOTNET_ROOT:$PATH"
+
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
 
 [[ -x /usr/bin/jump ]] && eval "$(jump shell)"
