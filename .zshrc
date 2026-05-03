@@ -1,28 +1,33 @@
 DISABLE_AUTO_UPDATE=true
 
-[[ -s "/usr/share/zsh/share/zgen.zsh" ]] && source /usr/share/zsh/share/zgen.zsh
+#export NVM_LAZY_LOAD=true
+HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
 
-[[ -s "${HOME}/.zgen/zgen.zsh" ]] && source "${HOME}/.zgen/zgen.zsh"
+# disable bracketed-paste-magic
+DISABLE_MAGIC_FUNCTIONS=true
+
+[[ -r ${HOME}/.zgen/zgen.zsh ]] && source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
   zgen oh-my-zsh
   #zgen oh-my-zsh plugins/autojump
   zgen oh-my-zsh plugins/aws
   zgen oh-my-zsh plugins/colored-man-pages
-  zgen oh-my-zsh plugins/docker
-  zgen oh-my-zsh plugins/docker-compose
+  #zgen oh-my-zsh plugins/docker
+  #zgen oh-my-zsh plugins/docker-compose
   zgen oh-my-zsh plugins/gcloud
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/git-flow
   zgen oh-my-zsh plugins/golang
-  zgen oh-my-zsh plugins/kubectl
+  #zgen oh-my-zsh plugins/kubectl
   zgen oh-my-zsh plugins/mvn
   zgen oh-my-zsh plugins/npm
   zgen oh-my-zsh plugins/shrink-path
   zgen oh-my-zsh plugins/yarn
   zgen oh-my-zsh plugins/terraform
-  zgen oh-my-zsh plugins/z
+  #zgen oh-my-zsh plugins/z
+  #zgen load lukechilds/zsh-nvm
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions
   zgen load zsh-users/zsh-syntax-highlighting
@@ -30,6 +35,8 @@ if ! zgen saved; then
   zgen load larkery/zsh-histdb sqlite-history.zsh
   zgen load larkery/zsh-histdb histdb-interactive.zsh
   zgen load m42e/zsh-histdb-fzf fzf-histdb.zsh
+  zgen load junegunn/fzf shell/completion.zsh
+  #zgen load Aloxaf/fzf-tab
   zgen save
 fi
 
@@ -45,7 +52,7 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-compinit
+fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
 
 # don't share cmd history among windows
 # setopt nosharehistory
@@ -80,10 +87,14 @@ alias gla='git --no-pager log --date=iso8601 --pretty="%C(Yellow)%h %C(reset)%ad
 alias grep='grep -i --color'
 alias gti='git'
 alias k='kubectl'
-alias l='lsd -F'
-alias la='lsd -A'
-alias ll='lsd -alF'
-alias lll='lsd -alF'
+alias h='helm'
+alias g='gemini'
+alias l='eza'
+alias la='eza --icons -A'
+alias ll='eza --git --icons -alo'
+alias llt='eza --git --icons --sort=time -alo'
+alias lll='eza --git --git-repos --icons -alo'
+alias llr='eza --git --git-repos -T --icons -alo'
 alias mvncc='mvn clean compile'
 alias mvncd='mvn clean deploy'
 alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
@@ -98,11 +109,27 @@ alias t='devops-environment terraform'
 alias gsmedit='devops-environment gsmedit.sh'
 alias gls='gsutil ls -l'
 alias tmux='tmux -2'
-alias v='vim'
-alias vim='vim'
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
 alias watch='watch '
 alias gs='gsutil'
-alias curl='curlie'
+#alias curl='curlie'
+alias b='brazil'
+alias bb='brazil-build'
+alias br='brazil release'
+alias bs='brazil server'
+alias bw='brazil workspace'
+alias bbr='brazil-recursive-cmd --all brazil-build'
+alias py='python3'
+alias fda='fd --no-ignore --hidden'
+alias listening_ports='sudo lsof -iTCP -sTCP:LISTEN -nP'
+alias yless="jless --yaml"
+alias difft="difft --display inline"
+alias top="btop"
+alias lg="lazygit"
+alias sed="gsed"
+alias c="claude"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
@@ -112,6 +139,8 @@ export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
 export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+
+export MANPAGER='less -I'
 
 export LC_ALL=en_AU.UTF-8
 export LC_CTYPE=en_AU.UTF-8
@@ -129,16 +158,38 @@ export CHROME_BIN="chromium"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 export XDG_CONFIG_HOME="$HOME/.config"
+export HOMEBREW_NO_AUTO_UPDATE=1
+if [[ "$TMUX" == "" ]]; then
+  export TERM="alacritty"
+else
+  export TERM="tmux-256color"
+fi
+#export TERM="alacritty"
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH=$PATH:$HOME/dev/tool/IN_PATH:$FIREFOX_HOME:$GOPATH/bin:$FLUTTER_HOME/bin
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$PATH:/home/xma11/.dotnet/tools"
-export PATH="$PATH:$HOME/.nix-profile/bin"
+#export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$PATH:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/bin"
+export PATH="$PATH:/opt/homebrew/bin"
+export PATH="$HOME/dev/tool/IN_PATH:$GOPATH/bin:$PATH"
+#export PATH="$HOME/dev/tool/IN_PATH/coreutils:$PATH"
+#export PATH="$HOME/dev/tool/IN_PATH/awk:$PATH"
+#export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.dotnet"
+export PATH="$PATH:$HOME/.dotnet/tools"
+#export PATH="$PATH:$HOME/.nix-profile/bin"
+#export PATH="$PATH:/nix/var/nix/profiles/default/bin"
+#export PATH="$(pyenv root)/shims:${PATH}"
 
-# fzf
-[[ -s "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
-[[ -s "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
+export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
+export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
+
+
+# dotnet7
+#export PATH="$PATH:/Users/kevin.ma/dev/tool/dotnet7"
+
+# dotnet10
+#export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
+export DOTNET_ROOT="/Users/xma11/dev/tool/dotnet10"
+export PATH="$DOTNET_ROOT:$PATH"
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
 
@@ -153,10 +204,14 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 [[ -f $HOME/dev/citrus/devops/script/devops-environment/rc ]] && source $HOME/dev/citrus/devops/script/devops-environment/rc
 
-# # nvm (slow)
+# # nvm (brew) (slow, using lukechilds/zsh-nvm zsh plugin instead)
 # export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export GPG_TTY=$(tty)
 
@@ -164,20 +219,48 @@ export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.config/gcloud/application_default_
 
 true
 
-autoload -U +X bashcompinit && bashcompinit
+#autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
+
+[[ $commands[docker] ]] && source <(docker completion zsh)
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+[[ $commands[helm] ]] && source <(helm completion zsh)
+[[ $commands[tool] ]] && source <(tool completion zsh)
 
 # fix Home/End keys in zsh in tmux
 bindkey "\E[1~" beginning-of-line
 bindkey "\E[4~" end-of-line
 
-# histdb revserse isearch
-bindkey '^[^r' _histdb-isearch
+# # histdb revserse isearch
+# bindkey '^[^r' _histdb-isearch
+#
+# # settings for m42e/zsh-histdb-fzf
+# bindkey '^R' histdb-fzf-widget
+# HISTDB_FZF_DEFAULT_MODE=4
 
-# settings for m42e/zsh-histdb-fzf
-bindkey '^R' histdb-fzf-widget
-HISTDB_FZF_DEFAULT_MODE=4
+# fzf
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store" --iglob "!.git"'
 
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec startx
-fi
+# direnv
+[[ -x "$(command -v direnv)" ]] && eval "$(direnv hook zsh)"
+
+# zoxide
+[[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init zsh)"
+
+# fnm
+[[ -x "$(command -v fnm)" ]] && eval "$(fnm env --use-on-cd)"
+
+# nix
+[[ -r '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]] &&  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+
+# starship
+[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
+
+# atuin
+[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
+#[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh)"
+
+autoload -U compinit
+compinit
+
+cd ~

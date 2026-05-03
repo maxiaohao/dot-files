@@ -1,0 +1,89 @@
+# [shell]
+# program = "/bin/zsh"
+# args = ["-l"]
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.cursor]
+cursor = "#88ee88"
+text = "#000000"
+
+[colors.primary]
+background = "#333333"
+foreground = "#dddddd"
+
+[colors.bright]
+black = "#555753"
+blue = "#729fcf"
+cyan = "#34e2e2"
+green = "#9add44"
+magenta = "#ad7fa8"
+red = "#ff3939"
+white = "#eeeeec"
+yellow = "#fce94f"
+
+[colors.normal]
+black = "#2e3436"
+blue = "#3465a4"
+cyan = "#06989a"
+green = "#4eba06"
+magenta = "#75507b"
+red = "#e12121"
+white = "#d3d7cf"
+yellow = "#c4a000"
+
+
+# [env]
+# TERM = "xterm-256color"
+# WINIT_X11_SCALE_FACTOR = "1.0"
+
+[font]
+#size = 19 # for DejaVuSansM / BitstromWera
+#size = 23.75 # for D2CodingLigature Nerd Font
+#size = 22.5 # for IosevkaTermSS04 Nerd Font
+#size = 20.5 # for IosevkaTermSS04 Nerd Font (window border width = 10)
+size = 12.0 # for IosevkaTermSS04 Nerd Font (window border width = 22, perfect size on 4k and mac 16")
+
+[font.normal]
+#family = "Cascadia Code NF"
+#family = "D2CodingLigature Nerd Font"
+#family = "DejaVuSansM Nerd Font"
+family = "IosevkaTermSS04 Nerd Font"
+#family = "Iosevka Term SS04"
+#family = "JetBrainsMono Nerd Font"
+#family = "UbuntuMono Nerd Font"
+
+#style = "Bold"
+#style = "Medium"
+style = "Regular"
+# style = "Light"
+#style = "ExtraLight"
+#style = "Thin"
+
+[font.bold]
+#style = "SemiBold"
+style = "Bold"
+#style = "ExtraBold"
+
+[font.italic]
+style = "Italic"
+#style = "Light Italic"
+
+[font.bold_italic]
+#style = "SemiBold Italic"
+style = "Bold Italic"
+#style = "ExtraBold Italic"
+
+[scrolling]
+history = 99999
+
+[selection]
+semantic_escape_chars = ",│`|\"' ()[]{}<>\t"
+
+#[window]
+#decorations = "None"
+
+#[[hints.enabled]]
+#command = "xdg-open"
+#hyperlinks = true
