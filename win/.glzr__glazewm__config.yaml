@@ -111,7 +111,7 @@ window_behavior:
       centered: true
 
       # Whether to show floating windows as always on top.
-      shown_on_top: false
+      shown_on_top: true
 
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
@@ -119,7 +119,7 @@ window_behavior:
       maximized: false
 
       # Whether to show fullscreen windows as always on top.
-      shown_on_top: false
+      shown_on_top: true
 
 workspaces:
   - name: '1'
@@ -162,13 +162,13 @@ binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
   - name: 'resize'
     keybindings:
-      - commands: ['resize --width -2%']
+      - commands: ['resize --width -5%']
         bindings: ['h', 'left']
-      - commands: ['resize --width +2%']
+      - commands: ['resize --width +5%']
         bindings: ['l', 'right']
-      - commands: ['resize --height +2%']
+      - commands: ['resize --height +5%']
         bindings: ['k', 'up']
-      - commands: ['resize --height -2%']
+      - commands: ['resize --height -5%']
         bindings: ['j', 'down']
       # Press enter/escape to return to default keybindings.
       - commands: ['wm-disable-binding-mode --name resize']
@@ -227,7 +227,7 @@ keybindings:
 
   # Change the focused window to be floating.
   - commands: ['toggle-floating --centered']
-    bindings: ['alt+shift+space']
+    bindings: ['alt+f']
 
   # Change the focused window to be tiling.
   - commands: ['toggle-tiling']
@@ -237,8 +237,8 @@ keybindings:
     bindings: ['alt+e']
 
   # Change the focused window to be fullscreen.
-  - commands: ['toggle-fullscreen']
-    bindings: ['alt+f']
+  # - commands: ['toggle-fullscreen']
+  #   bindings: ['alt+f']
 
   - commands: ['toggle-fullscreen']
     bindings: ['alt+space']
