@@ -292,4 +292,4 @@ mdread() {
   mdcat "$@" | bat;
 }
 
-ZSH_AUTOSUGGEST_STRATEGY=histdb_top
+# ZSH_AUTOSUGGEST_STRATEGY=histdb_top

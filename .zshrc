@@ -13,14 +13,14 @@ if ! zgen saved; then
   #zgen oh-my-zsh plugins/autojump
   zgen oh-my-zsh plugins/aws
   zgen oh-my-zsh plugins/colored-man-pages
-  #zgen oh-my-zsh plugins/docker
-  #zgen oh-my-zsh plugins/docker-compose
+  zgen oh-my-zsh plugins/docker
+  zgen oh-my-zsh plugins/docker-compose
   zgen oh-my-zsh plugins/gcloud
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/git-flow
   zgen oh-my-zsh plugins/golang
-  #zgen oh-my-zsh plugins/kubectl
+  zgen oh-my-zsh plugins/kubectl
   zgen oh-my-zsh plugins/mvn
   zgen oh-my-zsh plugins/npm
   zgen oh-my-zsh plugins/shrink-path
@@ -32,13 +32,16 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load maxiaohao/my-conf-files xma
-  zgen load larkery/zsh-histdb sqlite-history.zsh
-  zgen load larkery/zsh-histdb histdb-interactive.zsh
-  zgen load m42e/zsh-histdb-fzf fzf-histdb.zsh
+  #zgen load larkery/zsh-histdb sqlite-history.zsh
+  #zgen load larkery/zsh-histdb histdb-interactive.zsh
+  #zgen load m42e/zsh-histdb-fzf fzf-histdb.zsh
   zgen load junegunn/fzf shell/completion.zsh
   #zgen load Aloxaf/fzf-tab
   zgen save
 fi
+
+autoload -U compinit
+compinit
 
 # speeds up pasting w/ autosuggest: https://github.com/zsh-users/zsh-autosuggestions/issues/238
 pasteinit() {
@@ -256,11 +259,9 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --iglob "!.DS_Store"
 # starship
 [[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
 
+
 # atuin
 [[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh --disable-up-arrow)"
 #[[ -x "$(command -v atuin)" ]] && eval "$(atuin init zsh)"
-
-autoload -U compinit
-compinit
 
 cd ~
