@@ -111,7 +111,7 @@ window_behavior:
       centered: true
 
       # Whether to show floating windows as always on top.
-      shown_on_top: true
+      shown_on_top: false
 
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
@@ -119,7 +119,7 @@ window_behavior:
       maximized: false
 
       # Whether to show fullscreen windows as always on top.
-      shown_on_top: true
+      shown_on_top: false
 
 workspaces:
   - name: '1'
@@ -220,6 +220,10 @@ keybindings:
   # be inserted.
   - commands: ['toggle-tiling-direction']
     bindings: ['alt+v']
+  - commands: ['set-tiling-direction horizontal']
+    bindings: ['alt+u']
+  - commands: ['set-tiling-direction vertical']
+    bindings: ['alt+o']
 
   ## Change focus from tiling windows -> floating -> fullscreen.
   #- commands: ['wm-cycle-focus']
@@ -230,21 +234,15 @@ keybindings:
     bindings: ['alt+f']
 
   # Change the focused window to be tiling.
-  - commands: ['toggle-tiling']
-    bindings: ['alt+t']
-
-  - commands: ['toggle-tiling']
-    bindings: ['alt+e']
+  - commands: ['set-tiling']
+    bindings: ['alt+t', 'alt+e', 'alt+b']
 
   # Change the focused window to be fullscreen.
-  # - commands: ['toggle-fullscreen']
-  #   bindings: ['alt+f']
-
   - commands: ['toggle-fullscreen']
     bindings: ['alt+space']
 
   # Minimize focused window.
-  - commands: ['toggle-minimized']
+  - commands: ['set-minimized']
     bindings: ['alt+m']
 
   # Close focused window.
@@ -253,7 +251,7 @@ keybindings:
 
   # Kill GlazeWM process safely.
   - commands: ['wm-exit']
-    bindings: ['alt+shift+e']
+    bindings: ['alt+shift+q', 'alt+shift+w', 'alt+shift+e']
 
   # Re-evaluate configuration file.
   - commands: ['wm-reload-config']
@@ -267,16 +265,13 @@ keybindings:
   # `shell-exec %ProgramFiles%/Git/git-bash.exe` to start Windows
   # Terminal and Git Bash respectively.
   - commands: ['shell-exec alacritty']
-    bindings: ['alt+enter']
+    bindings: ['alt+enter', 'alt+y']
 
-  - commands: ['shell-exec alacritty']
-    bindings: ['alt+y']
-
-  ## Focus the next/previous active workspace defined in `workspaces` config.
-  #- commands: ['focus --next-active-workspace']
-  #  bindings: ['alt+n']
-  #- commands: ['focus --prev-active-workspace']
-  #  bindings: ['alt+p']
+  # Focus the next/previous active workspace defined in `workspaces` config.
+  - commands: ['focus --next-active-workspace']
+    bindings: ['alt+n']
+  - commands: ['focus --prev-active-workspace']
+    bindings: ['alt+p']
 
   #  # Focus the workspace that last had focus.
   #  - commands: ['focus --recent-workspace']
@@ -332,4 +327,3 @@ keybindings:
     bindings: ['alt+shift+8']
   - commands: ['move --workspace 9', 'focus --workspace 9']
     bindings: ['alt+shift+9']
-  # custom
