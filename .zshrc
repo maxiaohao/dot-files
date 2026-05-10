@@ -131,8 +131,9 @@ alias yless="jless --yaml"
 alias difft="difft --display inline"
 alias top="btop"
 alias lg="lazygit"
-alias sed="gsed"
-alias c="claude"
+#alias sed="gsed"
+alias c="copilot"
+alias co="copilot"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
@@ -191,7 +192,7 @@ export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
 
 # dotnet10
 #export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
-export DOTNET_ROOT="/Users/xma11/dev/tool/dotnet10"
+export DOTNET_ROOT="$HOME/dev/tool/dotnet10"
 export PATH="$DOTNET_ROOT:$PATH"
 
 [[ -s $HOME/.localrc ]] && source $HOME/.localrc
