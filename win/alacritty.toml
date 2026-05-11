@@ -1,3 +1,5 @@
+[terminal.shell]
+program = "pwsh"
 # [shell]
 # program = "/bin/zsh"
 # args = ["-l"]
@@ -43,21 +45,28 @@ yellow = "#c4a000"
 #size = 23.75 # for D2CodingLigature Nerd Font
 #size = 22.5 # for IosevkaTermSS04 Nerd Font
 #size = 20.5 # for IosevkaTermSS04 Nerd Font (window border width = 10)
-size = 12.0 # for IosevkaTermSS04 Nerd Font (window border width = 22, perfect size on 4k and mac 16")
+#size = 12.0 # for IosevkaTermSS04 Nerd Font (window border width = 22, perfect size on 4k and mac 16")
+size = 12
 
 [font.normal]
 #family = "Cascadia Code NF"
-#family = "D2CodingLigature Nerd Font"
+#family = "D2CodingLigature Nerd Font Mono"
 #family = "DejaVuSansM Nerd Font"
-family = "IosevkaTermSS04 Nerd Font"
+#family = "Iosevka SS04"
+family = "IosevkaSS04 Nerd Font"
+#family = "IosevkaTermSS04 Nerd Font"
 #family = "Iosevka Term SS04"
-#family = "JetBrainsMono Nerd Font"
-#family = "UbuntuMono Nerd Font"
+#family = "IosevkaTerm NF"
+#family = "Iosevka NF"
+#family = "JetBrainsMono NF"
+#family = "VictorMono NF"
+#family = "Hack Nerd Font"
+#family = "FiraCode Nerd Font"
 
-#style = "Bold"
+
 #style = "Medium"
-style = "Regular"
-# style = "Light"
+#style = "Regular"
+style = "Light"
 #style = "ExtraLight"
 #style = "Thin"
 
@@ -67,8 +76,8 @@ style = "Bold"
 #style = "ExtraBold"
 
 [font.italic]
-style = "Italic"
-#style = "Light Italic"
+#style = "Italic"
+style = "Light Italic"
 
 [font.bold_italic]
 #style = "SemiBold Italic"

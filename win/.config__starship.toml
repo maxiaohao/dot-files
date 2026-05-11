@@ -1,0 +1,253 @@
+right_format = "$time"
+#add_newline = false
+
+#[character]
+#disabled = false
+#success_symbol = '[#](bold green)'
+#error_symbol = '[#](bold red)'
+
+[directory]
+disabled = false
+fish_style_pwd_dir_length = 3
+truncation_length = 4
+style = 'fg:#BBBBBB'
+format = "[$path]($style)[$lock_symbol]($lock_style) "
+read_only = " 󰌾"
+
+[git_branch]
+disabled = false
+format = '[$symbol$branch(:$remote_branch)]($style) '
+style = 'bold yellow'
+symbol = " "
+
+[git_metrics]
+disabled = true
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+
+[kubernetes]
+disabled = false
+format = '[$context( \($namespace\))]($style) '
+
+[package]
+disabled = true
+format = '[$symbol$version]($style) '
+symbol = "󰏗 "
+
+[status]
+disabled = false
+style = 'bg:blue'
+symbol = '🔴 '
+format = '[\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = true
+
+[time]
+disabled = false
+style = 'fg:#555555'
+format = '[\[$time\]]($style) '
+time_format = '%F %r %Z'
+#time_format = '%+'
+
+[username]
+disabled = false
+style_user = 'white bold'
+style_root = 'black bold'
+format = '[$user]($style) '
+show_always = false
+
+
+[aws]
+disabled = true
+symbol = "  "
+
+[gcloud]
+disabled = true
+
+
+[buf]
+disabled = true
+symbol = " "
+
+[c]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[conda]
+disabled = true
+symbol = " "
+
+[crystal]
+disabled = true
+symbol = " "
+
+[dart]
+disabled = true
+symbol = " "
+
+[docker_context]
+disabled = true
+symbol = " "
+
+[elixir]
+disabled = true
+symbol = " "
+
+[elm]
+disabled = true
+symbol = " "
+
+[fennel]
+disabled = true
+symbol = " "
+
+[fossil_branch]
+disabled = true
+symbol = " "
+
+[golang]
+detect_extensions = []
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[gradle]
+format = '[$symbol($version)]($style) '
+symbol = "🅶 "
+
+[guix_shell]
+disabled = true
+symbol = " "
+
+[haskell]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[haxe]
+disabled = true
+symbol = " "
+
+[hg_branch]
+disabled = true
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+detect_extensions = []
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[julia]
+disabled = true
+symbol = " "
+
+[kotlin]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+disabled = true
+symbol = "󰔷 "
+
+[nim]
+disabled = true
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+detect_extensions = []
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[ocaml]
+disabled = true
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = "󰍲 "
+
+[perl]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[php]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[pijul_channel]
+disabled = true
+symbol = " "
+
+[python]
+detect_extensions = []
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[rlang]
+disabled = true
+symbol = "󰟔 "
+
+[ruby]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[rust]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[scala]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[swift]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[zig]
+disabled = true
+symbol = " "
