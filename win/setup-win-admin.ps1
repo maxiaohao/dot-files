@@ -34,4 +34,7 @@ New-Item -ItemType SymbolicLink -Target "$HOME\doc\personal-doc\notes_private" -
 mkdir $HOME\.ssh
 New-Item -ItemType SymbolicLink -Target "$HOME\doc\personal-doc\.ssh\config" -Path "$HOME\.ssh\config"
 
+mkdir $HOME\.copilot
+New-Item -ItemType SymbolicLink -Target "$HOME\doc\personal-doc\copilot\copilot-instructions.md" -Path "$HOME\.copilot\copilot-instructions.md"
 
+New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.wezterm.lua" -Path "$HOME\.wezterm.lua"
