@@ -1,9 +1,8 @@
--- ~/.config/wezterm/wezterm.lua
--- A tmux-flavoured WezTerm config.
-
 local wezterm = require("wezterm")
 local act = wezterm.action
 local config = wezterm.config_builder()
+
+config.audible_bell = "Disabled"
 
 ------------------------------------------------------------------
 -- Appearance
@@ -14,14 +13,39 @@ config.colors = {
 	cursor_bg = "#00ff00",
 	cursor_border = "#00ff00",
 	cursor_fg = "#1a1b26",
+	tab_bar = {
+		background = "#444444",
+		active_tab = {
+			bg_color = "#444444",
+			fg_color = "#a9b1d6",
+		},
+		inactive_tab = {
+			bg_color = "#444444",
+			fg_color = "#a9b1d6",
+		},
+		inactive_tab_hover = {
+			bg_color = "#444444",
+			fg_color = "#a9b1d6",
+		},
+		new_tab = {
+			bg_color = "#444444",
+			fg_color = "#a9b1d6",
+		},
+		new_tab_hover = {
+			bg_color = "#444444",
+			fg_color = "#a9b1d6",
+		},
+	},
 }
 config.font = wezterm.font_with_fallback({
-	{ family = "IosevkaSS04 Nerd Font", weight = "Regular" },
-	{ family = "Consolas", weight = "Light" },
-	{ family = "Cascadia Code", weight = "Light" },
+	{ family = "IosevkaTermSS04 Nerd Font" },
+	{ family = "Consolas" },
+	{ family = "JetBrainsMonoNL NFM" },
+	{ family = "Cascadia Code" },
+	{ family = "IosevkaSS04 Nerd Font" },
 	"Segoe UI Emoji",
 })
-config.font_size = 13.5
+config.font_size = 14
 -- config.window_decorations = "RESIZE"
 -- config.window_background_opacity = 1.0
 config.scrollback_lines = 100000
@@ -57,7 +81,7 @@ config.tab_max_width = 13 -- " N: 12345678  " ≈ 13 cells with leading + double
 -- }
 
 -- Tab title formatter.
---   Mux (server)  domain tabs -> green   (#9ece6a)
+--   Mux (server)  domain tabs -> green (#9ece6a)
 --   Local (parked) domain tabs -> light blue (#7dcfff)
 wezterm.on("format-tab-title", function(tab, tabs, panes, conf, hover, max_width)
 	local idx = tab.tab_index + 1
@@ -66,7 +90,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, conf, hover, max_width
 		title = title:sub(1, 7) .. "…"
 	end
 	local is_local = (tab.active_pane.domain_name or "") == "local"
-	local accent = is_local and "#7dcfff" or "#bb9af7" -- purple for mux, light blue for local
+	local accent = is_local and "#7dcfff" or "#9ece6a" -- green for mux, light blue for local
 	local label = string.format(" %d: %s  ", idx, title)
 
 	if tab.is_active then
@@ -88,9 +112,9 @@ end)
 -- WezTerm has no native "center tabs" option; we pad the left status so the
 -- tab strip lands in the middle of the window.  Recomputed every second.
 wezterm.on("update-status", function(window, pane)
-	local left = " [ " .. wezterm.hostname() .. " ] "
-	-- e.g. "Sat 16 May 12:32:24"
-	local right = " " .. wezterm.strftime("%a %d %b %H:%M:%S") .. " "
+	local left = " [" .. wezterm.hostname() .. "] "
+	-- e.g. "SAT 16 MAY 09:34:03 PM"
+	local right = " " .. string.upper(wezterm.strftime("%a %d %b %I:%M:%S %p")) .. " "
 
 	-- Estimate total tab-strip width.  Mirrors the label produced by
 	-- format-tab-title: " N: title " plus ~1 cell of separator per tab.
@@ -122,11 +146,13 @@ wezterm.on("update-status", function(window, pane)
 	end
 
 	window:set_left_status(wezterm.format({
-		{ Foreground = { Color = "#a9b1d6" } },
+		{ Background = { Color = "#444444" } },
+		{ Foreground = { Color = "#9ece6a" } },
 		{ Text = left },
 	}))
 	window:set_right_status(wezterm.format({
-		{ Foreground = { Color = "#a9b1d6" } },
+		{ Background = { Color = "#444444" } },
+		{ Foreground = { Color = "#9ece6a" } },
 		{ Text = right },
 	}))
 end)
