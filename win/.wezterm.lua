@@ -45,8 +45,8 @@ config.font = wezterm.font_with_fallback({
 	-- "Cascadia Mono",
 	-- { family = "IosevkaTermSS04 Nerd Font", weight = "Regular" },
 	-- "JetBrainsMono NF",
-	-- "Segoe UI Emoji",
 	-- "GohuFont uni14 Nerd Font",
+	-- "Segoe UI Emoji",
 })
 -- 12.5 for Consolas ! (don't try other sizes)
 -- 12 for Cascadia Mono Regular ??
