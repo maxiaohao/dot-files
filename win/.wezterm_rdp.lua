@@ -38,11 +38,12 @@ config.colors = {
 	},
 }
 config.font = wezterm.font_with_fallback({
-	{ family = "Cascadia Mono" },
-	{ family = "IosevkaTermSS04 Nerd Font", weight = "Light" },
-	{ family = "Consolas" },
-	{ family = "Cascadia Code" },
-	"Segoe UI Emoji",
+	"Consolas",
+	-- { family = "Cascadia Mono" },
+	-- { family = "IosevkaTermSS04 Nerd Font", weight = "Light" },
+	-- { family = "Consolas" },
+	-- { family = "Cascadia Code" },
+	-- "Segoe UI Emoji",
 })
 -- 12.5 for IosevkaTermSS04 Light
 -- 11.5 for Cascadia Mono Regular

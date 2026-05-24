@@ -37,17 +37,21 @@ config.colors = {
 		},
 	},
 }
+
+
+
 config.font = wezterm.font_with_fallback({
-	{ family = "Cascadia Mono", weight = "Regular" },
-	{ family = "IosevkaTermSS04 Nerd Font", weight = "Light" },
-	{ family = "Consolas" },
-	{ family = "Cascadia Code" },
-	"Segoe UI Emoji",
-	"GohuFont uni14 Nerd Font",
+  "Consolas",
+	-- "Cascadia Mono",
+	-- { family = "IosevkaTermSS04 Nerd Font", weight = "Regular" },
+	-- "JetBrainsMono NF",
+	-- "Segoe UI Emoji",
+	-- "GohuFont uni14 Nerd Font",
 })
+-- 12.5 for Consolas ! (don't try other sizes)
+-- 12 for Cascadia Mono Regular ??
 -- 12.5 for IosevkaTermSS04 Light
--- 11.5 for Cascadia Mono Regular
--- 12.5 for Cascadia Mono Regular ?
+-- 10.25 for Gohu
 config.font_size = 12.5
 -- config.window_decorations = "RESIZE"
 -- config.window_background_opacity = 1.0

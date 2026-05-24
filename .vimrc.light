@@ -43,6 +43,7 @@ colorscheme desert
 highlight LineNr ctermfg=8
 highlight Search ctermfg=black ctermbg=blue guifg=black guibg=blue
 highlight CursorLine cterm=none term=none ctermbg=24
+highlight Visual cterm=none term=none ctermfg=black ctermbg=53 guifg=black guibg=#5f005f
 autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 """"""""""""""""""""""""""
