@@ -122,17 +122,87 @@ window_behavior:
       shown_on_top: false
 
 workspaces:
+  # Monitor 1 (leftmost, index 0): workspaces 1-3.
   - name: "1"
+    display_name: "1: Teams"
+    bind_to_monitor: 0
+    keep_alive: true
   - name: "2"
+    display_name: "2: WezTerm"
+    bind_to_monitor: 0
+    keep_alive: true
   - name: "3"
+    display_name: "3: Outlook"
+    bind_to_monitor: 0
+    keep_alive: true
+
+  # Monitor 2 (middle, index 1): workspaces 4-6.
   - name: "4"
+    display_name: "4: Visual Studio"
+    bind_to_monitor: 1
+    keep_alive: true
   - name: "5"
+    display_name: "5: DevBox"
+    bind_to_monitor: 1
+    keep_alive: true
   - name: "6"
+    display_name: "6: M2 Pool"
+    bind_to_monitor: 1
+
+  # Monitor 3 (rightmost, index 2): workspaces 7-9.
   - name: "7"
+    display_name: "7: Edge"
+    bind_to_monitor: 2
+    keep_alive: true
   - name: "8"
+    display_name: "8: VS Code"
+    bind_to_monitor: 2
+    keep_alive: true
   - name: "9"
+    display_name: "9: M3 Pool"
+    bind_to_monitor: 2
 
 window_rules:
+  # ---- Auto-allocate specific apps to specific workspaces ----
+
+  # Teams (new "ms-teams" or classic "Teams") -> workspace 1.
+  - commands: ["move --workspace 1"]
+    match:
+      - window_process: { regex: "^(ms-teams|msteams|Teams)$" }
+
+  # Outlook (classic "OUTLOOK" or new "olk") -> workspace 2.
+  - commands: ["move --workspace 2"]
+    match:
+      - window_process: { regex: "^(OUTLOOK|olk)$" }
+
+  # WezTerm -> workspace 3.
+  - commands: ["move --workspace 3"]
+    match:
+      - window_process: { regex: "^(wezterm-gui|wezterm)$" }
+
+  # Visual Studio 2022/2026 (devenv) -> workspace 4.
+  - commands: ["move --workspace 4"]
+    match:
+      - window_process: { equals: "devenv" }
+
+  # Windows App / Remote Desktop client connected to "devbox-makev" -> workspace 5.
+  - commands: ["move --workspace 5"]
+    match:
+      - window_process: { regex: "^(WindowsApp|msrdcw|msrdc|mstsc)$" }
+        window_title: { regex: "(?i)devbox-makev" }
+
+  # Microsoft Edge -> workspace 7.
+  - commands: ["move --workspace 7"]
+    match:
+      - window_process: { equals: "msedge" }
+
+  # VS Code -> workspace 8.
+  - commands: ["move --workspace 8"]
+    match:
+      - window_process: { equals: "Code" }
+
+  # ---- Ignore rules (windows GlazeWM should not manage) ----
+
   - commands: ["ignore"]
     match:
       # Ignores any Zebar windows.
@@ -244,6 +314,13 @@ keybindings:
   # Minimize focused window.
   - commands: ["set-minimized"]
     bindings: ["alt+m"]
+
+  # Restore every managed window back to tiling (un-minimize, un-float, un-fullscreen).
+  - commands:
+      [
+        'shell-exec powershell -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "%USERPROFILE%\.glzr\glazewm\unminimise-all.ps1"',
+      ]
+    bindings: ["alt+shift+m"]
 
   # Close focused window.
   - commands: ["close"]

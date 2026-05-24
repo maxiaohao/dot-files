@@ -1,0 +1,103 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'godlygeek/tabular'
+
+call plug#end()
+
+
+set number
+set ignorecase
+set nobackup
+set hlsearch
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+set smartindent
+set cursorline
+set hidden "allow switching without saving buffer
+set autochdir
+set noerrorbells
+set novisualbell
+set nofoldenable
+set mouse=
+set lazyredraw
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese,cp936
+set backspace=indent,eol,start
+set scrolloff=3
+set listchars+=nbsp:.
+set synmaxcol=200 "Don't perform highlight on lines that are longer than 200 chars.
+set showtabline=1
+syntax on
+syntax sync minlines=1000
+
+
+""""""""""""""""""""""""""
+""""" color - BEGIN """"""
+""""""""""""""""""""""""""
+colorscheme desert
+highlight LineNr ctermfg=8
+highlight Search ctermfg=black ctermbg=blue guifg=black guibg=blue
+highlight CursorLine cterm=none term=none ctermbg=24
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+""""""""""""""""""""""""""
+""""""" color - END """"""
+""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""
+""""" other keys - BEGIN """""
+""""""""""""""""""""""""""""""
+nmap <C-n> :bn<CR>
+nmap <C-p> :bp<CR>
+
+" window resizer
+let g:winresizer_start_key = '<C-Q>'
+
+" gq for :bd
+noremap gq :bd<CR>
+
+""""""""""""""""""""""""""""
+""""" other keys - END """""
+""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""
+""""" misc - BEGIN """"""
+"""""""""""""""""""""""""
+" trim trailing spaces
+autocmd BufWritePre * :%s/\s\+$//e
+
+" trim 4+ blank lines into at most 3 blank lines
+function! TrimBlankLines()
+    let l:save = winsaveview()
+    silent! keeppatterns %s/\n\{5,}/\r\r\r\r/e
+    call winrestview(l:save)
+endfunction
+autocmd BufWritePre * call TrimBlankLines()
+
+" allow saving file in new dir
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+augroup END
+
+" shortcut gb to remove blank lines in the selected lines
+vnoremap gb :<C-u>'<,'>g/^$/d<CR>
+
+" store last edit position, for up to 1000 files
+set viminfo='1000,f1
+augroup RestoreCursor
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+
+"""""""""""""""""""""""
+""""" misc - END """"""
+"""""""""""""""""""""""

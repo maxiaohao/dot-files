@@ -19,7 +19,7 @@ mkdir $HOME\.config
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.config__starship.toml" -Path "$HOME\.config\starship.toml"
 
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\.ripgreprc" -Path "$HOME\.ripgreprc"
-New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\.vimrc" -Path "$HOME\.vimrc"
+New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\.vimrc.light" -Path "$HOME\.vimrc"
 
 mkdir $HOME\AppData\Roaming\atuin
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\.config__atuin__config.toml" -Path "$HOME\AppData\Roaming\atuin\config.toml"
@@ -38,3 +38,11 @@ mkdir $HOME\.copilot
 New-Item -ItemType SymbolicLink -Target "$HOME\doc\personal-doc\copilot\copilot-instructions.md" -Path "$HOME\.copilot\copilot-instructions.md"
 
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.wezterm.lua" -Path "$HOME\.wezterm.lua"
+
+mkdir $HOME\.glzr\glazewm
+New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.glzr__glazewm__config.yaml" -Path "$HOME\.glzr\glazewm\config.yaml"
+New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.glzr__glazewm__unminimise-all.ps1" -Path "$HOME\.glzr\glazewm\unminimise-all.ps1"
+
+mkdir "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
+New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\caps-nav.ahk" -Path "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\caps-nav.ahk"
+

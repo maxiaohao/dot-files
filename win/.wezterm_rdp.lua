@@ -38,37 +38,30 @@ config.colors = {
 	},
 }
 config.font = wezterm.font_with_fallback({
-	{ family = "Cascadia Mono", weight = "Regular" },
+	{ family = "Cascadia Mono" },
 	{ family = "IosevkaTermSS04 Nerd Font", weight = "Light" },
 	{ family = "Consolas" },
 	{ family = "Cascadia Code" },
 	"Segoe UI Emoji",
-	"GohuFont uni14 Nerd Font",
 })
 -- 12.5 for IosevkaTermSS04 Light
 -- 11.5 for Cascadia Mono Regular
--- 12.5 for Cascadia Mono Regular ?
 config.font_size = 12.5
 -- config.window_decorations = "RESIZE"
 -- config.window_background_opacity = 1.0
 config.scrollback_lines = 100000
 -- config.audible_bell               = 'Disabled'
 
--- Rendering / input smoothness on Windows.
--- WebGpu is generally the snappiest front-end on Windows; HighPerformance
--- nudges Windows to pick the discrete/iGPU rather than a software adapter.
---config.front_end = "OpenGL" -- "Software" "OpenGL" "WebGpu"
---config.webgpu_power_preference = "HighPerformance"
--- Match a 60 Hz panel; raise to 120/144 if you ever attach a faster display.
-config.max_fps = 60
--- Disable the cursor-blink / status-bar animation tick so we don't redraw
--- the whole window 10× a second when nothing is happening.
-config.animation_fps = 1
-
-config.adjust_window_size_when_changing_font_size = false
-config.use_resize_increments = false -- stop snap-to-cell during drag
--- config.window_decorations = "RESIZE" -- lighter than "TITLE | RESIZE" with full chrome
-
+-- -- Rendering / input smoothness on Windows.
+-- -- WebGpu is generally the snappiest front-end on Windows; HighPerformance
+-- -- nudges Windows to pick the discrete/iGPU rather than a software adapter.
+-- config.front_end = "WebGpu"
+-- config.webgpu_power_preference = "HighPerformance"
+-- -- Match a 60 Hz panel; raise to 120/144 if you ever attach a faster display.
+-- config.max_fps = 60
+-- -- Disable the cursor-blink / status-bar animation tick so we don't redraw
+-- -- the whole window 10× a second when nothing is happening.
+-- config.animation_fps = 1
 config.default_cursor_style = "SteadyBlock"
 config.cursor_blink_rate = 0
 
@@ -409,24 +402,9 @@ config.mouse_bindings = {
 	{ event = { Down = { streak = 1, button = "Right" } }, mods = "NONE", action = act.PasteFrom("Clipboard") },
 
 	{ event = { Up = { streak = 1, button = "Left" } }, mods = "CTRL", action = act.OpenLinkAtMouseCursor },
-
-	-- Auto-copy: any mouse selection (single / double / triple click + drag)
-	-- gets copied to the system clipboard on left-button release.
-	{
-		event = { Up = { streak = 1, button = "Left" } },
-		mods = "NONE",
-		action = act.CompleteSelection("ClipboardAndPrimarySelection"),
-	},
-	{
-		event = { Up = { streak = 2, button = "Left" } },
-		mods = "NONE",
-		action = act.CompleteSelection("ClipboardAndPrimarySelection"),
-	},
-	{
-		event = { Up = { streak = 3, button = "Left" } },
-		mods = "NONE",
-		action = act.CompleteSelection("ClipboardAndPrimarySelection"),
-	},
 }
+
+config.front_end = "WebGpu"
+-- config.front_end = "Software"
 
 return config
