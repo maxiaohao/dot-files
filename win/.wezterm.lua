@@ -41,18 +41,31 @@ config.colors = {
 
 
 config.font = wezterm.font_with_fallback({
-  "Consolas",
-	-- "Cascadia Mono",
+	"GohuFont uni14 Nerd Font Mono",
+  --"Consolas",
 	-- { family = "IosevkaTermSS04 Nerd Font", weight = "Regular" },
+	-- "Cascadia Mono",
 	-- "JetBrainsMono NF",
-	-- "GohuFont uni14 Nerd Font",
 	-- "Segoe UI Emoji",
 })
 -- 12.5 for Consolas ! (don't try other sizes)
--- 12 for Cascadia Mono Regular ??
--- 12.5 for IosevkaTermSS04 Light
--- 10.25 for Gohu
-config.font_size = 12.5
+-- 10.5 for Gohu
+-- 13.5 for IosevkaTermSS04 Light or Regular
+-- 12.0 for Cascadia Mono Regular ??
+-- 12.0 for proggy
+config.font_size = 10.5
+
+-- Sharpest: no anti-aliasing, pure bitmap-like look.
+-- Best paired with well-hinted fonts (Cascadia Mono, Lucida Console,
+-- Iosevka Fixed, Terminus TTF) at integer pixel sizes.
+--config.freetype_load_target = 'Mono'
+--config.freetype_render_target = 'Mono'
+
+-- Make hinting respect the full pixel grid
+-- config.freetype_load_flags = 'NO_HINTING|MONOCHROME'  -- optional, see notes below
+
+
+
 -- config.window_decorations = "RESIZE"
 -- config.window_background_opacity = 1.0
 config.scrollback_lines = 100000
