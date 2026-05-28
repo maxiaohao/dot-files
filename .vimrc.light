@@ -74,10 +74,10 @@ noremap gq :bd<CR>
 " trim trailing spaces
 autocmd BufWritePre * :%s/\s\+$//e
 
-" trim 4+ blank lines into at most 3 blank lines
+" trim 6 or 6+ blank lines into at most 5 blank lines
 function! TrimBlankLines()
     let l:save = winsaveview()
-    silent! keeppatterns %s/\n\{5,}/\r\r\r\r/e
+    silent! keeppatterns %s/\n\{6,}/\r\r\r\r\r/e
     call winrestview(l:save)
 endfunction
 autocmd BufWritePre * call TrimBlankLines()

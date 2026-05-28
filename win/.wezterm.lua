@@ -4,6 +4,12 @@ local config = wezterm.config_builder()
 
 config.audible_bell = "Disabled"
 
+-- Align WezTerm's cell-width table with what PSReadLine 2.4+ assumes, so
+-- Nerd Font / emoji glyphs in the Starship prompt are measured identically
+-- by the terminal and the line editor. Prevents the pwsh cursor drift that
+-- otherwise required Ctrl-L to realign.
+config.unicode_version = 14
+
 ------------------------------------------------------------------
 -- Appearance
 ------------------------------------------------------------------
@@ -41,28 +47,19 @@ config.colors = {
 
 
 config.font = wezterm.font_with_fallback({
-	"GohuFont uni14 Nerd Font Mono",
-  --"Consolas",
-	-- { family = "IosevkaTermSS04 Nerd Font", weight = "Regular" },
-	-- "Cascadia Mono",
-	-- "JetBrainsMono NF",
+	"Consolas",
+	--{ family = "Terminus (TTF) for Windows", weight = "Regular" },
+	--"JetBrainsMono NF",
+	{ family = "IosevkaTermSS04 Nerd Font", weight = "Regular" },
+	--"Cascadia Mono",
+	--"GohuFont uni14 Nerd Font Mono",
 	-- "Segoe UI Emoji",
 })
--- 12.5 for Consolas ! (don't try other sizes)
 -- 10.5 for Gohu
--- 13.5 for IosevkaTermSS04 Light or Regular
--- 12.0 for Cascadia Mono Regular ??
--- 12.0 for proggy
-config.font_size = 10.5
+-- 12 (regular) or 16.5 (bold) for Terminus on 1080p
+config.font_size = 13
 
--- Sharpest: no anti-aliasing, pure bitmap-like look.
--- Best paired with well-hinted fonts (Cascadia Mono, Lucida Console,
--- Iosevka Fixed, Terminus TTF) at integer pixel sizes.
---config.freetype_load_target = 'Mono'
---config.freetype_render_target = 'Mono'
-
--- Make hinting respect the full pixel grid
--- config.freetype_load_flags = 'NO_HINTING|MONOCHROME'  -- optional, see notes below
+config.freetype_load_flags = 'NO_HINTING|MONOCHROME'
 
 
 
@@ -71,10 +68,7 @@ config.font_size = 10.5
 config.scrollback_lines = 100000
 -- config.audible_bell               = 'Disabled'
 
--- Rendering / input smoothness on Windows.
--- WebGpu is generally the snappiest front-end on Windows; HighPerformance
--- nudges Windows to pick the discrete/iGPU rather than a software adapter.
---config.front_end = "OpenGL" -- "Software" "OpenGL" "WebGpu"
+config.front_end = "WebGpu" -- "Software" "OpenGL" "WebGpu"
 --config.webgpu_power_preference = "HighPerformance"
 -- Match a 60 Hz panel; raise to 120/144 if you ever attach a faster display.
 config.max_fps = 60
