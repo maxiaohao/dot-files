@@ -47,7 +47,7 @@ config.colors = {
 
 
 config.font = wezterm.font_with_fallback({
-	"Consolas",
+	{ family = "Consolas", weight = "Light" },
 	--{ family = "Terminus (TTF) for Windows", weight = "Regular" },
 	--"JetBrainsMono NF",
 	{ family = "IosevkaTermSS04 Nerd Font", weight = "Regular" },
@@ -57,7 +57,7 @@ config.font = wezterm.font_with_fallback({
 })
 -- 10.5 for Gohu
 -- 12 (regular) or 16.5 (bold) for Terminus on 1080p
-config.font_size = 13
+config.font_size = 14
 
 config.freetype_load_flags = 'NO_HINTING|MONOCHROME'
 

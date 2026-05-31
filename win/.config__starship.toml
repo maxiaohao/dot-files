@@ -1,4 +1,4 @@
-#add_newline = false
+add_newline = false
 # right_format disabled: PSReadLine on pwsh mis-measures the right-prompt width
 # and the cursor drifts (need Ctrl-L to realign). Time is shown in the WezTerm
 # bottom status bar instead.
@@ -15,13 +15,12 @@ $purescript$python$quarto$raku$rlang$red$ruby$rust$scala$solidity$swift$terrafor
 $vlang$vagrant$zig$buf$nix_shell$conda$meson$spack$memory_usage\
 $aws$gcloud$openstack$azure$nats$direnv$env_var$crystal$custom$sudo$cmd_duration\
 $time\
-$line_break\
 $jobs$battery$status$os$container$shell$character"""
 
-#[character]
-#disabled = false
-#success_symbol = '[#](bold green)'
-#error_symbol = '[#](bold red)'
+[character]
+disabled = false
+success_symbol = '[#](bold green)'
+error_symbol = '[#](bold red)'
 
 [directory]
 disabled = false
@@ -61,7 +60,8 @@ map_symbol = true
 disabled = false
 style = 'fg:#555555'
 format = '[\[$time\]]($style) '
-time_format = '%F %r %Z'
+time_format = '%H:%M:%S'
+#time_format = '%F %r %Z'
 #time_format = '%+'
 
 [username]

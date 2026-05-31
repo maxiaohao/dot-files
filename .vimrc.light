@@ -41,7 +41,7 @@ syntax sync minlines=1000
 """"""""""""""""""""""""""
 colorscheme desert
 highlight LineNr ctermfg=8
-highlight Search ctermfg=black ctermbg=blue guifg=black guibg=blue
+highlight Search ctermfg=black ctermbg=166 guifg=black guibg=#ff8c00
 highlight CursorLine cterm=none term=none ctermbg=24
 highlight Visual cterm=none term=none ctermfg=black ctermbg=53 guifg=black guibg=#5f005f
 autocmd WinEnter * setlocal cursorline
