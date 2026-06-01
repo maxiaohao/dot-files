@@ -15,10 +15,17 @@ config.unicode_version = 14
 ------------------------------------------------------------------
 config.color_scheme = "Tokyo Night"
 -- Override just the cursor colour (keeps the rest of Tokyo Night intact).
+-- Start from Tokyo Night's built-in ANSI palette and override just blue,
+-- so we don't duplicate the other 7 hex codes here.
+local tn = wezterm.color.get_builtin_schemes()["Tokyo Night"]
+local ansi = {table.unpack(tn.ansi)}
+ansi[5] = "#3d59a1" -- darker blue (was #7aa2f7); index 5 = ANSI 4 (blue)
+
 config.colors = {
 	cursor_bg = "#00ff00",
 	cursor_border = "#00ff00",
 	cursor_fg = "#1a1b26",
+	ansi = ansi,
 	tab_bar = {
 		background = "#444444",
 		active_tab = {
@@ -48,12 +55,12 @@ config.colors = {
 
 config.font = wezterm.font_with_fallback({
 	{ family = "Consolas", weight = "Light" },
-	--{ family = "Terminus (TTF) for Windows", weight = "Regular" },
-	--"JetBrainsMono NF",
 	{ family = "IosevkaTermSS04 Nerd Font", weight = "Regular" },
-	--"Cascadia Mono",
+	"JetBrainsMono NF",
+	"Cascadia Mono",
 	--"GohuFont uni14 Nerd Font Mono",
-	-- "Segoe UI Emoji",
+	"Segoe UI Emoji",
+	--{ family = "Terminus (TTF) for Windows", weight = "Regular" },
 })
 -- 10.5 for Gohu
 -- 12 (regular) or 16.5 (bold) for Terminus on 1080p
