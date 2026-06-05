@@ -18,8 +18,11 @@ set smartindent
 set cursorline
 set hidden "allow switching without saving buffer
 set autochdir
-set noerrorbells
-set novisualbell
+set belloff=
+set visualbell
+set t_vb=
+"set noerrorbells
+"set novisualbell
 set nofoldenable
 set mouse=
 set lazyredraw
@@ -74,10 +77,10 @@ noremap gq :bd<CR>
 " trim trailing spaces
 autocmd BufWritePre * :%s/\s\+$//e
 
-" trim 6 or 6+ blank lines into at most 5 blank lines
+" trim 7 or 7+ blank lines into at most 6 blank lines
 function! TrimBlankLines()
     let l:save = winsaveview()
-    silent! keeppatterns %s/\n\{6,}/\r\r\r\r\r/e
+    silent! keeppatterns %s/\n\{7,}/\r\r\r\r\r\r\r/e
     call winrestview(l:save)
 endfunction
 autocmd BufWritePre * call TrimBlankLines()
@@ -98,6 +101,16 @@ augroup RestoreCursor
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
+" cursor line visual bell
+function! FlashCursorLine()
+  set cursorline
+  redraw
+  sleep 15m
+  set nocursorline
+endfunction
+
+autocmd VimEnter * set t_vb=
+nnoremap <silent> <expr> <Esc> execute('call FlashCursorLine()') . "\<Esc>"
 
 """""""""""""""""""""""
 """"" misc - END """"""
