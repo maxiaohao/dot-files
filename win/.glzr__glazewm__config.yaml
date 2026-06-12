@@ -180,16 +180,16 @@ window_rules:
     match:
       - window_process: { regex: "^(wezterm-gui|wezterm)$" }
 
-  # Visual Studio 2022/2026 (devenv) -> workspace 4.
+  # Windows App / Remote Desktop client connected to "devbox-makev" -> workspace 4.
   - commands: ["move --workspace 4"]
-    match:
-      - window_process: { equals: "devenv" }
-
-  # Windows App / Remote Desktop client connected to "devbox-makev" -> workspace 5.
-  - commands: ["move --workspace 5"]
     match:
       - window_process: { regex: "^(WindowsApp|msrdcw|msrdc|mstsc)$" }
         window_title: { regex: "(?i)devbox-makev" }
+
+  # Visual Studio 2022/2026 (devenv) -> workspace 5.
+  - commands: ["move --workspace 5"]
+    match:
+      - window_process: { equals: "devenv" }
 
   # Microsoft Edge -> workspace 7.
   - commands: ["move --workspace 7"]
@@ -200,6 +200,15 @@ window_rules:
   - commands: ["move --workspace 8"]
     match:
       - window_process: { equals: "Code" }
+
+  # ---- Always-floating apps ----
+
+  # ShareX (main window, screenshot editor, capture toolbars, etc.) ->
+  # always floating (centered on creation). ShareX dialogs and editors
+  # behave poorly when tiled.
+  - commands: ["set-floating --centered"]
+    match:
+      - window_process: { equals: "ShareX" }
 
   # ---- Ignore rules (windows GlazeWM should not manage) ----
 
@@ -315,7 +324,9 @@ keybindings:
   - commands: ["set-minimized"]
     bindings: ["alt+m"]
 
-  # Restore every managed window back to tiling (un-minimize, un-float, un-fullscreen).
+  # Restore every managed window: un-minimize all, re-tile non-cascade
+  # workspaces, and cascade-float windows on workspaces 6 and 9
+  # (configured inside the script via $WorkspaceLayouts).
   - commands:
       [
         'shell-exec powershell -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "%USERPROFILE%\.glzr\glazewm\unminimise-all.ps1"',
