@@ -55,7 +55,7 @@ config.colors = {
 
 config.font = wezterm.font_with_fallback({
 	{ family = "Consolas", weight = "Light" },
-	{ family = "IosevkaTermSS04 Nerd Font", weight = "Regular" },
+	{ family = "IosevkaTermSS04 Nerd Font", weight = "Light" },
 	"JetBrainsMono NF",
 	"Cascadia Mono",
 	--"GohuFont uni14 Nerd Font Mono",

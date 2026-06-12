@@ -35,6 +35,7 @@ set scrolloff=3
 set listchars+=nbsp:.
 set synmaxcol=200 "Don't perform highlight on lines that are longer than 200 chars.
 set showtabline=1
+set nofixendofline "don't auto-append a newline at end of file
 syntax on
 syntax sync minlines=1000
 
