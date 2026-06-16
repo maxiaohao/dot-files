@@ -212,6 +212,22 @@ config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1500 }
 -- Key bindings (tmux muscle memory)
 ------------------------------------------------------------------
 config.disable_default_key_bindings = false
+
+-- Case-insensitive search that survives WezTerm's "sticky pattern" quirk.
+-- WezTerm keeps a per-tab SAVED_PATTERN (see wezterm-gui/src/overlay/copy.rs);
+-- whenever Search is invoked with an EMPTY pattern, the saved pattern (and its
+-- pattern_type) is restored. So `Search{CaseInSensitiveString=""}` silently
+-- becomes case-SENSITIVE once any case-sensitive search has run in this tab
+-- (e.g. via the default Ctrl+Shift+F binding). Passing a non-empty initial
+-- pattern bypasses the SAVED_PATTERN lookup and forces the case-insensitive
+-- type; we then send a Backspace to clear the placeholder character.
+local function ci_search()
+	return wezterm.action_callback(function(window, pane)
+		window:perform_action(act.Search({ CaseInSensitiveString = " " }), pane)
+		window:perform_action(act.SendKey({ key = "Backspace" }), pane)
+	end)
+end
+
 config.keys = {
 	-- Send a literal Ctrl-A by hitting the leader twice (tmux's `send-prefix`)
 	{ key = "a", mods = "LEADER|CTRL", action = act.SendKey({ key = "a", mods = "CTRL" }) },
@@ -288,7 +304,12 @@ config.keys = {
 	{ key = "Space", mods = "LEADER", action = act.QuickSelect },
 
 	-- Search the scrollback (tmux's copy-mode `/`)
-	{ key = "/", mods = "LEADER", action = act.Search({ CaseInSensitiveString = "" }) },
+	{ key = "/", mods = "LEADER", action = ci_search() },
+
+	-- Override wezterm's default Ctrl+Shift+F (which uses CaseSensitiveString="")
+	-- so it doesn't pollute this tab's SAVED_PATTERN with a case-sensitive type
+	-- that then "sticks" and leaks back into our `/` search.
+	{ key = "F", mods = "CTRL|SHIFT", action = ci_search() },
 
 	-- Reload config on the fly
 	{ key = "R", mods = "LEADER|SHIFT", action = act.ReloadConfiguration },
@@ -399,8 +420,8 @@ config.key_tables = {
 		},
 
 		-- Search inside copy mode
-		{ key = "/", mods = "NONE", action = act.Search({ CaseInSensitiveString = "" }) },
-		{ key = "?", mods = "SHIFT", action = act.Search({ CaseInSensitiveString = "" }) },
+		{ key = "/", mods = "NONE", action = ci_search() },
+		{ key = "?", mods = "SHIFT", action = ci_search() },
 		{ key = "n", mods = "NONE", action = act.CopyMode("NextMatch") },
 		{ key = "N", mods = "SHIFT", action = act.CopyMode("PriorMatch") },
 

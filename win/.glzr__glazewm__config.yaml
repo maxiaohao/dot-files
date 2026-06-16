@@ -180,6 +180,11 @@ window_rules:
     match:
       - window_process: { regex: "^(wezterm-gui|wezterm)$" }
 
+  # Windows Terminal -> workspace 3.
+  - commands: ["move --workspace 3"]
+    match:
+      - window_process: { equals: "WindowsTerminal" }
+
   # Windows App / Remote Desktop client connected to "devbox-makev" -> workspace 4.
   - commands: ["move --workspace 4"]
     match:

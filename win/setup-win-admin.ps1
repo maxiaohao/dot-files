@@ -15,6 +15,9 @@ New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\alacritty.toml"
 
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.tmux.conf" -Path "$HOME\.tmux.conf"
 
+mkdir $HOME\AppData\Roaming\Zellij\config
+New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.config__zellij__config.kdl" -Path "$HOME\AppData\Roaming\Zellij\config\config.kdl"
+
 mkdir $HOME\.config
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.config__starship.toml" -Path "$HOME\.config\starship.toml"
 

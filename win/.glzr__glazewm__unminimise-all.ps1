@@ -50,7 +50,7 @@ $WorkspaceLayouts = @{
 # Processes that have their OWN handling in config.yaml (an explicit
 # move/float/ignore rule). Phase 2.5 sweeps every OTHER managed window to
 # workspace 9. Keep this list in sync with the rules in config.yaml.
-$UnspecifiedSkipProcessRegex = '^(ms-teams|msteams|Teams|OUTLOOK|olk|wezterm-gui|wezterm|WindowsApp|msrdcw|msrdc|mstsc|devenv|msedge|Code|ShareX|zebar|PowerToys|Lively|EXCEL|WINWORD|POWERPNT)$'
+$UnspecifiedSkipProcessRegex = '^(ms-teams|msteams|Teams|OUTLOOK|olk|wezterm-gui|wezterm|WindowsTerminal|WindowsApp|msrdcw|msrdc|mstsc|devenv|msedge|Code|ShareX|zebar|PowerToys|Lively|EXCEL|WINWORD|POWERPNT)$'
 
 $glazewm = Join-Path $env:ProgramFiles 'glzr.io\GlazeWM\cli\glazewm.exe'
 if (-not (Test-Path $glazewm)) {
