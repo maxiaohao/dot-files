@@ -62,7 +62,11 @@ keybinds clear-defaults=true {
     entersearch {
         bind "Ctrl c" { SwitchToMode "scroll"; }
         bind "esc" { SwitchToMode "scroll"; }
-        bind "enter" { SwitchToMode "search"; }
+        // Confirm the search and flip it to case-insensitive. Typing the term
+        // calls clear_search() on every keystroke (resetting options), so the
+        // toggle must happen here, after the term is entered. Press "c" in
+        // search mode to flip back to case-sensitive.
+        bind "enter" { SwitchToMode "search"; SearchToggleOption "CaseSensitivity"; }
     }
     renametab {
         bind "esc" { UndoRenameTab; SwitchToMode "locked"; }
@@ -183,7 +187,7 @@ default_mode "locked"
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 // 
-default_shell "C:/Program Files/WindowsApps/Microsoft.PowerShell_7.6.2.0_x64__8wekyb3d8bbwe/pwsh.exe"
+default_shell "C:/Program Files/WindowsApps/Microsoft.PowerShell_7.6.3.0_x64__8wekyb3d8bbwe/pwsh.exe"
  
 // Choose the path to override cwd that zellij will use for opening new panes
 // 
@@ -301,7 +305,7 @@ auto_layout false
 //   - true (default)
 //   - false
 // 
-session_serialization true
+session_serialization false
  
 // Whether pane viewports are serialized along with the session, default is false
 // Options:

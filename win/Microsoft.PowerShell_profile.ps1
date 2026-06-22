@@ -1,3 +1,4 @@
+
 $env:BAT_STYLE = "plain"
 $env:BAT_OPTS = "--paging=always"
 
@@ -12,8 +13,25 @@ Set-Alias ll dir
 #function ls { eza @args }
 function bc { b bc -l }
 
-function c { & agency copilot --yolo @args }
-function cai { cd ~\ai-test ; & agency copilot --yolo @args }
+# Inside Zellij, Copilot CLI's startup OSC-4 palette probe (it queries the 16 ANSI
+# colors) leaks into the input box because Zellij answers the query too slowly, so the
+# replies arrive after Copilot stopped reading and land as "typed" text. Setting the
+# NO_COLOR env var makes Copilot skip that probe while still keeping its truecolor theme.
+# (The --no-color *flag* does NOT stop the probe; only the NO_COLOR *env var* does.)
+# NO_COLOR is set only while Copilot runs and only inside Zellij, then restored.
+function c {
+  $had = Test-Path Env:NO_COLOR; $prev = $env:NO_COLOR
+  if ($env:ZELLIJ) { $env:NO_COLOR = '1' }
+  try { & agency copilot --yolo @args }
+  finally { if ($had) { $env:NO_COLOR = $prev } elseif (Test-Path Env:NO_COLOR) { Remove-Item Env:NO_COLOR } }
+}
+function cai {
+  cd ~\ai-test
+  $had = Test-Path Env:NO_COLOR; $prev = $env:NO_COLOR
+  if ($env:ZELLIJ) { $env:NO_COLOR = '1' }
+  try { & agency copilot --yolo @args }
+  finally { if ($had) { $env:NO_COLOR = $prev } elseif (Test-Path Env:NO_COLOR) { Remove-Item Env:NO_COLOR } }
+}
 function sg { slngen **\*.csproj -vs "C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\IDE\devenv.exe" }
 
 function gst   { git status @args }
@@ -29,7 +47,46 @@ function gpsup {
 function gf   { git fetch origin --prune @args }
 function glg  { git log --abbrev-commit --date=format:"%Y-%m-%d %H:%M" --pretty=format:"%C(auto)%h%Creset %C(brightblack)%cd%Creset %s %C(blue)<%an %ae>%Creset" @args }
 
-function tm { $h=$env:COMPUTERNAME.ToLower(); $s=@(zellij ls -s 2>$null) -contains $h; if ($s) { zellij attach $h } else { zellij -s $h } }
+function tm {
+  $name = if ($args.Count -gt 0) { $args[0] } else { 'main' }
+  zellij attach --create $name
+}
+
+function prompt {
+    $branch = git rev-parse --abbrev-ref HEAD 2>$null
+    if ($branch) {
+        Write-Host "PS $($executionContext.SessionState.Path.CurrentLocation) " -NoNewline
+        Write-Host "[$branch]" -NoNewline -ForegroundColor DarkYellow
+        return "> "
+    } else {
+        "PS $($executionContext.SessionState.Path.CurrentLocation)> "
+    }
+}
+
+
+## Keep zellij's default_shell pointing at the real pwsh binary (the
+## WindowsApps app-execution-alias shim is a zero-byte reparse point that
+## zellij can't launch, which silently downgrades sessions to Windows
+## PowerShell 5.1). Re-resolve the versioned WindowsApps install path on
+## every shell start so the config survives pwsh upgrades.
+function Sync-ZellijShell {
+  $real = (Get-Command pwsh.exe -CommandType Application -ErrorAction SilentlyContinue |
+    Where-Object { $_.Source -like '*\WindowsApps\Microsoft.PowerShell_*\pwsh.exe' } |
+    Select-Object -First 1).Source
+  if (-not $real) { return }
+  $cfg = Join-Path $env:APPDATA 'Zellij\config\config.kdl'
+  if (-not (Test-Path $cfg)) { return }
+  $line = 'default_shell "' + ($real -replace '\\','/') + '"'
+  $content = Get-Content $cfg -Raw
+  $pattern = '(?m)^default_shell\s+".*"'
+  if ($content -match $pattern -and $Matches[0] -ne $line) {
+    $new = [regex]::Replace($content, $pattern, $line.Replace('$','$$'))
+    Set-Content -Path $cfg -Value $new -NoNewline -Encoding UTF8
+  }
+}
+Sync-ZellijShell
+
+
 
 
 atuin init --disable-up-arrow powershell | Out-String | Invoke-Expression
