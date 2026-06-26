@@ -188,7 +188,8 @@ default_mode "locked"
 // Default: $SHELL
 //
 //default_shell "C:/Program Files/WindowsApps/Microsoft.PowerShell_7.6.3.0_x64__8wekyb3d8bbwe/pwsh.exe"
-default_shell "C:/Program Files/WindowsApps/Microsoft.PowerShell_7.6.3.0_x64__8wekyb3d8bbwe/pwsh.exe"
+//default_shell "C:/Program Files/PowerShell/7/pwsh.exe"
+default_shell "C:/tool/powershell/pwsh.exe"
 
 // Choose the path to override cwd that zellij will use for opening new panes
 //

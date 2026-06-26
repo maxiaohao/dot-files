@@ -49,8 +49,38 @@ function glg  { git log --abbrev-commit --date=format:"%Y-%m-%d %H:%M" --pretty=
 
 function tm {
     $name = if ($args.Count -gt 0) { $args[0] } else { 'main' }
-      if (-not $env:TERM) { $env:TERM = 'xterm-256color' }
+    if (-not $env:TERM) { $env:TERM = 'xterm-256color' }
+
+    $exists = @(zellij list-sessions -ns 2>$null) -contains $name
+
+    if (-not $exists -and -not $env:ZELLIJ) {
+        # Brand-new session, launched from outside zellij: start it with 9 tabs
+        # (compact styling, same as default_layout). Layout is inlined so no
+        # extra layout file is needed.
+        $layout = @'
+layout {
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+    tab
+    tab
+    tab
+    tab
+    tab
+    tab
+    tab
+    tab
+    tab
+}
+'@
+        zellij --layout-string $layout attach --create $name
+    } else {
+        # Existing session (just attach) or nested call (avoid injecting tabs).
         zellij attach --create $name
+    }
 }
 
 function prompt {
@@ -65,27 +95,27 @@ function prompt {
 }
 
 
-## Keep zellij's default_shell pointing at the real pwsh binary (the
-## WindowsApps app-execution-alias shim is a zero-byte reparse point that
-## zellij can't launch, which silently downgrades sessions to Windows
-## PowerShell 5.1). Re-resolve the versioned WindowsApps install path on
-## every shell start so the config survives pwsh upgrades.
-function Sync-ZellijShell {
-  $real = (Get-Command pwsh.exe -CommandType Application -ErrorAction SilentlyContinue |
-    Where-Object { $_.Source -like '*\WindowsApps\Microsoft.PowerShell_*\pwsh.exe' } |
-    Select-Object -First 1).Source
-  if (-not $real) { return }
-  $cfg = Join-Path $env:APPDATA 'Zellij\config\config.kdl'
-  if (-not (Test-Path $cfg)) { return }
-  $line = 'default_shell "' + ($real -replace '\\','/') + '"'
-  $content = Get-Content $cfg -Raw
-  $pattern = '(?m)^default_shell\s+".*"'
-  if ($content -match $pattern -and $Matches[0] -ne $line) {
-    $new = [regex]::Replace($content, $pattern, $line.Replace('$','$$'))
-    Set-Content -Path $cfg -Value $new -NoNewline -Encoding UTF8
-  }
-}
-Sync-ZellijShell
+# ## Keep zellij's default_shell pointing at the real pwsh binary (the
+# ## WindowsApps app-execution-alias shim is a zero-byte reparse point that
+# ## zellij can't launch, which silently downgrades sessions to Windows
+# ## PowerShell 5.1). Re-resolve the versioned WindowsApps install path on
+# ## every shell start so the config survives pwsh upgrades.
+# function Sync-ZellijShell {
+#   $real = (Get-Command pwsh.exe -CommandType Application -ErrorAction SilentlyContinue |
+#     Where-Object { $_.Source -like '*\WindowsApps\Microsoft.PowerShell_*\pwsh.exe' } |
+#     Select-Object -First 1).Source
+#   if (-not $real) { return }
+#   $cfg = Join-Path $env:APPDATA 'Zellij\config\config.kdl'
+#   if (-not (Test-Path $cfg)) { return }
+#   $line = 'default_shell "' + ($real -replace '\\','/') + '"'
+#   $content = Get-Content $cfg -Raw
+#   $pattern = '(?m)^default_shell\s+".*"'
+#   if ($content -match $pattern -and $Matches[0] -ne $line) {
+#     $new = [regex]::Replace($content, $pattern, $line.Replace('$','$$'))
+#     Set-Content -Path $cfg -Value $new -NoNewline -Encoding UTF8
+#   }
+# }
+# Sync-ZellijShell
 
 
 
