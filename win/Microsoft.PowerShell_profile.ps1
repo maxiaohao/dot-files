@@ -48,8 +48,9 @@ function gf   { git fetch origin --prune @args }
 function glg  { git log --abbrev-commit --date=format:"%Y-%m-%d %H:%M" --pretty=format:"%C(auto)%h%Creset %C(brightblack)%cd%Creset %s %C(blue)<%an %ae>%Creset" @args }
 
 function tm {
-  $name = if ($args.Count -gt 0) { $args[0] } else { 'main' }
-  zellij attach --create $name
+    $name = if ($args.Count -gt 0) { $args[0] } else { 'main' }
+      if (-not $env:TERM) { $env:TERM = 'xterm-256color' }
+        zellij attach --create $name
 }
 
 function prompt {
