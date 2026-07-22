@@ -13,24 +13,12 @@ Set-Alias ll dir
 #function ls { eza @args }
 function bc { b bc -l }
 
-# Inside Zellij, Copilot CLI's startup OSC-4 palette probe (it queries the 16 ANSI
-# colors) leaks into the input box because Zellij answers the query too slowly, so the
-# replies arrive after Copilot stopped reading and land as "typed" text. Setting the
-# NO_COLOR env var makes Copilot skip that probe while still keeping its truecolor theme.
-# (The --no-color *flag* does NOT stop the probe; only the NO_COLOR *env var* does.)
-# NO_COLOR is set only while Copilot runs and only inside Zellij, then restored.
 function c {
-  $had = Test-Path Env:NO_COLOR; $prev = $env:NO_COLOR
-  if ($env:ZELLIJ) { $env:NO_COLOR = '1' }
-  try { & agency copilot --yolo @args }
-  finally { if ($had) { $env:NO_COLOR = $prev } elseif (Test-Path Env:NO_COLOR) { Remove-Item Env:NO_COLOR } }
+  & agency copilot --yolo @args
 }
 function cai {
   cd ~\ai-test
-  $had = Test-Path Env:NO_COLOR; $prev = $env:NO_COLOR
-  if ($env:ZELLIJ) { $env:NO_COLOR = '1' }
-  try { & agency copilot --yolo @args }
-  finally { if ($had) { $env:NO_COLOR = $prev } elseif (Test-Path Env:NO_COLOR) { Remove-Item Env:NO_COLOR } }
+  & agency copilot --yolo @args
 }
 function sg { slngen **\*.csproj -vs "C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\IDE\devenv.exe" }
 
@@ -39,13 +27,21 @@ function gd    { git diff @args }
 function ga    { git add @args }
 function gcmsg { git commit -m @args }
 function gco   { git checkout @args }
-#function gp    { git push @args }
+
+if (Test-Path Alias:gl) { Remove-Item Alias:gl -Force }
+function gl { git pull @args }
+if (Test-Path Alias:gp) { Remove-Item Alias:gp -Force }
+function gp {
+  $branch = git symbolic-ref --short HEAD
+  git push --set-upstream origin $branch @args
+}
 function gpsup {
   $branch = git symbolic-ref --short HEAD
   git push --set-upstream origin $branch @args
 }
 function gf   { git fetch origin --prune @args }
 function glg  { git log --abbrev-commit --date=format:"%Y-%m-%d %H:%M" --pretty=format:"%C(auto)%h%Creset %C(brightblack)%cd%Creset %s %C(blue)<%an %ae>%Creset" @args }
+
 
 function tm {
     $name = if ($args.Count -gt 0) { $args[0] } else { 'main' }
@@ -121,6 +117,10 @@ function prompt {
 
 
 atuin init --disable-up-arrow powershell | Out-String | Invoke-Expression
+
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+Set-PSReadLineKeyHandler -Key UpArrow   -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
 Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteCharOrExit
 
