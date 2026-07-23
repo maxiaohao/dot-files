@@ -1,0 +1,101 @@
+;; caps-nav.kbd — Kanata port of caps-nav.ahk
+;;
+;; Hold CapsLock as a momentary navigation layer (CapsLock's own toggle is
+;; disabled — it never sends capslock). While CapsLock is held:
+;;
+;;   h j k l  -> Left Down Up Right
+;;   a e      -> Home End
+;;   p n      -> PageUp PageDown
+;;   g t      -> `  (grave)  and  ~ (tilde)
+;;   bspc     -> Delete (forward delete)
+;;
+;; Plain Backspace (WITHOUT CapsLock) also gets a kanata fast-repeat, slightly
+;; slower than the nav keys (see $br) so holding it deletes faster than the
+;; Windows auto-repeat cap of ~30/sec. Every other typing key keeps the normal
+;; Windows repeat rate.
+;;
+;; Why Kanata is steadier than the AHK #HotIf layer: Kanata tracks, per physical
+;; key, which output key it is currently holding. Once you press CapsLock+l it
+;; emits Right and keeps emitting Right until *l* is physically released — even
+;; if you lift CapsLock first. So the held-key auto-repeat can no longer leak a
+;; literal 'l' the way the polled GetKeyState layer did.
+;;
+;; CUSTOM REPEAT RATE: the movement keys (arrows, PgUp/PgDn, Delete) do NOT rely
+;; on the Windows auto-repeat rate (which the OS slider caps at ~31/sec). Instead
+;; they use `macro-repeat-release-cancel`, which fires the key once immediately
+;; then re-fires it every $rr milliseconds while held, cancelling the instant you
+;; let go. Tune the speed by changing $rr in the defvar below (smaller = faster).
+;;
+;; Run on Windows:
+;;   kanata.exe --cfg caps-nav.kbd
+;; To also reach elevated windows (admin terminals, Task Manager), start it
+;; from an elevated shell / as administrator, same as the AHK RunAs block.
+;;
+;; Emergency quit chord (physical keys, before remapping): LCtrl + Space + Esc.
+
+(defcfg
+  ;; All keys we drive are listed in defsrc, so no extra options are required.
+  ;; process-unmapped-keys stays at its default (off) so normal typing on every
+  ;; other key is passed straight through, untouched.
+  concurrent-tap-hold yes
+)
+
+;; Timing knobs in milliseconds. Live-reload picks up changes instantly.
+;;   30 ~= 33 reps/sec   20 ~= 50 reps/sec   15 ~= 66 reps/sec   10 ~= 100 reps/sec
+;;   rr = repeat gap for nav movement keys.   br = repeat gap for plain Backspace.
+;;   hh = shared "halt": how long a key must be held before fast-repeat starts.
+;;        A quick tap under this stays a single keypress; bigger = longer pause.
+(defvar
+  rr 20
+  br 20
+  hh 180
+)
+
+;; Physical keys this config intercepts. Order here must line up column-for-column
+;; with every deflayer below. Any key NOT listed is passed straight to the OS.
+(defsrc
+  caps   a     e     g     h     j     k      l      n      p      t      bspc
+)
+
+;; Base layer: CapsLock becomes the layer key; every other key is itself, except
+;; plain Backspace which gets its own kanata fast-repeat (@bsr).
+(deflayer base
+  @nav   a     e     g     h     j     k      l      n      p      t      @bsr
+)
+
+;; Navigation layer, active only while CapsLock is held.
+;; caps is transparent (_) here so the held layer key keeps working.
+;; Arrows (hjkl) use tap-hold: a quick tap = one arrow, holding past $hh starts
+;; the fast repeat. Page keys (p/n) and Delete stay instant; Home/End and
+;; grave/tilde stay plain taps (grave/tilde must not spam).
+(deflayer nav
+  _      home  end   grv   @fh   @fj   @fk    @fl    @fn    @fp    S-grv  @fbs
+)
+
+(defalias
+  ;; Hold CapsLock -> nav layer; tapping it alone does nothing (toggle disabled).
+  nav (layer-while-held nav)
+
+  ;; Fast-repeat cores: fire once immediately, then every $rr ms while held;
+  ;; the release-cancel variant stops the instant the key is let go.
+  rh  (macro-repeat-release-cancel left  $rr)
+  rj  (macro-repeat-release-cancel down  $rr)
+  rk  (macro-repeat-release-cancel up    $rr)
+  rl  (macro-repeat-release-cancel right $rr)
+
+  ;; Arrow keys (Caps+hjkl): tap = one arrow; held past $hh ms = fast repeat.
+  fh  (tap-hold $hh $hh left  @rh)
+  fj  (tap-hold $hh $hh down  @rj)
+  fk  (tap-hold $hh $hh up    @rk)
+  fl  (tap-hold $hh $hh right @rl)
+
+  ;; Page keys (Caps+p/n) and Caps+Backspace (= Delete): instant repeat, no halt.
+  fn  (macro-repeat-release-cancel pgdn  $rr)
+  fp  (macro-repeat-release-cancel pgup  $rr)
+  fbs (macro-repeat-release-cancel del   $rr)
+
+  ;; Plain Backspace (base layer): tap = one Backspace; held past $hh ms =
+  ;; fast-repeat at $br. Modifiers still work (Ctrl/Shift+Bspc during the tap).
+  bfast (macro-repeat-release-cancel bspc  $br)
+  bsr   (tap-hold $hh $hh bspc @bfast)
+)
