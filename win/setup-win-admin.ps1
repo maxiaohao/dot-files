@@ -39,6 +39,7 @@ New-Item -ItemType SymbolicLink -Target "$HOME\doc\personal-doc\.ssh\config" -Pa
 
 mkdir $HOME\.copilot
 New-Item -ItemType SymbolicLink -Target "$HOME\doc\personal-doc\copilot\copilot-instructions.md" -Path "$HOME\.copilot\copilot-instructions.md"
+New-Item -ItemType SymbolicLink -Target "$HOME\doc\personal-doc\copilot\skills" -Path "$HOME\.copilot\skills"
 
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.wezterm.lua" -Path "$HOME\.wezterm.lua"
 
@@ -46,6 +47,7 @@ mkdir $HOME\.glzr\glazewm
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.glzr__glazewm__config.yaml" -Path "$HOME\.glzr\glazewm\config.yaml"
 New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\.glzr__glazewm__unminimise-all.ps1" -Path "$HOME\.glzr\glazewm\unminimise-all.ps1"
 
-mkdir "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
-New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\caps-nav.ahk" -Path "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\caps-nav.ahk"
+# disabled ahk in favour of kanata
+#mkdir "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
+#New-Item -ItemType SymbolicLink -Target "$HOME\dev\dot-files\win\caps-nav.ahk" -Path "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\caps-nav.ahk"
 
