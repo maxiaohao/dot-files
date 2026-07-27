@@ -1,9 +1,14 @@
-call plug#begin('~/.vim/plugged')
+" Only load plugins when vim-plug is available on this vim's runtimepath.
+" (git's bundled MSYS vim uses ~/.vim and lacks plug.vim, unlike the native
+" Windows vim which finds it in ~/vimfiles/autoload.)
+if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
+  call plug#begin('~/.vim/plugged')
 
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'godlygeek/tabular'
+  Plug 'dhruvasagar/vim-table-mode'
+  Plug 'godlygeek/tabular'
 
-call plug#end()
+  call plug#end()
+endif
 
 
 set number
