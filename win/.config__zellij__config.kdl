@@ -79,6 +79,7 @@ keybinds clear-defaults=true {
         bind "," { SwitchToMode "renametab"; TabNameInput 0; }
         bind "-" { NewPane "down"; SwitchToMode "locked"; }
         bind "." { SwitchToMode "renamepane"; PaneNameInput 0; }
+        // 15 tabs, hexadecimal-style: 1-9 then a-f (tabs 10-15).
         bind "1" { GoToTab 1; SwitchToMode "locked"; }
         bind "2" { GoToTab 2; SwitchToMode "locked"; }
         bind "3" { GoToTab 3; SwitchToMode "locked"; }
@@ -91,15 +92,21 @@ keybinds clear-defaults=true {
         bind "<" { MoveTab "left"; }
         bind ">" { MoveTab "right"; }
         bind "B" { TogglePaneFrames; SwitchToMode "locked"; }
+        // Tabs 10-15 use lowercase a-f, so NewTab and Detach move to capitals.
+        bind "C" { NewTab; SwitchToMode "locked"; }
+        bind "D" { Detach; }
         bind "H" { SwitchToMode "resize"; }
         bind "J" { SwitchToMode "resize"; }
         bind "K" { SwitchToMode "resize"; }
         bind "L" { SwitchToMode "resize"; }
         bind "[" { SwitchToMode "scroll"; }
         bind "Ctrl a" { Write 1; SwitchToMode "locked"; }
-        bind "c" { NewTab; SwitchToMode "locked"; }
-        bind "d" { Detach; }
-        bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "locked"; }
+        bind "a" { GoToTab 10; SwitchToMode "locked"; }
+        bind "b" { GoToTab 11; SwitchToMode "locked"; }
+        bind "c" { GoToTab 12; SwitchToMode "locked"; }
+        bind "d" { GoToTab 13; SwitchToMode "locked"; }
+        bind "e" { GoToTab 14; SwitchToMode "locked"; }
+        bind "f" { GoToTab 15; SwitchToMode "locked"; }
         bind "h" { MoveFocus "left"; SwitchToMode "locked"; }
         bind "j" { MoveFocus "down"; SwitchToMode "locked"; }
         bind "k" { MoveFocus "up"; SwitchToMode "locked"; }
@@ -155,7 +162,7 @@ web_client {
 //   - true
 //   - false (Default)
 //
-// simplified_ui true
+simplified_ui true
 
 // Enable OSC8 hyperlink output
 // Options:
@@ -164,10 +171,30 @@ web_client {
 //
 osc8_hyperlinks true
 
+// Copy of the built-in default theme's tab colors, with two changes: the
+// tab-bar shades every other unselected tab with ribbon_unselected.emphasis_1
+// (white 255) instead of .background (gray 238) so tabs stay distinguishable
+// without arrow separators. Both are left at the default gray here, so every
+// unselected tab gets a uniform background, and "base" (the tab label) is
+// lightened from black for legibility against it. Any component not listed
+// here falls back to the built-in default. Values are 8-bit color codes.
+themes {
+    unified-tabs {
+        ribbon_unselected {
+            base 250
+            emphasis_0 124
+            emphasis_1 238
+            emphasis_2 45
+            emphasis_3 201
+            background 238
+        }
+    }
+}
+
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-// theme "dracula"
+theme "unified-tabs"
 
 // Theme to use when the host terminal reports a dark color palette.
 // Requires `theme_light` to also be set; otherwise `theme` is used.

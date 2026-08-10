@@ -50,7 +50,7 @@ function tm {
     $exists = @(zellij list-sessions -ns 2>$null) -contains $name
 
     if (-not $exists -and -not $env:ZELLIJ) {
-        # Brand-new session, launched from outside zellij: start it with 9 tabs
+        # Brand-new session, launched from outside zellij: start it with 15 tabs
         # (compact styling, same as default_layout). Layout is inlined so no
         # extra layout file is needed.
         $layout = @'
@@ -61,15 +61,21 @@ layout {
             plugin location="zellij:compact-bar"
         }
     }
-    tab
-    tab
-    tab
-    tab
-    tab
-    tab
-    tab
-    tab
-    tab
+    tab name="  1  "
+    tab name="  2  "
+    tab name="  3  "
+    tab name="  4  "
+    tab name="  5  "
+    tab name="  6  "
+    tab name="  7  "
+    tab name="  8  "
+    tab name="  9  "
+    tab name="  a  "
+    tab name="  b  "
+    tab name="  c  "
+    tab name="  d  "
+    tab name="  e  "
+    tab name="  f  "
 }
 '@
         zellij --layout-string $layout attach --create $name
