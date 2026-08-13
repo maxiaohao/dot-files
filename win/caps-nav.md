@@ -29,8 +29,13 @@ hook in the interactive session. No driver required.
 
 ## One-time setup on a new machine
 
-1. Install kanata (winget): `winget install jtroo.kanata_gui`
-2. Copy the LLHOOK GUI build to a stable path (so winget upgrades don't break the task):
+1. Install kanata (winget): `winget install --id jtroo.kanata_gui -e`
+   (installs the **Kanata GUI** package — verify with `winget list --id jtroo.kanata_gui`).
+2. Copy the LLHOOK GUI build to a stable path (so winget upgrades don't break the task).
+   The package ships **8 build variants** under its `Packages\jtroo.kanata_gui_*` folder
+   (`gui`/`tty` × `winIOv2`/`wintercept` × plain/`cmd_allowed`). Pick
+   **`kanata_windows_gui_winIOv2_x64.exe`** — the GUI tray app on the winIOv2/LLHOOK
+   engine — and copy it renamed to `kanata-gui.exe`:
    ```powershell
    $pkg = "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\jtroo.kanata_gui_*\kanata_windows_gui_winIOv2_x64.exe"
    New-Item -ItemType Directory -Force C:\tools\kanata\bin | Out-Null
