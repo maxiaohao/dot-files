@@ -22,6 +22,58 @@ function cai {
 }
 function sg { slngen **\*.csproj -vs "C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\IDE\devenv.exe" }
 
+# fo (Find and Open): fd for files matching the given pattern, then open the pick in vim.
+# No match -> message only; exactly one match -> open it straight away; otherwise pick via fzf.
+# Extra arguments are passed through to fd, e.g. `fo config -e toml`.
+function fo {
+  if ($args.Count -eq 0) {
+    Write-Host 'usage: fo <pattern> [extra fd args...]' -ForegroundColor Yellow
+    return
+  }
+
+  $found = @(fd --type f --hidden --no-ignore @args)
+
+  if ($found.Count -eq 0) {
+    Write-Host "fo: no files found" -ForegroundColor DarkYellow
+    return
+  }
+
+  if ($found.Count -eq 1) {
+    vim -- $found[0]
+    return
+  }
+
+  $picked = $found | fzf --prompt 'fo> ' --height 60% --reverse --no-multi --no-sort
+  if ($picked) { vim -- $picked }
+}
+
+# cdf (Change Dir to File): cd into the directory holding the given file,
+# e.g. `cdf foo/bar/baz.txt` lands in foo/bar. A directory argument is entered
+# directly, and a bare file name with no directory part leaves you where you are.
+function cdf {
+  if ($args.Count -eq 0) {
+    Write-Host 'usage: cdf <path-to-file>' -ForegroundColor Yellow
+    return
+  }
+
+  $target = [string]$args[0]
+
+  if (Test-Path -LiteralPath $target -PathType Container) {
+    Set-Location -LiteralPath $target
+    return
+  }
+
+  $dir = Split-Path -Path $target -Parent
+  if ([string]::IsNullOrEmpty($dir)) { $dir = '.' }
+
+  if (-not (Test-Path -LiteralPath $dir -PathType Container)) {
+    Write-Host "cdf: no such directory: $dir" -ForegroundColor DarkYellow
+    return
+  }
+
+  Set-Location -LiteralPath $dir
+}
+
 function gst   { git status @args }
 function gd    { git diff @args }
 function ga    { git add @args }
