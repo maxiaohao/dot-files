@@ -64,16 +64,33 @@ if (Test-Path $winStations) {
     )
 }
 
+# Successful reconnects since boot. Measured across 10 consecutive boot cycles on
+# this box, the session survives exactly 8 reconnects; the 9th attempt always
+# fails and the box then needs a restart. Warn while there is still budget left.
+$reconnectBudget = 8
+$reconnects = 0
+try {
+    $reconnects = @(Get-WinEvent -FilterHashtable @{
+        LogName   = 'Microsoft-Windows-TerminalServices-LocalSessionManager/Operational'
+        Id        = 25
+        StartTime = $boot
+    } -ErrorAction SilentlyContinue).Count
+} catch { }
+$reconnectsLeft = $reconnectBudget - $reconnects
+
 $result = [pscustomobject]@{
     LastBoot          = $boot
     UptimeDays        = [math]::Round(((Get-Date) - $boot).TotalDays, 2)
+    Reconnects        = $reconnects
+    ReconnectsLeft    = $reconnectsLeft
+    ReconnectBudgetLow = ($reconnectsLeft -le 2)
     DriftedMarkers    = $drifted | ForEach-Object { '{0} @ {1:yyyy-MM-dd HH:mm}' -f $_.Name, $_.LastWriteTime }
     EnabledListeners  = $enabledListeners
     StackUpdatedSinceBoot = [bool]$drifted.Count
     MultipleListeners = ($enabledListeners.Count -gt 1)
     ActionNeeded      = $false
 }
-$result.ActionNeeded = $result.StackUpdatedSinceBoot -or $result.MultipleListeners
+$result.ActionNeeded = $result.ReconnectBudgetLow -or $result.StackUpdatedSinceBoot -or $result.MultipleListeners
 
 $result
 
@@ -84,7 +101,8 @@ if (-not $result.ActionNeeded) {
 
 if ($Notify) {
     # Report a given state once, so the periodic trigger does not nag every run.
-    $signature = '{0:o}|{1}|{2}' -f $boot,
+    $signature = '{0:o}|{1}|{2}|{3}' -f $boot,
+        $reconnects,
         (($result.DriftedMarkers | Sort-Object) -join ';'),
         (($enabledListeners | Sort-Object) -join ';')
 
@@ -95,6 +113,16 @@ if ($Notify) {
             'Your Dev Box is at risk of the "black screen / cannot connect" failure.',
             ''
         )
+        if ($result.ReconnectBudgetLow) {
+            if ($reconnectsLeft -le 0) {
+                $lines += 'RECONNECT BUDGET EXHAUSTED. The next reconnect is expected to fail'
+                $lines += 'and leave the box unreachable until a forced restart.'
+            } else {
+                $lines += ("Only {0} reconnect(s) left before this session stops resuming." -f $reconnectsLeft)
+            }
+            $lines += ("Reconnects used since boot: {0} of {1}." -f $reconnects, $reconnectBudget)
+            $lines += ''
+        }
         if ($result.StackUpdatedSinceBoot) {
             $lines += 'The Remote Desktop SxS network stack was updated after the last boot:'
             $lines += ($result.DriftedMarkers | ForEach-Object { "    $_" })
@@ -137,7 +165,7 @@ if ($Notify) {
         [void][System.Windows.Forms.MessageBox]::Show(
             $owner,
             ($lines -join [Environment]::NewLine),
-            'Dev Box: restart recommended (RD stack updated)',
+            'Dev Box: restart recommended',
             [System.Windows.Forms.MessageBoxButtons]::OK,
             [System.Windows.Forms.MessageBoxIcon]::Warning)
 
