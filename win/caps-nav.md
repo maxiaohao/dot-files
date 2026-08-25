@@ -23,9 +23,32 @@ Arrows and Backspace fast-repeat after a short halt. Tune in `caps-nav.kbd`:
 Runs on **kanata** using the **winIOv2 (LLHOOK)** build — a low-level keyboard
 hook in the interactive session. No driver required.
 
-> Why not a Windows service? A service runs in Session 0 and an LLHOOK there
-> can't see your keystrokes. The Interception-driver service route was tried and
-> failed (keys dead). The at-logon task below is the working approach.
+> **Never install the Interception driver on a Dev Box.** A service runs in
+> Session 0 and an LLHOOK there can't see your keystrokes, so the
+> Interception-driver service route was tried and failed (keys dead). Worse, the
+> driver it leaves behind **breaks RDP**: it registers as an UpperFilter on the
+> keyboard and mouse device classes, and each reconnect fails to rebuild the
+> session's virtual input devices. After exactly **8 reconnects** every further
+> connection gets a black screen then dies (`0x8007048F
+> ERROR_DEVICE_NOT_CONNECTED`, Winlogon 4005), and only a full restart clears it.
+> Diagnosed 2026-08-24 — see `2026-08-24-DevBox-RDP-9th-Reconnect-Failure.md` in
+> the md doc pool. The at-logon task below is the working approach and needs no
+> driver.
+
+Check a machine is clean — both should list only the class driver:
+
+```powershell
+(Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e96b-e325-11ce-bfc1-08002be10318}').UpperFilters  # expect: kbdclass
+(Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e96f-e325-11ce-bfc1-08002be10318}').UpperFilters  # expect: mouclass
+Test-Path C:\Windows\System32\drivers\keyboard.sys   # expect: False
+```
+
+If `keyboard` / `mouse` appear as filters, uninstall from an elevated shell and reboot:
+
+```powershell
+& '<path>\Interception\command line installer\install-interception.exe' /uninstall
+Restart-Computer
+```
 
 ## One-time setup on a new machine
 
@@ -41,6 +64,10 @@ hook in the interactive session. No driver required.
    New-Item -ItemType Directory -Force C:\tools\kanata\bin | Out-Null
    Copy-Item (Resolve-Path $pkg) C:\tools\kanata\bin\kanata-gui.exe -Force
    ```
+   > Take the **`winIOv2`** variant, never a **`wintercept`** one. The `wintercept`
+   > builds require the Interception driver and so reintroduce the RDP failure above.
+   > Confirm the running engine logs `using LLHOOK+SendInput for keyboard IO`.
+
 3. Validate the config:
    ```powershell
    C:\tools\kanata\bin\kanata-gui.exe --cfg "$HOME\dev\dot-files\win\caps-nav.kbd" --check
@@ -74,6 +101,8 @@ Get-CimInstance Win32_Process -Filter "Name='kanata-gui.exe'" | Select ProcessId
 
 ## Gotchas
 - **Only one remapper at a time** — don't also auto-start `caps-nav.ahk`.
+- **Never install the Interception driver** — see the warning under *Engine*; it
+  breaks RDP reconnects on a Dev Box.
 - Emergency-quit chord (physical keys): **LCtrl + Space + Esc**.
 - LLHOOK misses a few apps' shortcuts; not active on the pre-login/UAC secure desktop.
 - Defender may false-flag the **tty winIOv2** kanata variant; the **GUI** build used here is fine.
