@@ -22,6 +22,35 @@ function cai {
 }
 function sg { slngen **\*.csproj -vs "C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\IDE\devenv.exe" }
 
+# caps: clear a stuck CapsLock. The kanata caps-nav layer maps CapsLock to a
+# layer key, so it never sends a capslock keypress and cannot toggle itself off.
+# If the OS toggle latches ON while kanata is not running (during a restart,
+# before the logon task fires, or on the UAC/lock secure desktop) it stays ON.
+# This synthesises the keypress that clears it.
+function caps {
+  if (-not ('CapsLockToggle' -as [type])) {
+    Add-Type -Name CapsLockToggle -Namespace Win32 -MemberDefinition @'
+[DllImport("user32.dll")] public static extern short GetKeyState(int key);
+[DllImport("user32.dll")] public static extern void keybd_event(byte vk, byte scan, uint flags, System.UIntPtr extra);
+'@
+  }
+  $vk = 0x14
+  $wasOn = ([Win32.CapsLockToggle]::GetKeyState($vk) -band 1) -ne 0
+  if (-not $wasOn) {
+    Write-Host 'CapsLock is already off.' -ForegroundColor DarkGray
+    return
+  }
+  [Win32.CapsLockToggle]::keybd_event($vk, 0x3A, 0, [UIntPtr]::Zero)
+  Start-Sleep -Milliseconds 80
+  [Win32.CapsLockToggle]::keybd_event($vk, 0x3A, 2, [UIntPtr]::Zero)
+  Start-Sleep -Milliseconds 200
+  if ((([Win32.CapsLockToggle]::GetKeyState($vk) -band 1) -ne 0)) {
+    Write-Host 'CapsLock is still on.' -ForegroundColor Yellow
+  } else {
+    Write-Host 'CapsLock cleared.' -ForegroundColor Green
+  }
+}
+
 # fo (Find and Open): fd for files matching the given pattern, then open the pick in vim.
 # No match -> message only; exactly one match -> open it straight away; otherwise pick via fzf.
 # Extra arguments are passed through to fd, e.g. `fo config -e toml`.
