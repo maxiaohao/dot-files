@@ -47,12 +47,16 @@
 
 ;; Timing knobs in milliseconds. Live-reload picks up changes instantly.
 ;;   30 ~= 33 reps/sec   20 ~= 50 reps/sec   15 ~= 66 reps/sec   10 ~= 100 reps/sec
-;;   rr = repeat gap for nav movement keys.
-;;   hh = nav-key "halt": how long a key must be held before fast-repeat starts.
-;;        A quick tap under this stays a single keypress; bigger = longer pause.
+;;   rr = repeat gap for nav movement keys, once fast-repeat has kicked in.
+;;   hh = nav-key "halt": the INITIAL DELAY, i.e. how long a key must be held
+;;        before fast-repeat starts. A quick tap under this stays a single
+;;        keypress; bigger = longer pause before the key starts machine-gunning.
+;;        For reference Windows' own auto-repeat delay is ~500ms here
+;;        (HKCU\Control Panel\Keyboard\KeyboardDelay = 1), so $hh is deliberately
+;;        a little snappier than the OS without being twitchy.
 (defvar
   rr 20
-  hh 180
+  hh 400
 )
 
 ;; Physical keys this config intercepts. Order here must line up column-for-column
@@ -69,9 +73,10 @@
 ;; Navigation layer, active only while CapsLock is held.
 ;; caps is transparent (_) here so the held layer key keeps working.
 ;; Arrows (hjkl) use tap-hold: a quick tap = one arrow, holding past $hh starts
-;; the fast repeat. Page keys (p/n) stay instant; Delete, Home/End and
-;; grave/tilde stay plain taps (grave/tilde must not spam). c emits a real
-;; capslock so a stuck OS toggle can be cleared from the keyboard.
+;; the fast repeat. Page keys (p/n) fire once immediately then also wait $hh
+;; before repeating. Delete, Home/End and grave/tilde stay plain taps
+;; (grave/tilde must not spam) and so use the Windows repeat delay/rate.
+;; c emits a real capslock so a stuck OS toggle can be cleared from the keyboard.
 (deflayer nav
   _      home  end   grv   @fh   @fj   @fk    @fl    @fn    @fp    S-grv  del    caps
 )
@@ -93,7 +98,14 @@
   fk  (tap-hold $hh $hh up    @rk)
   fl  (tap-hold $hh $hh right @rl)
 
-  ;; Page keys (Caps+p/n): instant repeat, no halt.
-  fn  (macro-repeat-release-cancel pgdn  $rr)
-  fp  (macro-repeat-release-cancel pgup  $rr)
+  ;; Page keys (Caps+p/n). These used to fire instantly and then repeat with no
+  ;; halt at all, so a single press easily emitted several pages. They now send
+  ;; one page immediately, stay quiet until the key has been held $hh ms, and
+  ;; only then hand over to the fast repeat at $rr - the same shape as the OS
+  ;; delay/rate pair. The (macro pgdn) sends the key itself, so the tap-hold's
+  ;; tap action is XX: the keypress has already gone out.
+  rn  (macro-repeat-release-cancel pgdn  $rr)
+  rp  (macro-repeat-release-cancel pgup  $rr)
+  fn  (multi (macro pgdn) (tap-hold $hh $hh XX @rn))
+  fp  (multi (macro pgup) (tap-hold $hh $hh XX @rp))
 )
