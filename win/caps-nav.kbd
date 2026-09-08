@@ -72,10 +72,10 @@
 
 ;; Navigation layer, active only while CapsLock is held.
 ;; caps is transparent (_) here so the held layer key keeps working.
-;; Arrows (hjkl) use tap-hold: a quick tap = one arrow, holding past $hh starts
-;; the fast repeat. Page keys (p/n) fire once immediately then also wait $hh
-;; before repeating. Delete, Home/End and grave/tilde stay plain taps
-;; (grave/tilde must not spam) and so use the Windows repeat delay/rate.
+;; Arrows (hjkl) and page keys (p/n) all follow the OS repeat shape: the key
+;; fires once immediately on press, then waits $hh before the fast repeat at $rr
+;; takes over. Delete, Home/End and grave/tilde stay plain taps (grave/tilde
+;; must not spam) and so use the Windows repeat delay/rate.
 ;; c emits a real capslock so a stuck OS toggle can be cleared from the keyboard.
 (deflayer nav
   _      home  end   grv   @fh   @fj   @fk    @fl    @fn    @fp    S-grv  del    caps
@@ -92,11 +92,16 @@
   rk  (macro-repeat-release-cancel up    $rr)
   rl  (macro-repeat-release-cancel right $rr)
 
-  ;; Arrow keys (Caps+hjkl): tap = one arrow; held past $hh ms = fast repeat.
-  fh  (tap-hold $hh $hh left  @rh)
-  fj  (tap-hold $hh $hh down  @rj)
-  fk  (tap-hold $hh $hh up    @rk)
-  fl  (tap-hold $hh $hh right @rl)
+  ;; Arrow keys (Caps+hjkl). A bare tap-hold emits nothing on press: the tap
+  ;; action only lands on release, so holding the key showed no initial move at
+  ;; all. These now follow the OS shape instead - one arrow immediately on press,
+  ;; then silence until the key has been held $hh ms, then the fast repeat at
+  ;; $rr. The (macro left) sends the first arrow, so the tap-hold's tap action is
+  ;; XX: a quick tap has already produced its keypress and must not double up.
+  fh  (multi (macro left)  (tap-hold $hh $hh XX @rh))
+  fj  (multi (macro down)  (tap-hold $hh $hh XX @rj))
+  fk  (multi (macro up)    (tap-hold $hh $hh XX @rk))
+  fl  (multi (macro right) (tap-hold $hh $hh XX @rl))
 
   ;; Page keys (Caps+p/n). These used to fire instantly and then repeat with no
   ;; halt at all, so a single press easily emitted several pages. They now send
