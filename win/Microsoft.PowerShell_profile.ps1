@@ -21,16 +21,30 @@ Set-Alias ll dir
 #function ls { eza @args }
 function bc { b bc -l }
 
-function c {
-  & agency copilot --yolo @args
-}
-function cai {
-  cd ~\ai-test
-  & agency copilot --yolo @args
+# Run Copilot directly, without the Agency wrapper. Pin the standalone 1.0.83
+# binary because 1.0.86+ regressed theme rendering behind zellij when OSC
+# palette queries cannot pass through the multiplexer. --no-auto-update stops
+# this executable from downloading or switching to a newer bundle.
+$script:CopilotCli = Join-Path $HOME '.copilot-cli\1.0.83\copilot.exe'
+
+function Invoke-PinnedCopilot {
+  if (-not (Test-Path -LiteralPath $script:CopilotCli -PathType Leaf)) {
+    throw "Pinned Copilot CLI 1.0.83 is missing: $script:CopilotCli"
+  }
+  & $script:CopilotCli --no-auto-update --yolo @args
 }
 
-# cps: list top-level Copilot CLI sessions. Direct copilot.exe sessions are
-# included only when they are not already children of an agency copilot session.
+function c {
+  Invoke-PinnedCopilot @args
+}
+
+function cai {
+  Set-Location -LiteralPath (Join-Path $HOME 'ai-test')
+  Invoke-PinnedCopilot @args
+}
+
+# cps: list top-level Copilot CLI sessions. New sessions are direct copilot.exe
+# processes; legacy Agency-hosted sessions are still recognized until closed.
 function cps {
   $snapshot = @(Get-CimInstance Win32_Process |
     Select-Object ProcessId, ParentProcessId, Name, CreationDate, CommandLine)
@@ -71,7 +85,8 @@ function cps {
   } | Format-Table -AutoSize
 }
 
-# ckill: terminate every Copilot CLI session and its MCP/tool subprocesses.
+# ckill: terminate every direct or legacy Agency-hosted Copilot CLI session and
+# its MCP/tool subprocesses.
 # A separate helper process performs the kill so this also works when invoked
 # through `!ckill` from inside a Copilot session: the caller can terminate
 # itself without stopping halfway through the remaining process trees.
