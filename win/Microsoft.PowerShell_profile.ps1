@@ -1,4 +1,12 @@
 
+# Zellij sets TERM=xterm-256color but does not pass COLORTERM through, so every
+# program inside a pane detects only 256 colours even though Windows Terminal and
+# zellij both render 24-bit fine. Copilot CLI in particular downgrades to its
+# fallback theme tokens below truecolor, which leaves user prompts with no
+# background highlight and renders the transcript scrollbar as an undifferentiated
+# solid block. Advertise truecolor so full palettes resolve.
+if (-not $env:COLORTERM) { $env:COLORTERM = 'truecolor' }
+
 $env:BAT_STYLE = "plain"
 $env:BAT_OPTS = "--paging=always"
 
