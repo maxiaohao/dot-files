@@ -28,6 +28,130 @@ function cai {
   cd ~\ai-test
   & agency copilot --yolo @args
 }
+
+# cps: list top-level Copilot CLI sessions. Direct copilot.exe sessions are
+# included only when they are not already children of an agency copilot session.
+function cps {
+  $snapshot = @(Get-CimInstance Win32_Process |
+    Select-Object ProcessId, ParentProcessId, Name, CreationDate, CommandLine)
+  $byId = @{}
+  foreach ($process in $snapshot) { $byId[[int]$process.ProcessId] = $process }
+
+  $roots = @($snapshot | Where-Object {
+    $_.Name -eq 'agency.exe' -and $_.CommandLine -match '\bcopilot\b'
+  })
+
+  foreach ($process in ($snapshot | Where-Object { $_.Name -eq 'copilot.exe' })) {
+    $ancestor = [int]$process.ParentProcessId
+    $underAgency = $false
+    for ($i = 0; $i -lt 20 -and $byId.ContainsKey($ancestor); $i++) {
+      $parent = $byId[$ancestor]
+      if ($parent.Name -eq 'agency.exe' -and $parent.CommandLine -match '\bcopilot\b') {
+        $underAgency = $true
+        break
+      }
+      $ancestor = [int]$parent.ParentProcessId
+    }
+    if (-not $underAgency) { $roots += $process }
+  }
+
+  if (-not $roots) {
+    Write-Host 'No Copilot CLI sessions are running.' -ForegroundColor DarkGray
+    return
+  }
+
+  $now = Get-Date
+  $roots | Sort-Object CreationDate | ForEach-Object {
+    [pscustomobject]@{
+      PID     = $_.ProcessId
+      Started = $_.CreationDate
+      Age     = '{0:N1}h' -f ($now - $_.CreationDate).TotalHours
+      Host    = $_.Name
+    }
+  } | Format-Table -AutoSize
+}
+
+# ckill: terminate every Copilot CLI session and its MCP/tool subprocesses.
+# A separate helper process performs the kill so this also works when invoked
+# through `!ckill` from inside a Copilot session: the caller can terminate
+# itself without stopping halfway through the remaining process trees.
+function ckill {
+  $snapshot = @(Get-CimInstance Win32_Process |
+    Select-Object ProcessId, ParentProcessId, Name, CommandLine)
+  $byId = @{}
+  $childrenOf = @{}
+  foreach ($process in $snapshot) {
+    $byId[[int]$process.ProcessId] = $process
+    $parent = [int]$process.ParentProcessId
+    if (-not $childrenOf.ContainsKey($parent)) { $childrenOf[$parent] = @() }
+    $childrenOf[$parent] += $process
+  }
+
+  $roots = @($snapshot | Where-Object {
+    $_.Name -eq 'agency.exe' -and $_.CommandLine -match '\bcopilot\b'
+  })
+
+  foreach ($process in ($snapshot | Where-Object { $_.Name -eq 'copilot.exe' })) {
+    $ancestor = [int]$process.ParentProcessId
+    $underAgency = $false
+    for ($i = 0; $i -lt 20 -and $byId.ContainsKey($ancestor); $i++) {
+      $parent = $byId[$ancestor]
+      if ($parent.Name -eq 'agency.exe' -and $parent.CommandLine -match '\bcopilot\b') {
+        $underAgency = $true
+        break
+      }
+      $ancestor = [int]$parent.ParentProcessId
+    }
+    if (-not $underAgency) { $roots += $process }
+  }
+
+  if (-not $roots) {
+    Write-Host 'No Copilot CLI sessions are running.' -ForegroundColor DarkGray
+    return
+  }
+
+  $depthById = @{}
+  $queue = [System.Collections.Generic.Queue[object]]::new()
+  foreach ($root in $roots) {
+    $id = [int]$root.ProcessId
+    if (-not $depthById.ContainsKey($id)) {
+      $depthById[$id] = 0
+      $queue.Enqueue([pscustomobject]@{ Id = $id; Depth = 0 })
+    }
+  }
+  while ($queue.Count -gt 0) {
+    $node = $queue.Dequeue()
+    if (-not $childrenOf.ContainsKey([int]$node.Id)) { continue }
+    foreach ($child in $childrenOf[[int]$node.Id]) {
+      $id = [int]$child.ProcessId
+      $depth = [int]$node.Depth + 1
+      if (-not $depthById.ContainsKey($id) -or $depthById[$id] -lt $depth) {
+        $depthById[$id] = $depth
+        $queue.Enqueue([pscustomobject]@{ Id = $id; Depth = $depth })
+      }
+    }
+  }
+
+  $ids = @($depthById.GetEnumerator() |
+    Sort-Object Value -Descending |
+    ForEach-Object { [int]$_.Key })
+  $code = @"
+Start-Sleep -Milliseconds 300
+@($($ids -join ',')) | ForEach-Object {
+  Stop-Process -Id `$_ -Force -ErrorAction SilentlyContinue
+}
+"@
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($code))
+  $pwsh = (Get-Process -Id $PID).Path
+  Start-Process -FilePath $pwsh -ArgumentList @(
+    '-NoProfile',
+    '-WindowStyle', 'Hidden',
+    '-EncodedCommand', $encoded
+  ) | Out-Null
+
+  Write-Host "Stopping $($roots.Count) Copilot session(s) and $($ids.Count - $roots.Count) child process(es)." -ForegroundColor Yellow
+}
+
 function sg { slngen **\*.csproj -vs "C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\IDE\devenv.exe" }
 
 # caps: clear a stuck CapsLock. The kanata caps-nav layer maps CapsLock to a
@@ -139,9 +263,10 @@ function tm {
     $exists = @(zellij list-sessions -ns 2>$null) -contains $name
 
     if (-not $exists -and -not $env:ZELLIJ) {
-        # Brand-new session, launched from outside zellij: start it with 15 tabs
-        # (compact styling, same as default_layout). Layout is inlined so no
-        # extra layout file is needed.
+        # Brand-new session, launched from outside zellij: start it with 15
+        # initialized tabs. This layout is used only at session creation; a
+        # later `tm` attaches to the existing session without re-running any
+        # command or resetting any tab's working directory.
         $layout = @'
 layout {
     default_tab_template {
@@ -150,18 +275,66 @@ layout {
             plugin location="zellij:compact-bar"
         }
     }
-    tab name="  1  "
-    tab name="  2  "
-    tab name="  3  "
-    tab name="  4  "
-    tab name="  5  "
-    tab name="  6  "
-    tab name="  7  "
-    tab name="  8  "
-    tab name="  9  "
-    tab name="  a  "
-    tab name="  b  "
-    tab name="  c  "
+    tab name="  1  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  2  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  3  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  4  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  5  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  6  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  7  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  8  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  9  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "cai"
+        }
+    }
+    tab name="  a  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "Set-Location -LiteralPath 'Q:/src/XStore'"
+        }
+    }
+    tab name="  b  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "Set-Location -LiteralPath 'Q:/src/XLifecycle'"
+        }
+    }
+    tab name="  c  " {
+        pane command="C:/tool/powershell/pwsh.exe" {
+            args "-NoExit" "-Command" "Set-Location -LiteralPath 'Q:/src/OneDCMT'"
+        }
+    }
     tab name="  d  "
     tab name="  e  "
     tab name="  f  "
@@ -222,4 +395,3 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteCharOrExit
 #Invoke-Expression (&starship init powershell)
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
-
