@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Diff</title>
+    <link rel="icon" href="data:,">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #ffffff;
+            color: #24292f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #header {
+            padding: 6px 16px;
+            background-color: #f6f8fa;
+            border-bottom: 1px solid #d0d7de;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #57606a;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        select,
+        button {
+            background-color: #ffffff;
+            color: #24292f;
+            border: 1px solid #d0d7de;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        select:hover,
+        button:hover {
+            background-color: #f3f4f6;
+            border-color: #b4bcc4;
+        }
+
+        select:focus {
+            border-color: #0969da;
+        }
+
+        button.nav {
+            color: #ffffff;
+            background-color: #0969da;
+            border-color: #0969da;
+            font-weight: 600;
+        }
+
+        button.nav:hover {
+            background-color: #0b5ed7;
+            border-color: #0b5ed7;
+            color: #ffffff;
+        }
+
+        button.nav:active {
+            background-color: #0a4c9c;
+        }
+
+        button.toggled {
+            color: #0969da;
+            border-color: #0969da;
+            background-color: #ddf4ff;
+        }
+
+        #diff-container {
+            flex: 1 1 auto;
+            width: 100%;
+            min-height: 100px;
+            position: relative;
+        }
+
+        #splitter {
+            height: 6px;
+            flex: 0 0 auto;
+            background-color: #e6eaee;
+            cursor: row-resize;
+        }
+
+        #splitter:hover,
+        #splitter.dragging {
+            background-color: #0969da;
+        }
+
+        #bottom-panel {
+            flex: 0 0 auto;
+            height: 240px;
+            min-height: 100px;
+            background-color: #ffffff;
+            border-top: 1px solid #d0d7de;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 4px 12px;
+            background-color: #f6f8fa;
+            border-bottom: 1px solid #d0d7de;
+            font-size: 0.75rem;
+            color: #57606a;
+            flex: 0 0 auto;
+        }
+
+        #panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .badge {
+            padding: 1px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+        }
+
+        .badge.equal {
+            background-color: #eaeef2;
+            border-color: #d0d7de;
+            color: #57606a;
+        }
+
+        .badge.changed {
+            background-color: #fff8c5;
+            border-color: #eed888;
+            color: #7d5e00;
+        }
+
+        .badge.added {
+            background-color: #dafbe1;
+            border-color: #a0e3b2;
+            color: #1a7f37;
+        }
+
+        .badge.removed {
+            background-color: #ffebe9;
+            border-color: #f3c0bd;
+            color: #cf222e;
+        }
+
+        #panel-body {
+            flex: 1 1 auto;
+            overflow: auto;
+            padding: 10px 12px 14px 12px;
+        }
+
+        .diff-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            padding: 0 6px;
+            font-family: 'Cascadia Mono', 'JetBrains Mono', Consolas, 'Courier New', monospace;
+            font-size: var(--panel-font-size, 13px);
+            line-height: 1.25;
+        }
+
+        .diff-row + .diff-row {
+            margin-top: 0;
+        }
+
+        .diff-row.left {
+            background-color: #ffebe9;
+        }
+
+        .diff-row.right {
+            background-color: #e6ffec;
+        }
+
+        .diff-row.same {
+            background-color: #f6f8fa;
+        }
+
+        .row-gutter {
+            flex: 0 0 auto;
+            width: 12px;
+            color: #57606a;
+            user-select: none;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .diff-row.left .row-gutter {
+            color: #cf222e;
+        }
+
+        .diff-row.right .row-gutter {
+            color: #1a7f37;
+        }
+
+        .row-text {
+            flex: 1 1 auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #24292f;
+        }
+
+        #panel-body.nowrap {
+            overflow-x: auto;
+        }
+
+        #panel-body.nowrap .row-text {
+            white-space: pre;
+            word-break: normal;
+        }
+
+        #panel-body.nowrap .diff-row {
+            min-width: max-content;
+        }
+
+        .seg-del {
+            background-color: #ffc1c0;
+            color: #82071e;
+            border-radius: 2px;
+        }
+
+        .seg-ins {
+            background-color: #abf2bc;
+            color: #0a5624;
+            border-radius: 2px;
+        }
+
+        .seg-empty {
+            display: inline-block;
+            width: 6px;
+            height: 1em;
+            vertical-align: text-bottom;
+            border-radius: 2px;
+        }
+
+        .placeholder {
+            color: #8c959f;
+            font-style: italic;
+        }
+
+        .hint {
+            color: #57606a;
+            font-size: 0.8rem;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            padding: 6px 2px;
+        }
+
+        .line-focus {
+            background-color: rgba(9, 105, 218, 0.10);
+        }
+
+        .line-focus-margin {
+            background-color: #0969da;
+            width: 3px !important;
+            margin-left: 2px;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #57606a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #e1e4e8;
+            border-top: 3px solid #0969da;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header">
+        <h1>My Diff</h1>
+        <div class="controls">
+            <button id="prev-diff" class="nav" title="Go to previous difference">Previous</button>
+            <button id="next-diff" class="nav" title="Go to next difference">Next</button>
+            <select id="font-size-select" title="Font size">
+                <option value="7">7 px</option>
+                <option value="8">8 px</option>
+                <option value="9">9 px</option>
+                <option value="10">10 px</option>
+                <option value="11" selected>11 px</option>
+                <option value="12">12 px</option>
+                <option value="13">13 px</option>
+                <option value="14">14 px</option>
+                <option value="16">16 px</option>
+                <option value="18">18 px</option>
+                <option value="20">20 px</option>
+                <option value="22">22 px</option>
+            </select>
+            <select id="language-select" title="Syntax highlighting">
+                <option value="xml" selected>XML</option>
+                <option value="plaintext">Plain Text</option>
+                <option value="javascript">JavaScript</option>
+                <option value="typescript">TypeScript</option>
+                <option value="csharp">C#</option>
+                <option value="python">Python</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="json">JSON</option>
+                <option value="yaml">YAML</option>
+                <option value="sql">SQL</option>
+                <option value="powershell">PowerShell</option>
+                <option value="markdown">Markdown</option>
+            </select>
+            <button id="clear-btn">Clear All</button>
+        </div>
+    </div>
+
+    <div id="diff-container">
+        <div id="loading-spinner" class="loading">
+            <div class="spinner"></div>
+            <div>Loading Monaco Editor...</div>
+        </div>
+    </div>
+
+    <div id="splitter"></div>
+
+    <div id="bottom-panel">
+        <div id="panel-header">
+            <div id="panel-title">Line diff</div>
+            <button id="wrap-btn" class="toggled" title="Toggle line wrapping in this panel">Wrap</button>
+        </div>
+        <div id="panel-body">
+            <div class="hint">Select a line on the left or right to see its character-level diff here.</div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/monaco-editor@0.44.0/min/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.44.0/min/vs' } });
+
+        require(['vs/editor/editor.main'], function () {
+            document.getElementById('loading-spinner').remove();
+
+            const defaultOriginal = "Paste your ORIGINAL text here...\nline two of the original text\n";
+            const defaultModified = "Paste your UPDATED text here...\nline two of the updated text\n";
+
+            let currentLanguage = 'xml';
+            let fontSize = 11;
+
+            const originalModel = monaco.editor.createModel(defaultOriginal, currentLanguage);
+            const modifiedModel = monaco.editor.createModel(defaultModified, currentLanguage);
+
+            const diffEditor = monaco.editor.createDiffEditor(document.getElementById('diff-container'), {
+                theme: 'vs',
+                originalEditable: true,
+                renderSideBySide: true,
+                automaticLayout: true,
+                minimap: { enabled: false },
+                scrollbar: { verticalScrollbarSize: 10, horizontalScrollbarSize: 10 },
+                fontSize: fontSize,
+                fontFamily: "'Cascadia Mono', 'JetBrains Mono', Consolas, monospace",
+                ignoreTrimWhitespace: false,
+                useInlineViewWhenSpaceIsLimited: false,
+                renderIndicators: true
+            });
+
+            diffEditor.setModel({ original: originalModel, modified: modifiedModel });
+
+            const originalEditor = diffEditor.getOriginalEditor();
+            const modifiedEditor = diffEditor.getModifiedEditor();
+
+            const handleFocus = (editor, defaultText) => {
+                editor.onDidFocusEditorText(() => {
+                    if (editor.getValue() === defaultText) {
+                        editor.setSelection(editor.getModel().getFullModelRange());
+                    }
+                });
+            };
+            handleFocus(originalEditor, defaultOriginal);
+            handleFocus(modifiedEditor, defaultModified);
+
+            // ======================================================
+            // Line pair mapping (original line <-> modified line)
+            // ======================================================
+            function getChanges() {
+                const raw = diffEditor.getLineChanges() || [];
+                return raw.map(c => {
+                    const origCount = c.originalEndLineNumber === 0 ? 0 : (c.originalEndLineNumber - c.originalStartLineNumber + 1);
+                    const modCount = c.modifiedEndLineNumber === 0 ? 0 : (c.modifiedEndLineNumber - c.modifiedStartLineNumber + 1);
+                    return {
+                        origStart: c.originalStartLineNumber,
+                        origCount: origCount,
+                        modStart: c.modifiedStartLineNumber,
+                        modCount: modCount
+                    };
+                });
+            }
+
+            // side: 'original' | 'modified'. Returns { origLine, modLine } (null = no counterpart).
+            function mapLine(side, lineNumber) {
+                const changes = getChanges();
+                const isOrig = side === 'original';
+                let delta = 0;
+
+                for (const ch of changes) {
+                    const myStart = isOrig ? ch.origStart : ch.modStart;
+                    const myCount = isOrig ? ch.origCount : ch.modCount;
+                    const otherStart = isOrig ? ch.modStart : ch.origStart;
+                    const otherCount = isOrig ? ch.modCount : ch.origCount;
+
+                    if (myCount > 0 && lineNumber >= myStart && lineNumber <= myStart + myCount - 1) {
+                        const idx = lineNumber - myStart;
+                        const other = idx < otherCount ? otherStart + idx : null;
+                        return isOrig
+                            ? { origLine: lineNumber, modLine: other }
+                            : { origLine: other, modLine: lineNumber };
+                    }
+                    // When myCount is 0 the change is a pure insertion on the other side and
+                    // sits after myStart, so myStart itself keeps its pre-change mapping.
+                    if (lineNumber < myStart || (myCount === 0 && lineNumber === myStart)) break;
+                    delta += otherCount - myCount;
+                }
+
+                const other = lineNumber + delta;
+                return isOrig
+                    ? { origLine: lineNumber, modLine: other }
+                    : { origLine: other, modLine: lineNumber };
+            }
+
+            function readLine(model, lineNumber) {
+                if (lineNumber === null || lineNumber === undefined) return null;
+                if (lineNumber < 1 || lineNumber > model.getLineCount()) return null;
+                return model.getLineContent(lineNumber);
+            }
+
+            // ======================================================
+            // Token diff (LCS with common prefix/suffix trimming)
+            // ======================================================
+            function tokenize(text) {
+                return text.match(/[A-Za-z0-9_]+|[ \t]+|[\s\S]/g) || [];
+            }
+
+            function diffTokens(aTokens, bTokens) {
+                const ops = [];
+                let p = 0;
+                const minLen = Math.min(aTokens.length, bTokens.length);
+                while (p < minLen && aTokens[p] === bTokens[p]) p++;
+                let s = 0;
+                while (s < minLen - p && aTokens[aTokens.length - 1 - s] === bTokens[bTokens.length - 1 - s]) s++;
+
+                if (p > 0) ops.push({ type: 'eq', text: aTokens.slice(0, p).join('') });
+
+                const a = aTokens.slice(p, aTokens.length - s);
+                const b = bTokens.slice(p, bTokens.length - s);
+                const n = a.length, m = b.length;
+
+                if (n === 0 && m === 0) {
+                    // nothing in the middle
+                } else if (n === 0) {
+                    ops.push({ type: 'ins', text: b.join('') });
+                } else if (m === 0) {
+                    ops.push({ type: 'del', text: a.join('') });
+                } else if (n * m > 4000000) {
+                    ops.push({ type: 'del', text: a.join('') });
+                    ops.push({ type: 'ins', text: b.join('') });
+                } else {
+                    const w = m + 1;
+                    const dp = new Uint32Array((n + 1) * w);
+                    for (let i = n - 1; i >= 0; i--) {
+                        for (let j = m - 1; j >= 0; j--) {
+                            dp[i * w + j] = a[i] === b[j]
+                                ? dp[(i + 1) * w + (j + 1)] + 1
+                                : Math.max(dp[(i + 1) * w + j], dp[i * w + (j + 1)]);
+                        }
+                    }
+                    let i = 0, j = 0;
+                    while (i < n && j < m) {
+                        if (a[i] === b[j]) {
+                            pushOp(ops, 'eq', a[i]); i++; j++;
+                        } else if (dp[(i + 1) * w + j] >= dp[i * w + (j + 1)]) {
+                            pushOp(ops, 'del', a[i]); i++;
+                        } else {
+                            pushOp(ops, 'ins', b[j]); j++;
+                        }
+                    }
+                    while (i < n) { pushOp(ops, 'del', a[i]); i++; }
+                    while (j < m) { pushOp(ops, 'ins', b[j]); j++; }
+                }
+
+                if (s > 0) ops.push({ type: 'eq', text: aTokens.slice(aTokens.length - s).join('') });
+                return ops;
+            }
+
+            function pushOp(ops, type, text) {
+                const last = ops[ops.length - 1];
+                if (last && last.type === type) last.text += text;
+                else ops.push({ type: type, text: text });
+            }
+
+            // ======================================================
+            // Rendering
+            // ======================================================
+            function appendText(parent, text) {
+                parent.appendChild(document.createTextNode(text));
+            }
+
+            function buildRow(kind, ops, keepType, missing) {
+                const row = document.createElement('div');
+                row.className = 'diff-row ' + kind;
+
+                const gutter = document.createElement('div');
+                gutter.className = 'row-gutter';
+                gutter.textContent = kind === 'left' ? '\u2212' : (kind === 'right' ? '+' : '\u00a0');
+                row.appendChild(gutter);
+
+                const text = document.createElement('div');
+                text.className = 'row-text';
+
+                if (missing) {
+                    const ph = document.createElement('span');
+                    ph.className = 'placeholder';
+                    ph.textContent = '(no corresponding line)';
+                    text.appendChild(ph);
+                } else {
+                    let rendered = false;
+                    for (const op of ops) {
+                        if (op.type === 'eq') {
+                            appendText(text, op.text);
+                            rendered = rendered || op.text.length > 0;
+                        } else if (op.type === keepType) {
+                            const span = document.createElement('span');
+                            span.className = keepType === 'del' ? 'seg-del' : 'seg-ins';
+                            appendText(span, op.text);
+                            text.appendChild(span);
+                            rendered = true;
+                        }
+                    }
+                    if (!rendered) {
+                        const ph = document.createElement('span');
+                        ph.className = 'placeholder';
+                        ph.textContent = '(empty line)';
+                        text.appendChild(ph);
+                    }
+                }
+
+                row.appendChild(text);
+                return row;
+            }
+
+            const panelBody = document.getElementById('panel-body');
+            const panelTitle = document.getElementById('panel-title');
+
+            function setTitle(origLine, modLine, state) {
+                panelTitle.textContent = '';
+                const label = document.createElement('span');
+                label.textContent = 'Line diff \u00b7 left ' + (origLine ? 'L' + origLine : '\u2014') +
+                    '  \u2194  right ' + (modLine ? 'R' + modLine : '\u2014');
+                panelTitle.appendChild(label);
+
+                const badge = document.createElement('span');
+                badge.className = 'badge ' + state;
+                badge.textContent = state;
+                panelTitle.appendChild(badge);
+            }
+
+            let lastSide = 'original';
+            let lastLine = 1;
+            let origDecorations = [];
+            let modDecorations = [];
+
+            function focusDecoration(lineNumber) {
+                return [{
+                    range: new monaco.Range(lineNumber, 1, lineNumber, 1),
+                    options: {
+                        isWholeLine: true,
+                        className: 'line-focus',
+                        linesDecorationsClassName: 'line-focus-margin'
+                    }
+                }];
+            }
+
+            function renderPanel(side, lineNumber) {
+                lastSide = side;
+                lastLine = lineNumber;
+
+                const pair = mapLine(side, lineNumber);
+                const leftText = readLine(originalModel, pair.origLine);
+                const rightText = readLine(modifiedModel, pair.modLine);
+
+                origDecorations = originalEditor.deltaDecorations(
+                    origDecorations, pair.origLine ? focusDecoration(pair.origLine) : []);
+                modDecorations = modifiedEditor.deltaDecorations(
+                    modDecorations, pair.modLine ? focusDecoration(pair.modLine) : []);
+
+                let state;
+                if (leftText === null) state = 'added';
+                else if (rightText === null) state = 'removed';
+                else if (leftText === rightText) state = 'equal';
+                else state = 'changed';
+
+                setTitle(leftText === null ? null : pair.origLine, rightText === null ? null : pair.modLine, state);
+
+                const ops = (leftText !== null && rightText !== null)
+                    ? diffTokens(tokenize(leftText), tokenize(rightText))
+                    : (leftText !== null
+                        ? [{ type: 'del', text: leftText }]
+                        : [{ type: 'ins', text: rightText || '' }]);
+
+                panelBody.textContent = '';
+                const sameStyle = state === 'equal';
+                panelBody.appendChild(buildRow(sameStyle ? 'same' : 'left', ops, 'del', leftText === null));
+                panelBody.appendChild(buildRow(sameStyle ? 'same' : 'right', ops, 'ins', rightText === null));
+            }
+
+            function refreshPanel() {
+                renderPanel(lastSide, lastLine);
+            }
+
+            originalEditor.onDidChangeCursorPosition(e => renderPanel('original', e.position.lineNumber));
+            modifiedEditor.onDidChangeCursorPosition(e => renderPanel('modified', e.position.lineNumber));
+            diffEditor.onDidUpdateDiff(() => refreshPanel());
+
+            // ======================================================
+            // Controls
+            // ======================================================
+            document.getElementById('language-select').addEventListener('change', function (e) {
+                currentLanguage = e.target.value;
+                monaco.editor.setModelLanguage(originalModel, currentLanguage);
+                monaco.editor.setModelLanguage(modifiedModel, currentLanguage);
+            });
+
+            document.getElementById('clear-btn').addEventListener('click', function () {
+                originalModel.setValue('');
+                modifiedModel.setValue('');
+                originalEditor.focus();
+                refreshPanel();
+            });
+
+            const wrapBtn = document.getElementById('wrap-btn');
+            wrapBtn.addEventListener('click', function () {
+                const noWrap = panelBody.classList.toggle('nowrap');
+                wrapBtn.classList.toggle('toggled', !noWrap);
+            });
+
+            const fontSizeSelect = document.getElementById('font-size-select');
+            function applyFontSize(size) {
+                fontSize = size;
+                diffEditor.updateOptions({ fontSize: size });
+                document.documentElement.style.setProperty('--panel-font-size', size + 'px');
+            }
+            fontSizeSelect.addEventListener('change', e => applyFontSize(Number(e.target.value)));
+            applyFontSize(fontSize);
+
+            // ======================================================
+            // Diff navigation
+            // ======================================================
+            // Sort key of a change on one side; a zero-line block is anchored
+            // half a line after its start so navigation ordering stays stable.
+            function changeKey(change, isOrig) {
+                const start = isOrig ? change.origStart : change.modStart;
+                const count = isOrig ? change.origCount : change.modCount;
+                return count > 0 ? start : start + 0.5;
+            }
+
+            function gotoDiff(direction) {
+                const changes = getChanges();
+                if (changes.length === 0) return;
+
+                const isOrig = lastSide === 'original';
+                const current = lastLine;
+                let target = null;
+
+                if (direction > 0) {
+                    target = changes.find(c => changeKey(c, isOrig) > current) || changes[0];
+                } else {
+                    const earlier = changes.filter(c => changeKey(c, isOrig) < current);
+                    target = earlier.length ? earlier[earlier.length - 1] : changes[changes.length - 1];
+                }
+
+                const useModified = target.modCount > 0;
+                const editor = useModified ? modifiedEditor : originalEditor;
+                const line = useModified ? target.modStart : target.origStart;
+                const side = useModified ? 'modified' : 'original';
+
+                editor.setPosition({ lineNumber: line, column: 1 });
+                editor.revealLineInCenterIfOutsideViewport(line);
+                editor.focus();
+                renderPanel(side, line);
+            }
+
+            document.getElementById('next-diff').addEventListener('click', () => gotoDiff(1));
+            document.getElementById('prev-diff').addEventListener('click', () => gotoDiff(-1));
+
+            // ======================================================
+            // Resizable bottom panel
+            // ======================================================
+            const splitter = document.getElementById('splitter');
+            const panel = document.getElementById('bottom-panel');
+            let dragging = false;
+
+            splitter.addEventListener('mousedown', function (e) {
+                dragging = true;
+                splitter.classList.add('dragging');
+                document.body.style.userSelect = 'none';
+                e.preventDefault();
+            });
+
+            window.addEventListener('mousemove', function (e) {
+                if (!dragging) return;
+                const height = Math.min(Math.max(window.innerHeight - e.clientY, 100), window.innerHeight - 160);
+                panel.style.height = height + 'px';
+            });
+
+            window.addEventListener('mouseup', function () {
+                if (!dragging) return;
+                dragging = false;
+                splitter.classList.remove('dragging');
+                document.body.style.userSelect = '';
+                diffEditor.layout();
+            });
+
+            renderPanel('original', 1);
+
+            window.__myDiff = {
+                engine: 'monaco',
+                setDocs: (a, b) => { originalModel.setValue(a); modifiedModel.setValue(b); },
+                chunkCount: () => (diffEditor.getLineChanges() || []).length,
+                lines: () => ({ a: originalModel.getLineCount(), b: modifiedModel.getLineCount() }),
+                select: (side, line) => renderPanel(side, line),
+                selection: () => ({ side: lastSide, line: lastLine })
+            };
+        });
+    </script>
+</body>
+
+</html>
