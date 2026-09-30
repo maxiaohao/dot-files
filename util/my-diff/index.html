@@ -383,14 +383,11 @@
         require(['vs/editor/editor.main'], function () {
             document.getElementById('loading-spinner').remove();
 
-            const defaultOriginal = "Paste your ORIGINAL text here...\nline two of the original text\n";
-            const defaultModified = "Paste your UPDATED text here...\nline two of the updated text\n";
-
             let currentLanguage = 'xml';
             let fontSize = 11;
 
-            const originalModel = monaco.editor.createModel(defaultOriginal, currentLanguage);
-            const modifiedModel = monaco.editor.createModel(defaultModified, currentLanguage);
+            const originalModel = monaco.editor.createModel('', currentLanguage);
+            const modifiedModel = monaco.editor.createModel('', currentLanguage);
 
             const diffEditor = monaco.editor.createDiffEditor(document.getElementById('diff-container'), {
                 theme: 'vs',
@@ -410,16 +407,6 @@
 
             const originalEditor = diffEditor.getOriginalEditor();
             const modifiedEditor = diffEditor.getModifiedEditor();
-
-            const handleFocus = (editor, defaultText) => {
-                editor.onDidFocusEditorText(() => {
-                    if (editor.getValue() === defaultText) {
-                        editor.setSelection(editor.getModel().getFullModelRange());
-                    }
-                });
-            };
-            handleFocus(originalEditor, defaultOriginal);
-            handleFocus(modifiedEditor, defaultModified);
 
             // ======================================================
             // Line pair mapping (original line <-> modified line)
