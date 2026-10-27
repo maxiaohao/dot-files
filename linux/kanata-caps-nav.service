@@ -1,0 +1,13 @@
+[Unit]
+Description=Kanata CapsLock navigation layer
+Documentation=https://github.com/jtroo/kanata
+
+[Service]
+Type=simple
+Environment=PATH=%h/.local/bin:%h/.cargo/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/env kanata --cfg %h/.config/kanata/caps-nav.kbd --no-wait
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

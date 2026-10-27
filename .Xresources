@@ -1,3 +1,5 @@
+Xft.dpi: 144
+
 URxvt.font: xft:modk:size=12,xft:WenQuanYi WenQuanYi Bitmap Song:size=10
 URxvt.boldfont: xft:modk:size=12,xft:WenQuanYi WenQuanYi Bitmap Song:size=10
 XTerm.*.font: -gohu-modk-medium-r-normal--14-100-100-100-c-80-iso10646-1
@@ -46,4 +48,4 @@ XTerm.vt100.translations: #override \n\
 XTerm*charClass: 33:48,35:48,37:48,42-43:48,45-47:48,58:48,64:48,95:48,126:48
 XTerm.vt100.saveLines: 40960
 
-Xcursor.size: 48
+Xcursor.size: 72

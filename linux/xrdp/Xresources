@@ -1,0 +1,51 @@
+Xft.dpi: 144
+
+URxvt.font: xft:modk:size=12,xft:WenQuanYi WenQuanYi Bitmap Song:size=10
+URxvt.boldfont: xft:modk:size=12,xft:WenQuanYi WenQuanYi Bitmap Song:size=10
+XTerm.*.font: -gohu-modk-medium-r-normal--14-100-100-100-c-80-iso10646-1
+XTerm.*.boldFont: -gohu-modk-bold-r-normal--14-100-100-100-c-80-iso10646-1
+*.wideFont: -wenquanyi-wenquanyi bitmap song-medium-r-normal--14-140-75-75-p-80-iso10646-1
+*.background: rgb:33/33/33
+*.foreground: rgb:DD/DD/DD
+*.color0: rgb:2E/34/36
+*.color1: rgb:E1/21/21
+*.color2: rgb:4E/BA/06
+*.color3: rgb:C4/A0/00
+*.color4: rgb:34/65/A4
+*.color5: rgb:75/50/7B
+*.color6: rgb:06/98/9A
+*.color7: rgb:D3/D7/CF
+*.color8: rgb:55/57/53
+*.color9: rgb:FF/39/39
+*.color10: rgb:9A/DD/44
+*.color11: rgb:FC/E9/4F
+*.color12: rgb:72/9F/CF
+*.color13: rgb:AD/7F/A8
+*.color14: rgb:34/E2/E2
+*.color15: rgb:EE/EE/EC
+
+URxvt.termName: rxvt-unicode-256color
+URxvt.scrollBar: false
+URxvt.saveLines: 40960
+URxvt.urlLauncher: /usr/bin/chromium-browser
+URxvt.matcher.button: C1
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Left: \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt*cutchars: '\'"()*,;<>@[]^{|}'
+
+XTerm.termName: xterm-256color
+XTerm.vt100.translations: #override \n\
+  Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+  Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+XTerm*charClass: 33:48,35:48,37:48,42-43:48,45-47:48,58:48,64:48,95:48,126:48
+XTerm.vt100.saveLines: 40960
+
+Xcursor.size: 72

@@ -1,0 +1,15 @@
+clear Lock
+keycode 66 = Mode_switch NoSymbol Mode_switch
+add Mod5 = Mode_switch
+
+keycode 22 = BackSpace BackSpace Delete Delete
+keycode 28 = t T asciitilde asciitilde
+keycode 33 = p P Prior Prior
+keycode 38 = a A Home Home
+keycode 42 = g G grave grave
+keycode 43 = h H Left Left
+keycode 44 = j J Down Down
+keycode 45 = k K Up Up
+keycode 46 = l L Right Right
+keycode 54 = c C Caps_Lock Caps_Lock
+keycode 57 = n N Next Next

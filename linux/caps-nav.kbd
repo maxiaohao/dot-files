@@ -1,0 +1,64 @@
+;; caps-nav.kbd — CapsLock navigation layer for Linux
+;;
+;; Hold CapsLock as a momentary navigation layer (CapsLock's own toggle is
+;; disabled — it never sends capslock). While CapsLock is held:
+;;
+;;   h j k l  -> Left Down Up Right
+;;   a e      -> Home End
+;;   p n      -> PageUp PageDown
+;;   g t      -> `  (grave) and ~ (tilde)
+;;   bspc     -> Delete (forward delete)
+;;   c        -> a real capslock keypress
+;;
+;; CapsLock+c is the escape hatch for a stuck CapsLock toggle. Because the
+;; physical CapsLock key is the layer key, it otherwise never emits capslock.
+;;
+;; Movement keys use macro-repeat-release-cancel instead of the desktop's
+;; keyboard repeat rate. Tune the speed with rr and the initial delay with hh.
+;;
+;; Emergency quit chord (physical keys, before remapping): LCtrl + Space + Esc.
+
+(defcfg
+  concurrent-tap-hold yes
+  process-unmapped-keys no
+)
+
+;; Timing knobs in milliseconds.
+;;   rr = repeat gap after fast repeat begins (20 ms ~= 50 repeats/sec)
+;;   hh = delay before fast repeat begins
+(defvar
+  rr 20
+  hh 400
+)
+
+;; Physical keys intercepted by this config. Keys not listed here pass through.
+(defsrc
+  caps   a     e     g     h     j     k      l      n      p      t      bspc   c
+)
+
+(deflayer base
+  @nav   a     e     g     h     j     k      l      n      p      t      bspc   c
+)
+
+(deflayer nav
+  _      home  end   grv   @fh   @fj   @fk    @fl    @fn    @fp    S-grv  del    caps
+)
+
+(defalias
+  nav (layer-while-held nav)
+
+  rh  (macro-repeat-release-cancel left  $rr)
+  rj  (macro-repeat-release-cancel down  $rr)
+  rk  (macro-repeat-release-cancel up    $rr)
+  rl  (macro-repeat-release-cancel right $rr)
+
+  fh  (multi (macro left)  (tap-hold $hh $hh XX @rh))
+  fj  (multi (macro down)  (tap-hold $hh $hh XX @rj))
+  fk  (multi (macro up)    (tap-hold $hh $hh XX @rk))
+  fl  (multi (macro right) (tap-hold $hh $hh XX @rl))
+
+  rn  (macro-repeat-release-cancel pgdn $rr)
+  rp  (macro-repeat-release-cancel pgup $rr)
+  fn  (multi (macro pgdn) (tap-hold $hh $hh XX @rn))
+  fp  (multi (macro pgup) (tap-hold $hh $hh XX @rp))
+)

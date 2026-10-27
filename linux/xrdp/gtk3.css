@@ -1,0 +1,12 @@
+* {
+  transition: none;
+  animation: none;
+}
+
+menu,
+.menu,
+menuitem,
+.menuitem {
+  transition: none;
+  animation: none;
+}
