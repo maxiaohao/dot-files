@@ -3,6 +3,7 @@ keycode 66 = Mode_switch NoSymbol Mode_switch
 add Mod5 = Mode_switch
 
 keycode 22 = BackSpace BackSpace Delete Delete
+keycode 26 = e E End End
 keycode 28 = t T asciitilde asciitilde
 keycode 33 = p P Prior Prior
 keycode 38 = a A Home Home

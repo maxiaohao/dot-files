@@ -18,7 +18,9 @@ while xdpyinfo >/dev/null 2>&1; do
   if ! xmodmap -pke 2>/dev/null |
     grep -Eq '^keycode +66 = Mode_switch .*Mode_switch' ||
     ! xmodmap -pke 2>/dev/null |
-      grep -Eq '^keycode +43 = h H Left Left'; then
+      grep -Eq '^keycode +43 = h H Left Left' ||
+    ! xmodmap -pke 2>/dev/null |
+      grep -Eq '^keycode +26 = e E End End'; then
     xmodmap "$map_file" || true
   fi
 
