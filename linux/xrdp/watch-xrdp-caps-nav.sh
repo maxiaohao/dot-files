@@ -15,12 +15,14 @@ script_dir=$(dirname -- "$script_path")
 map_file="$script_dir/xrdp-caps-nav.Xmodmap"
 
 while xdpyinfo >/dev/null 2>&1; do
-  if ! xmodmap -pke 2>/dev/null |
-    grep -Eq '^keycode +66 = Mode_switch .*Mode_switch' ||
-    ! xmodmap -pke 2>/dev/null |
-      grep -Eq '^keycode +43 = h H Left Left' ||
-    ! xmodmap -pke 2>/dev/null |
-      grep -Eq '^keycode +26 = e E End End'; then
+  keymap=$(xmodmap -pke 2>/dev/null)
+  modifiers=$(xmodmap -pm 2>/dev/null)
+
+  if ! grep -Eq \
+      '^keycode +66 = (Mode_switch|ISO_Group_Shift) .* (Mode_switch|ISO_Group_Shift)' <<<"$keymap" ||
+    ! grep -Eq '^keycode +43 = h H Left Left' <<<"$keymap" ||
+    ! grep -Eq '^keycode +26 = e E End End' <<<"$keymap" ||
+    ! grep -Eq '^mod5 .*ISO_Group_Shift \(0x42\)' <<<"$modifiers"; then
     xmodmap "$map_file" || true
   fi
 

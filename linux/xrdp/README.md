@@ -132,6 +132,12 @@ systemctl --user daemon-reload
 `xinitrc` starts one `xrdp-caps-nav@DISPLAY.service` instance for each XRDP
 display. The watcher reapplies the X11 mapping if a reconnect resets it.
 
+`xmodmap` prints the configured `Mode_switch` key as its canonical
+`ISO_Group_Shift` name. The watcher must accept both names. If it checks only
+for `Mode_switch`, it reapplies the complete keymap every two seconds. Each
+rewrite sends `MappingNotify` events, forcing Openbox to rebuild key grabs and
+causing a visible half-second pause during window dragging.
+
 ## Why these settings are fast
 
 ### XRDP graphics
