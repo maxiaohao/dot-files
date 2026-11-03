@@ -134,6 +134,7 @@ alias lg="lazygit"
 #alias sed="gsed"
 alias c="copilot"
 alias co="copilot"
+alias cai="cd ~/ai-test && copilot --yolo"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold

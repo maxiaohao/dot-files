@@ -42,7 +42,7 @@
 </placement>
 
 <theme>
-  <name>Onyx</name>
+  <name>Clearlooks</name>
   <titleLayout>NLIMC</titleLayout>
   <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -248,6 +248,26 @@
   </keybind>
 
   <!-- Keybindings for running applications -->
+  <keybind key="A-d">
+    <action name="Execute">
+      <command>rofi -show drun</command>
+    </action>
+  </keybind>
+  <keybind key="A-y">
+    <action name="Execute">
+      <command>alacritty</command>
+    </action>
+  </keybind>
+  <keybind key="A-S-y">
+    <action name="Execute">
+      <command>xfce4-screenshooter -r</command>
+    </action>
+  </keybind>
+  <keybind key="A-S-p">
+    <action name="Execute">
+      <command>sh -c 'copyq source "$HOME/.config/copyq/rofi-clipboard.js"'</command>
+    </action>
+  </keybind>
   <keybind key="W-e">
     <action name="Execute">
       <startupnotify>

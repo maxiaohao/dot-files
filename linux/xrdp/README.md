@@ -31,6 +31,7 @@ Desktop configuration:
 - `lxde-desktop.conf` -> `~/.config/lxsession/LXDE/desktop.conf`
 - `lxde-autostart` -> `~/.config/lxsession/LXDE/autostart`
 - `openbox-lxde-rc.xml` -> `~/.config/openbox/lxde-rc.xml`
+- `rofi-clipboard.js` -> `~/.config/copyq/rofi-clipboard.js`
 - `picom-disabled.desktop` -> `~/.config/autostart/picom.desktop`
 - `gtk3-settings.ini` -> `~/.config/gtk-3.0/settings.ini`
 - `gtk3.css` -> `~/.config/gtk-3.0/gtk.css`
@@ -57,6 +58,11 @@ sudo pacman -S --needed \
   lxde-common lxsession openbox lxpanel pcmanfm lxappearance \
   lxde-icon-theme pulseaudio
 ```
+
+The desktop shortcuts also use `rofi`, `alacritty`, `xfce4-screenshooter` and
+`copyq`. CopyQ starts with LXDE and stores text and image clipboard history.
+Alt+Shift+P opens that history in Rofi; selecting a clip restores it to the
+clipboard, ready to paste.
 
 Install the XRDP packages from the AUR:
 
@@ -104,6 +110,7 @@ install -Dm0644 Xresources ~/.Xresources
 install -Dm0644 lxde-desktop.conf ~/.config/lxsession/LXDE/desktop.conf
 install -Dm0644 lxde-autostart ~/.config/lxsession/LXDE/autostart
 install -Dm0644 openbox-lxde-rc.xml ~/.config/openbox/lxde-rc.xml
+install -Dm0644 rofi-clipboard.js ~/.config/copyq/rofi-clipboard.js
 install -Dm0644 picom-disabled.desktop ~/.config/autostart/picom.desktop
 install -Dm0644 gtk3-settings.ini ~/.config/gtk-3.0/settings.ini
 install -Dm0644 gtk3.css ~/.config/gtk-3.0/gtk.css
@@ -162,6 +169,14 @@ cache, bitmap compression, bulk compression and fast-path support.
 RemoteFX Progressive caused menus and context windows to appear to fade while
 tiles were refined. H.264 removed that effect and performed well on the
 six-core Ryzen host.
+
+The AUR package does not currently list `gfx.toml` in its backup array, so
+installing or upgrading the package can replace `/etc/xrdp/gfx.toml`. Restore
+the saved file after `pacman -U`:
+
+```bash
+sudo install -Dm0644 gfx.toml /etc/xrdp/gfx.toml
+```
 
 ### MSTSC client
 
